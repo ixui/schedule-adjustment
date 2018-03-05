@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+		$('#event0').css('cursor','pointer');
+			$('#event0').click(function(){
+	       			top.location.href = 'eventContent.html';
+			});
+		});
+	</script>
+
+    
+    <title>イベント一覧</title>
+  </head>
+  <body>
+  
+<div class="container">
+<table class="table table-bordered table-hover text-center" id="eventTable">
+  <thead>
+    <tr>
+      <th scope="col">状態</th>
+      <th scope="col">開催日</th>
+      <th scope="col">イベント名</th>
+      <th scope="col">主催者</th>
+      <th scope="col">参加締切日</th>
+      <th scope="col">作成日</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="event0">
+      <td scope="row">調整中</td>
+      <td scope="row">2018/02/03・07・08...
+      <th scope="row">飲み会</th>
+      <td scope="row">○○さん</td>
+      <td scope="row">2018/02/12</td>
+      <td scope="row">2018/02/02</td>
+    </tr>
+    <tr id="event1">
+      <td scope="row">調整中</td>
+      <td scope="row">2018/02/24・25・03/03...
+      <th scope="row">山登り</th>
+      <td scope="row">××さん</td>
+      <td scope="row">2018/02/15</td>
+      <td scope="row">2018/01/28</td>
+    </tr>
+    <tr class="table-danger" id="event2">
+      <td scope="row"><strong>決定</strong></td>
+      <td scope="row">2018/03/08</td>
+      <th scope="row">勉強会</th>
+      <td scope="row">△△さん</td>
+      <td scope="row">2018/03/07</td>
+	  <td scope="row">2018/01/14</td>
+    </tr>
+    <tr style="background-color:#c0c0c0;" id="event3">
+      <td scope="row">終了</td>
+      <td scope="row">2018/01/12</td>
+      <td scope="row">マージャン大会</td>
+      <td scope="row">□□さん</td>
+      <td scope="row">2018/01/10</td>
+	  <td scope="row">2018/01/05</td>
+    </tr>
+    <tr style="background-color:#c0c0c0;" id="event4">
+      <td scope="row">終了</td>
+      <td scope="row">2018/01/25</td>
+      <td scope="row">つり大会</td>
+      <td scope="row">☆☆さん</td>
+      <td scope="row">2018/01/24</td>
+	  <td scope="row">2018/01/03</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

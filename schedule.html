@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(function() {
+		
+		$("#schedule0").css("cursor","pointer");
+		
+		
+			/*日程ごとの参加者を作る*/
+			var count0 = 3;
+			var count1 = 5;
+			var count2 = 1;
+			var count3 = 4;
+			var count4 = 2;
+
+			/*参加者数の表示*/
+			$('#people0').text(count0);
+			$('#people1').text(count1);
+			$('#people2').text(count2);
+			$('#people3').text(count3);
+			$('#people4').text(count4);
+
+		$('#people0').text(count0);
+		
+			$('#join0').click(function() {
+				count0 += 1;
+			$('#people0').text(count0);
+			});
+			
+			$('#notJoin0').click(function() {
+				count0 -= 1;
+			$('#people0').text(count0);
+			});
+	
+		var JoinON = 0;
+		var notJoinON = 0;
+	
+		$("#join0").click(function() {
+			$(this).css("background", "#33CC66");
+			JoinON += 1;
+			if(notJoinON => 1) {
+				$("#notJoin0").css("background", "")
+				notJoinON -=1;
+			}			
+		});
+
+		$("#notJoin0").click(function() {
+			$(this).css("background", "#000033");
+			notJoinON += 1;
+			if(JoinON >= 1) {
+				$("#join0").css("background", "")
+				JoinON -=1;
+				}
+			});
+		});
+	</script>
+
+    
+    <title>イベント参加者数</title>
+  </head>
+  <body>
+  
+<table class="table table-bordered table-hover text-center" id="scheduleTable">
+  <thead>
+    <tr>
+      <th scope="col" id="date">開催候補日</th>
+      <th scope="col" id="join">参加</th>
+      <th scope="col" id="notJoin">不参加</th>
+      <th scope="col" id="people">参加人数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="schedule0">
+      <th scope="row" id="date0">2018/02/03</td>
+      <td id="join0"></th>
+      <td id="notJoin0"></th>
+      <th id="people0"></th>
+    </tr>
+    <tr id="schedule1">
+      <th scope="row" id="date1">2018/02/07</td>
+      <td id="join1"></th>
+      <td id="notJoin1"></th>
+      <th id="people1"></th>
+    </tr>
+    <tr id="schedule2">
+      <th scope="row" id="date2">2018/02/08</td>
+      <td id="join2"></th>
+      <td id="notJoin2"></th>
+      <th id="people2"></th>
+    </tr>
+    <tr id="schedule3">
+      <th scope="row" id="date3">2018/02/09</td>
+      <td id="join3"></th>
+      <td id="notJoin3"></th>
+      <th id="people3"></th>
+    </tr>
+    <tr id="schedule4">
+      <th scope="row" id="date4">2018/02/12</td>
+      <td id="join4"></th>
+      <td id="notJoin4"></th>
+      <th id="people4"></th>
+    </tr>
+  </tbody>
+</table>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
