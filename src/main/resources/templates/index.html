@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>日程調整アプリ</title>
+	<meta http-equiv="Content-Type"
+	content="text/html; charset=UTF-8" /> 
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />  
+  </head>
+<body>	
+<nav class="navbar navbar-expand navbar-light fixed-top" style="background-color:#33CCFF">
+  <a class="navbar-brand mb-0 h1">ログイン</a>
+    <div class="inline my-2 my-lg-0 ml-auto">
+		日程調整アプリ
+	</div>
+</nav>
+
+<div class="container" style="padding-top: 70px;">
+<form class="pt-3" method="post" action="/">
+  <div class="form-group">
+    <label for="loginEmail">メールアドレス</label>
+      <input type="email" class="form-control" name="loginMail" placeholder="mail@ixui.co.jp"
+      th:value="${mail}" />
+    </div>
+
+  <div class="form-group">
+    <label for="loginPass">パスワード</label>
+      <input type="password" class="form-control" name="loginPass" placeholder="password"
+      th:value="${pass}" />
+    </div>
+
+
+			<div class="text-center pt-3">
+			<p th:if="${checkForm}" th:text="${errorMsg}"></p>			
+				<button type="submit" class="btn btn-primary" value="Click">ログイン</button>
+			</div>
+		</form>
+		
+
+			
+			<div class="text-center pt-4">
+			<a href="newUser.html">新規ユーザー登録はこちら</a>
+			</div>
+
+</div>	
+  </body>
+</html>
