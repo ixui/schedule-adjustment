@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link href="/css/hoppy2.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="/js/hoppy2.js"></script>
+    <title>hoppy2イベント一覧</title>
+
+  </head>
+  <body>
+
+
+  <header>
+   <div align="right">
+  	<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧 </button>
+  	<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
+  	<button type="button" class="btn btn-info mr-3" onclick="location.href='/'">ログアウト</button>
+  	</div>
+  </header>
+  <main>
+  	<h1 class="text-center mb-5 mt-5 title">イベント一覧</h1>
+
+
+
+		<div align="right">
+	  		<button type="button" id="modal-open" class="btn btn-info mr-5 button-link"  >絞込み検索する</button>
+	  	</div>
+
+	<!-- ここからモーダルウィンドウ -->
+	<div id="modal-content">
+		<!-- モーダルウィンドウのコンテンツ開始 -->
+		<h1 class="text-center mb-5 mt-5 title">絞込み検索</h1>
+		<form>
+			<div class="row pb-2">
+ 			 	<div class="col-sm-2 labelh">主催者</div>
+    			<div class="col-sm-10 form-inline " style="padding: 3px;">
+     				 <select class="form-control input-sm " id="host" >
+     				 	<option value="test1" selected="selected">選択してください</option>
+						<option value="test2">みいこ</option>
+						<option value="test3">玉藻</option>
+					</select>
+				</div>
+			</div>
+			<div class="row pb-2">
+ 			 	<div class="col-sm-2 labelh">カテゴリ</div>
+    			<div class="col-sm-10 form-inline " style="padding: 3px;">
+     				 <select class="form-control input-sm " id="category" >
+     				 	<option value="test1" selected="selected">選択してください</option>
+						<option value="test2">みいこ</option>
+						<option value="test3">玉藻</option>
+					</select>
+				</div>
+			</div>
+    		<div class="row pb-2">
+    			<div class="col-sm-2 labelh">開催日</div>
+    			<div class="col-sm-10 form-inline " style="padding: 3px;">
+     				 <input type="date" class="form-control input-sm " id="startday" size="20">　　　から　　　<input type="date" class="form-control input-sm " id="endday" size="20">
+    			</div>
+    		</div>
+    		<div class="row pb-5">
+    			<div class="col-sm-3 labelh">日付で並び替え</div>
+    			<div class="col-sm-9 form-inline " style="padding: 3px;">
+     				 <input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" >昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc">降順
+    			</div>
+    		</div>
+			<div class="text-center pb-3" >
+    			<button type="button" id="modal-close" class="btn btn-info mr-5 button-link pr-3"  >検索する</button>
+				<button type="button" id="modal-close" class="btn btn-info mr-5 button-link"  >キャンセル</button>
+  			</div>
+
+		</form>
+		<!-- モーダルウィンドウのコンテンツ終了 -->
+	</div>
+	<p class="text-center">主催者：みいこさん、カテゴリ：みいこ　昇順</p>
+	<section class="  py-5">
+ 	 	<div class="container">
+ 	 		<ul class="nav nav-tabs">
+ 	 			<li class="nav-item"><a href="#undecided" class="nav-link active" data-toggle="tab">未決定</a></li>
+ 	 			<li class="nav-item"><a href="#decided" class="nav-link" data-toggle="tab">決定</a></li>
+ 	 			<li class="nav-item"><a href="#end" class="nav-link " data-toggle="tab">終了</a></li>
+ 	 		</ul>
+ 	 		<div class="tab-content py-5">
+	 	 		<div id="undecided" class="tab-pane active">
+	 	 		<section class="bg-light text-center py-5">
+	 	 			<div class="container">
+			 	 		<table class="table table-hover">
+			 	 		<thead>
+			 	 		<tr><th>イベント名</th><th>主催者</th><th>詳細</th></tr>
+			 	 		</thead>
+			 	 		<tbody>
+			 	 		<tr><td>投票受付中のイベントがここに表示されますよ</td><td></td><td></td></tr>
+			 	 		<tr><td>大食い大会</td><td>みいこ</td><td><a href="eventdetails" >詳細</a></td></tr>
+			 	 		</tbody>
+			 	 		</table>
+	 	 			</div>
+ 	 			</section>
+
+
+	 	 		</div>
+	 	 		<div id="decided" class="tab-pane">
+	 	 		<section class="bg-light text-center py-5">
+	 	 			<div class="container">
+			 	 		<table class="table table-hover">
+			 	 		<thead>
+			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
+			 	 		</thead>
+			 	 		<tbody>
+			 	 		<tr><td>いつやるか決定したイベントがここに表示されますよ</td><td></td><td></td><td></td></tr>
+			 	 		</tbody>
+			 	 		</table>
+	 	 			</div>
+ 	 			</section>
+	 	 			<p></p>
+	 	 		</div>
+	 	 		<div id="end" class="tab-pane">
+	 	 		<section class="bg-light text-center py-5">
+	 	 			<div class="container">
+			 	 		<table class="table table-hover">
+			 	 		<thead>
+			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
+			 	 		</thead>
+			 	 		<tbody>
+			 	 		<tr><td>終了したイベントがここに表示されますよ</td><td></td><td></td><td></td></tr>
+			 	 		</tbody>
+			 	 		</table>
+	 	 			</div>
+ 	 			</section>
+	 	 			<p></p>
+	 	 		</div>
+	 	 	</div>
+ 	 	</div>
+ 	 </section>
+
+
+
+   </main>
+  <footer class="text-center text-muted py-4">
+  	<hr>
+  	hoppy2
+  </footer>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+  </body>
+</html>

@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+
+header{
+  	background-color:#d1ffe8;
+  	padding:10px;
+  	position:fixed;
+  	width: 100%;
+	height: 60px;
+	top: 0px;
+	left: 0px;
+	margin-top: 0;
+	z-index: 1;
+
+	}
+
+main{
+	padding-top:60px;
+	}
+
+footer{
+
+	}
+
+
+#modal-content {
+	width: 50% ;
+	margin: 0 ;
+	padding: 10px 20px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-content-innar{
+	margin:0 auto;
+	width:80%;
+}
+
+#modal-overlay {
+	z-index: 1 ;
+	display: none ;
+	position: fixed ;
+	top: 0 ;
+	left: 0 ;
+	width: 100% ;
+	height: 120% ;
+	background-color: rgba( 0,0,0, 0.75 ) ;
+}
+
+.label{
+	padding-left:200px;
+	line-height: 40px;
+}
+
+.labeluser{
+	padding-left:300px;
+	line-height: 40px;
+}
+
+
+.sdform{
+	padding-left:250px;
+}
+
+.composition{
+	padding-left:250px;
+}
+
+.labelh{
+	line-height: 50px;
+}
+
+
+
+.ditailsbuttons{
+	text-align:right;
+	margin-right:200px;
+
+
+}
+
+/* ここからデモページ用のコード */
+body {
+	width: 100% ;
+	padding: 0 ;
+}
+/* ここまでデモページ用のコード */
+#modal-content {
+	width: 50% ;
+	margin: 0 ;
+	padding: 10px 20px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+#modal-content-innar{
+	margin:0 auto;
+	width:80%;
+}
+#modal-overlay {
+	z-index: 1 ;
+	display: none ;
+	position: fixed ;
+	top: 0 ;
+	left: 0 ;
+	width: 100% ;
+	height: 120% ;
+	background-color: rgba( 0,0,0, 0.75 ) ;
+}
+
+
+table{
+	width:100%;
+	border:0;
+}
+
+table tr td#leftframe{
+	width:50%;
+	height:auto;
+
+}
+
+table tr td#rightframe{
+	width:50%;
+	height:auto;
+
+}
+
+table tr td#rightframe textarea{
+	width:50%;
+}
+
+
+
