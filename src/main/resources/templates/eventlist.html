@@ -96,7 +96,9 @@
 			 	 		</thead>
 			 	 		<tbody>
 			 	 		<tr><td>投票受付中のイベントがここに表示されますよ</td><td></td><td></td></tr>
-			 	 		<tr><td>大食い大会</td><td>みいこ</td><td><a href="eventdetails" >詳細</a></td></tr>
+			 	 		<tr th:each="eventlist : ${eventList}"><td th:text="${eventlist.emp_name}"></td><td th:text="${eventlst.event_name}"></td>
+
+			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventlist.event_id}"/></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>

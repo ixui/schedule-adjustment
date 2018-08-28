@@ -29,4 +29,3 @@ public class Hoppy2Application {
         return sessionFactory.getObject();
     }
 }
-

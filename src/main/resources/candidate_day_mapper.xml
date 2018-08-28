@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="candidate.day.mapper">
+  <select id="selectCandidateDay" resultType="map">
+    select  candidate_day
+    	from candidate_day
+    	where event_id = #{parameter.event_id}
+    	order by candidate_day;
+  </select>
+
+  <update id="updateDay" parameterType="Event" >
+    update candidate_day
+    set
+    	candidate_day = #{candidate_day}
+
+    wnere event_id = #{parameter.event_id}
+  </update>
+</mapper>

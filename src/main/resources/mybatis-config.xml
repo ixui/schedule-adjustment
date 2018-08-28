@@ -1,10 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC
-        "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true" />
-    </settings>
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://k9xdebw4k3zynl4u.cbetxkdyhwsb.us-east-1.rds.amazonaws.com"/>
+        <property name="username" value="ylho3p4s7bpcjaia"/>
+        <property name="password" value="sh7bhk1lwr4l3qtb"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="event_mapper.xml"/>
+  </mappers>
 </configuration>
