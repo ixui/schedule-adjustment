@@ -40,11 +40,11 @@
     	where event_id = #{parameter.event_id}
   </select>
  -->
-  <select id="selectEventListNotDevision" resultType="map">
-    select
-	  *
-	from
-	   event
+  <select id="selectEventListNotDevision" resultType="hashMap">
+    select event.event_id,event.event_name,employee_master.emp_name
+	from event
+	inner join employee_master
+	on event.host_num = employee_master.emp_num
   </select>
 
 <!--
