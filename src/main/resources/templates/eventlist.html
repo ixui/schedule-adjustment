@@ -95,9 +95,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="event : ${eventList}"><td th:text="${event.event_name}"></td><td th:text="${event.emp_name}"></td>
+			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
 
-			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${event.event_id}"/></td></tr>
+			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventnd.event_id}"/></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>
@@ -113,7 +113,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr><td>いつやるか決定したイベントがここに表示されますよ</td><td></td><td></td><td></td></tr>
+			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
+
+			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventnd.event_id}"/></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>
@@ -128,7 +130,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr><td>終了したイベントがここに表示されますよ</td><td></td><td></td><td></td></tr>
+			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
+
+			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventnd.event_id}"/></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>

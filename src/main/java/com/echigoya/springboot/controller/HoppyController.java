@@ -41,7 +41,25 @@ public class HoppyController {
     }
 
     @RequestMapping("/eventlist")
-    public ModelAndView eventlist(
+    public ModelAndView eventlistnotdevision(
+			ModelAndView mav){
+    	List<EventList> eventListNotDevision = this.hoppyService.getEventList();
+		mav.setViewName("eventlist");
+		mav.addObject("eventListNotDevision", eventListNotDevision);
+        return mav;
+    }
+
+    @RequestMapping("/eventlist#decided")
+    public ModelAndView eventlistdevision(
+			ModelAndView mav){
+    	List<EventList> eventListDecided = this.hoppyService.getEventList();
+		mav.setViewName("eventlist");
+		mav.addObject("eventListDecided", eventListDecided);
+        return mav;
+    }
+
+    @RequestMapping("/eventlist#end")
+    public ModelAndView eventlistend(
 			ModelAndView mav){
     	List<EventList> eventList = this.hoppyService.getEventList();
 		mav.setViewName("eventlist");
