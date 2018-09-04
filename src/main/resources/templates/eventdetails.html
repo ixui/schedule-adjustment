@@ -27,39 +27,47 @@
 	  	<button type="button" class="btn btn-success mr-3 ditailsbutton" onclick="updateEvent()">変更する</button>
 	  	<button type="button" class="btn btn-success ditailsbutton" onclick="deleteEvent()">削除する</button>
   	</div>
-  	<form >
+  	<form th:each="eventid : ${eventListToId}">
 		<div class="container">
-			<p class=" label">主催者：みいこさん</p>
+			<p class=" label" >主催者：<span th:text="${eventid.emp_name}" th:value="${eventid.emp_num}"></span> さん</p>
   			<div class="row ">
     			<div class="col-sm-4 label ">イベント名</div>
     			<div class="col-sm-8 form-inline " style="padding: 3px;">
-     				 <input type="text" class="form-control input-sm " id="eventname" size="20" value="大食い大会">
+     				 <input type="text" class="form-control input-sm " id="eventname" size="20" th:value="${eventid.event_name}">
     			</div>
  			 </div>
  			 <div class="row ">
  			 	<div class="col-sm-4 label ">カテゴリ</div>
     			<div class="col-sm-8 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" >
-     				 	<option value="test1" selected="selected">みいこ</option>
+     				 <select class="form-control input-sm " id="category" name="category">
+     				 	<option  selected="selected" th:text="${eventid.category_name}" th:value="${eventid.category_id}"></option>
+     				 	<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.category_id}" >[[${categorylist.category_name}]]</option>
 					</select>
     			</div>
     		</div>
     		<div class="row ">
     			<div class="col-sm-4 label">開催場所</div>
     			<div class="col-sm-8 form-inline " style="padding: 3px;">
-     				 <input type="text" class="form-control input-sm " id="place" size="20" value="ブラブラ邸">
+     				 <input type="text" class="form-control input-sm " id="place" size="20" th:value="${eventid.place}">
+    			</div>
+    		</div>
+    		<div class="row ">
+    			<div class="col-sm-4 label">候補日</div>
+    			<div class="col-sm-8 form-inline " style="padding: 3px;" >
+     				 <input type="date" class="form-control input-sm " id="startday" size="20"  th:each="voteinfo,candidateday: ${voteinfoList}" th:if="${candidateday.first}" th:value="${voteinfo.candidate_day}">
+     				 　　　から　　　
+     				 <input type="date" class="form-control input-sm " id="endday" size="20" th:each="voteinfo,candidateday: ${voteinfoList}" th:if="${candidateday.last}" th:value="${voteinfo.candidate_day}">
     			</div>
     		</div>
     		<div class="row ">
     			<div class="col-sm-4 label">開催日</div>
-    			<div class="col-sm-8 form-inline " style="padding: 3px;">
-     				 <input type="date" class="form-control input-sm " id="startday" size="20" value="2018-08-13">　　　から　　　<input type="date" class="form-control input-sm " id="endday" size="20" value="2018-08-15">
-    			</div>
+
+    			<div class="col-sm-8 form-inline " style="padding: 3px;">[[${#dates.format(eventid.decision_day, 'yyyy/MM/dd')}?: '決まってません']]</div>
     		</div>
     		<div class="row ">
     			<div class="col-sm-4 label ">コメント</div>
     			<div class="col-sm-8 form-inline " style="padding: 3px;">
-     				 <textarea class="form-control input-sm " id="comment" rows="4" cols="60" >おにぎりをたくさん食べた人の優勝でござる
+     				 <textarea class="form-control input-sm " id="comment" rows="4" cols="60" th:text="${eventid.host_comment}">
      				 </textarea>
     			</div>
     		</div>
@@ -74,24 +82,24 @@
 			<td id="leftframe">
 				<h1 class="text-center mb-5 mt-5 title">みんなの投票</h1>
 				<form class="sdform">
-					<p class="selectday">
-						<input type="checkbox" name="day1" value="1" class="mb-5">13日　　　玉藻,深空,音眼<br>
-						<input type="checkbox" name="day2" value="2" class="mb-5 ">14日　　　玉藻,めだか<br>
-						<input type="checkbox" name="day3" value="3" class="mb-5 ">15日　　　玉藻,音眼,めだか,七実<br>
-						</p>
-						 <button type="button" class="btn btn-success mb-5 mt-3 " onclick="newVote()">投票する <span class="glyphicon glyphicon-chevron-right"></span></button>
-					</p>
+					<div class="selectday" th:each="voteinfo : ${voteinfoList}" >
+						<input type="radio" name="day" th:value="${voteinfo.candidate_day}" class="mb-5"> [[${#dates.format(voteinfo.candidate_day, 'yyyy/MM/dd')}]]
+						<span >みいこ,</span>
+
+						</div>
+						 <button type="button" class="btn btn-success mb-5 mt-3 " onclick="newVote()">決定する <span class="glyphicon glyphicon-chevron-right"></span></button>
 				</form>
 			</td>
 			<td id="rightframe">
 				<h1 class="text-center mb-5 mt-5 title">コメント</h1>
-				<div class="composition">
-					<form>
+				<div class="composition" >
+					<form  >
 					 <textarea class="form-control input-sm " id="comment" rows="4px" ></textarea>
 					 <button type="button" class="btn btn-success mb-5 mt-3" >コメントする <span class="glyphicon glyphicon-chevron-right"></span></button>
-					 </form>
-					<p>玉藻：負けない・・・</p>
-					<p>ブラちゃん：いっぱいおにぎり買っておくね！</p>
+					 </form >
+					 <div th:each="commentlist : ${commentList}">
+						<p>[[${commentlist.emp_name}]]さん　：　<span>[[${commentlist.participant_comment}]]</span></p>
+					</div>
 				</div>
 			</td>
 		</tr>

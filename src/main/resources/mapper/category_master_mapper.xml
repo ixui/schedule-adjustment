@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="category.master.mapper">
-  <select id="selectCategory" resultType="map">
-    select  category_id,category_name
+<mapper namespace="com.echigoya.springboot.mapper.CategoryMapper">
+  <select id="selectCategoryList" resultType="hashMap">
+    select  *
     	from category_master
-    	where event_id = #{parameter.event_id}
-    	order by category_id;
+    	<!-- where event_id = #{parameter.event_id} -->
+    	order by category_master.category_id
   </select>
 </mapper>

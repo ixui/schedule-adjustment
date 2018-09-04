@@ -6,9 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.echigoya.springboot.domain.CategoryList;
+import com.echigoya.springboot.domain.CommentList;
+import com.echigoya.springboot.domain.EmpList;
 import com.echigoya.springboot.domain.EventList;
+import com.echigoya.springboot.domain.VoteInfoList;
 import com.echigoya.springboot.service.HoppyService;
 
 @Controller
@@ -35,41 +40,45 @@ public class HoppyController {
 
 
     @RequestMapping("/eventdetails")
-    public String eventdetalis(){
+    public ModelAndView eventdetalis(ModelAndView mav, @RequestParam int id){
+    	List<EventList> eventListToId = this.hoppyService.getEventListeventListToId(id);
+    	List<CategoryList> categoryList = this.hoppyService.getCategoryList();
+    	List<VoteInfoList> voteinfoList = this.hoppyService.getVoteInfoList(id);
+    	List<CommentList> commentList = this.hoppyService.getCommentList(id);
+    	mav.setViewName("eventdetails");
+    	mav.addObject("categoryList", categoryList);
+    	mav.addObject("eventListToId", eventListToId);
+    	mav.addObject("voteinfoList", voteinfoList);
+    	mav.addObject("commentList", commentList);
 
-        return "eventdetails";
+        return  mav;
     }
 
     @RequestMapping("/eventlist")
-    public ModelAndView eventlistnotdevision(
+    public ModelAndView eventlist(
 			ModelAndView mav){
-    	List<EventList> eventListNotDevision = this.hoppyService.getEventList();
-		mav.setViewName("eventlist");
+    	List<CategoryList> categoryList = this.hoppyService.getCategoryList();
+    	List<EmpList> empList = this.hoppyService.getEmpList();
+    	List<EventList> eventListNotDevision = this.hoppyService.getEventListNotDevision();
+    	List<EventList> eventListDevision = this.hoppyService.getEventListDevision();
+    	List<EventList> eventListEnd = this.hoppyService.getEventListEnd();
+    	mav.setViewName("eventlist");
+		mav.addObject("categoryList", categoryList);
+		mav.addObject("empList", empList);
 		mav.addObject("eventListNotDevision", eventListNotDevision);
+		mav.addObject("eventListDevision", eventListDevision);
+		mav.addObject("eventListEnd", eventListEnd);
+
         return mav;
     }
 
-    @RequestMapping("/eventlist#decided")
-    public ModelAndView eventlistdevision(
-			ModelAndView mav){
-    	List<EventList> eventListDecided = this.hoppyService.getEventList();
-		mav.setViewName("eventlist");
-		mav.addObject("eventListDecided", eventListDecided);
-        return mav;
-    }
-
-    @RequestMapping("/eventlist#end")
-    public ModelAndView eventlistend(
-			ModelAndView mav){
-    	List<EventList> eventList = this.hoppyService.getEventList();
-		mav.setViewName("eventlist");
-		mav.addObject("eventList", eventList);
-        return mav;
-    }
 
     @RequestMapping("/eventregist")
-    public String eventregist(){
-        return "eventregist";
+    public ModelAndView eventregist(ModelAndView mav){
+    	List<CategoryList> categoryList = this.hoppyService.getCategoryList();
+    	mav.addObject("categoryList", categoryList);
+    	mav.setViewName("eventregist");
+        return mav;
     }
 
     @RequestMapping("/newuser")

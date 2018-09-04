@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+  <mappers>
+    <mapper resource="mapper/event_mapper.xml"/>
+    <mapper resource="mapper/category_master_mapper.xml"/>
+    <mapper resource="mapper/employee_master_mapper.xml"/>
+    <mapper resource="mapper/candidate_day_mapper.xml"/>
+    <mapper resource="mapper/comment_mapper.xml"/>
+  </mappers>
+</configuration>
+
+

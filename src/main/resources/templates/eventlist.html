@@ -42,19 +42,17 @@
  			 	<div class="col-sm-2 labelh">主催者</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
      				 <select class="form-control input-sm " id="host" >
-     				 	<option value="test1" selected="selected">選択してください</option>
-						<option value="test2">みいこ</option>
-						<option value="test3">玉藻</option>
+     				 	<option value="0" selected="selected">選択してください</option>
+						<option th:each="emplist : ${empList}"  th:value="${emplist.emp_num}" >[[${emplist.emp_name}]]</option>
 					</select>
 				</div>
 			</div>
-			<div class="row pb-2">
+			<div class="row pb-2" >
  			 	<div class="col-sm-2 labelh">カテゴリ</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" >
-     				 	<option value="test1" selected="selected">選択してください</option>
-						<option value="test2">みいこ</option>
-						<option value="test3">玉藻</option>
+     				 <select class="form-control input-sm " id="category" name="category">
+     				 	<option value="0" selected="selected">選択してください</option>
+						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.category_id}" >[[${categorylist.category_name}]]</option>
 					</select>
 				</div>
 			</div>
@@ -97,7 +95,7 @@
 			 	 		<tbody>
 			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
 
-			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventnd.event_id}"/></td></tr>
+			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.event_id})}">詳細</a></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>
@@ -113,9 +111,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
-
-			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventnd.event_id}"/></td></tr>
+			 	 		<tr th:each="eventd : ${eventListDevision}"><td th:text="${eventd.event_name}"></td><td th:text="${eventd.emp_name}"></td>
+			 	 		<td th:text="${#dates.format(eventd.decision_day, 'yyyy/MM/dd')}"></td>
+			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventd.event_id})}">詳細</a></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>
@@ -130,9 +128,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
-
-			 	 		<td><a href="eventdetails" >詳細</a><input type="hidden" th:value="${eventnd.event_id}"/></td></tr>
+			 	 		<tr th:each="eventend : ${eventListEnd}"><td th:text="${eventend.event_name}"></td><td th:text="${eventend.emp_name}"></td>
+			 	 		<td th:text="${#dates.format(eventend.decision_day, 'yyyy/MM/dd')}"></td>
+			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventend.event_id})}">詳細</a></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>

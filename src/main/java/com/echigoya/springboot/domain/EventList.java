@@ -1,5 +1,7 @@
 package com.echigoya.springboot.domain;
 
+import java.util.Date;
+
 public class EventList {
 
 	private int event_id;
@@ -8,7 +10,7 @@ public class EventList {
 	private String category_id;
 	private String place;
 	private String host_comment;
-	private String decision_day;
+	private Date decision_day;
 	private String emp_num;
 	private String emp_name;
 	private String category_name;
@@ -50,10 +52,12 @@ public class EventList {
 	public void setHost_comment(String host_comment) {
 		this.host_comment = host_comment;
 	}
-	public String getDecision_day() {
+
+	public Date getDecision_day() {
 		return decision_day;
 	}
-	public void setDecision_day(String decision_day) {
+
+	public void setDecision_day(Date decision_day) {
 		this.decision_day = decision_day;
 	}
 	public String getEmp_num() {

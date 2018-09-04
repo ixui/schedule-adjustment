@@ -2,19 +2,21 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="comment.mapper">
+<mapper namespace="com.echigoya.springboot.mapper.CommentMapper">
   <select id="selectComment" resultType="map">
-    select  comment,emp_name
+    select  comment.participant_comment,employee_master.emp_name
     	from comment
     		inner join employee_master
-    			on comment.emp_num = employee_master.emp.num
-    	where event_id = #{parameter.event_id}
-    	order by comment_id ;
+    			on comment.emp_num = employee_master.emp_num
+    	where event_id = #{id}
+    	order by comment.commment_id
   </select>
 
+<!--
   <insert id="insertComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="comment_id">
     insert
     into comment(event_id,emp_num,comment)
     values(#{event_id},#{emp_num},#{comment})
   </insert>
+  -->
 </mapper>

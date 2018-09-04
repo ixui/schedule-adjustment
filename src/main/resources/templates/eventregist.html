@@ -36,10 +36,9 @@
  			 <div class="row ">
  			 	<div class="col-sm-4 label">カテゴリ</div>
     			<div class="col-sm-8 form-inline pb-3" style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" >
+     				 <select class="form-control input-sm " id="category" name="category">
      				 	<option value="test1" selected="selected">選択してください</option>
-						<option value="test2">みいこ</option>
-						<option value="test3">玉藻</option>
+						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.category_id}" >[[${categorylist.category_name}]]</option>
 					</select>
     			</div>
     		</div>
