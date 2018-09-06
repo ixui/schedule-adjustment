@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.ixui.scheduleadjustment.mapper.VoteMapper">
+  <select id="selectCandidateDay" resultType="map">
+    select  candidate_day.event_id,candidate_day.candidate_day,vote_info.vote_emp_num,employee_master.emp_name
+    	from candidate_day
+    	left join vote_info
+    		on candidate_day.event_id = vote_info.event_id
+			and candidate_day.candidate_day = vote_info.candidate_day
+		left join employee_master
+			on vote_info.vote_emp_num = employee_master.emp_num
+    	where candidate_day.event_id = #{id}
+    	order by candidate_day.candidate_day,employee_master.emp_num
+  </select>
+
+<!--
+  <update id="updateDay" parameterType="Event" >
+    update candidate_day
+    set
+    	candidate_day = #{candidate_day}
+
+    wnere event_id = #{parameter.event_id}
+
+  </update>
+   -->
+</mapper>

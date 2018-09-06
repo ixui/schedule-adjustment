@@ -84,7 +84,7 @@
 				<form class="sdform">
 					<div class="selectday" th:each="voteinfo : ${voteinfoList}" >
 						<input type="radio" name="day" th:value="${voteinfo.candidate_day}" class="mb-5"> [[${#dates.format(voteinfo.candidate_day, 'yyyy/MM/dd')}]]
-						<span >みいこ,</span>
+						<span >[[${voteinfo.emp_name}]]</span>
 
 						</div>
 						 <button type="button" class="btn btn-success mb-5 mt-3 " onclick="newVote()">決定する <span class="glyphicon glyphicon-chevron-right"></span></button>
