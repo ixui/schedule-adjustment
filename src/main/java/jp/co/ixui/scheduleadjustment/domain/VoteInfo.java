@@ -4,35 +4,37 @@ import java.util.Date;
 
 public class VoteInfo {
 
-	private int event_id;
-	private Date candidate_day;
-	private String vote_emp_num;
-	private String emp_name;
+	private int eventId;
+	private Date candidateDay;
+	private String voteEmpNum;
+	private String empName;
 
 
-	public int getEvent_id() {
-		return event_id;
+	public int getEventId() {
+		return eventId;
 	}
-	public void setEvent_id(int event_id) {
-		this.event_id = event_id;
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
-	public Date getCandidate_day() {
-		return candidate_day;
+	public Date getCandidateDay() {
+		return candidateDay;
 	}
-	public void setCandidate_day(Date candidate_day) {
-		this.candidate_day = candidate_day;
+	public void setCandidateDay(Date candidateDay) {
+		this.candidateDay = candidateDay;
 	}
-	public String getVote_emp_num() {
-		return vote_emp_num;
+	public String getVoteEmpNum() {
+		return voteEmpNum;
 	}
-	public void setVote_emp_num(String vote_emp_num) {
-		this.vote_emp_num = vote_emp_num;
+	public void setVoteEmpNum(String voteEmpNum) {
+		this.voteEmpNum = voteEmpNum;
 	}
-	public String getEmp_name() {
-		return emp_name;
+	public String getEmpName() {
+		return empName;
 	}
-	public void setEmp_name(String emp_name) {
-		this.emp_name = emp_name;
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
+
+
 
 }

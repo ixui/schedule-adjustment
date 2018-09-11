@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.ixui.scheduleadjustment.mapper.CategoryMapper">
-  <select id="selectCategoryList" resultType="hashMap">
+  <select id="selectCategoryList" resultType="Category">
     select  *
     	from category_master
     	<!-- where event_id = #{parameter.event_id} -->

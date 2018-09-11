@@ -37,29 +37,29 @@
 	<div id="modal-content">
 		<!-- モーダルウィンドウのコンテンツ開始 -->
 		<h1 class="text-center mb-5 mt-5 title">絞込み検索</h1>
-		<form>
+		<form action="/eventlist" method="post" >
 			<div class="row pb-2">
  			 	<div class="col-sm-2 labelh">主催者</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="host" >
+     				 <select class="form-control input-sm " name="hostNum" >
      				 	<option value="0" selected="selected">選択してください</option>
-						<option th:each="emplist : ${empList}"  th:value="${emplist.emp_num}" >[[${emplist.emp_name}]]</option>
+						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}" >[[${emplist.empName}]]</option>
 					</select>
 				</div>
 			</div>
 			<div class="row pb-2" >
  			 	<div class="col-sm-2 labelh">カテゴリ</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" name="category">
+     				 <select class="form-control input-sm " id="category" name="categoryNum">
      				 	<option value="0" selected="selected">選択してください</option>
-						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.category_id}" >[[${categorylist.category_name}]]</option>
+						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}" >[[${categorylist.categoryName}]]</option>
 					</select>
 				</div>
 			</div>
     		<div class="row pb-2">
     			<div class="col-sm-2 labelh">開催日</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <input type="date" class="form-control input-sm " id="startday" size="20">　　　から　　　<input type="date" class="form-control input-sm " id="endday" size="20">
+     				 <input type="date" class="form-control input-sm " name="startDay" size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay" size="20">
     			</div>
     		</div>
     		<div class="row pb-5">
@@ -69,7 +69,7 @@
     			</div>
     		</div>
 			<div class="text-center pb-3" >
-    			<button type="button" id="modal-close" class="btn btn-info mr-5 button-link pr-3"  >検索する</button>
+    			<button type="submit" id="modal-close" class="btn btn-info mr-5 button-link pr-3"  >検索する</button>
 				<button type="button" id="modal-close" class="btn btn-info mr-5 button-link"  >キャンセル</button>
   			</div>
 
@@ -93,9 +93,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.event_name}"></td><td th:text="${eventnd.emp_name}"></td>
+			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.eventName}"></td><td th:text="${eventnd.empName}"></td>
 
-			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.event_id})}">詳細</a></td></tr>
+			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.eventId})}">詳細</a></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>
@@ -111,9 +111,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="eventd : ${eventListDevision}"><td th:text="${eventd.event_name}"></td><td th:text="${eventd.emp_name}"></td>
-			 	 		<td th:text="${#dates.format(eventd.decision_day, 'yyyy/MM/dd')}"></td>
-			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventd.event_id})}">詳細</a></td></tr>
+			 	 		<tr th:each="eventd : ${eventListDevision}"><td th:text="${eventd.eventName}"></td><td th:text="${eventd.empName}"></td>
+			 	 		<td th:text="${#dates.format(eventd.decisionDay, 'yyyy/MM/dd')}"></td>
+			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventd.eventId})}">詳細</a></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>
@@ -128,9 +128,9 @@
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="eventend : ${eventListEnd}"><td th:text="${eventend.event_name}"></td><td th:text="${eventend.emp_name}"></td>
-			 	 		<td th:text="${#dates.format(eventend.decision_day, 'yyyy/MM/dd')}"></td>
-			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventend.event_id})}">詳細</a></td></tr>
+			 	 		<tr th:each="eventend : ${eventListEnd}"><td th:text="${eventend.eventName}"></td><td th:text="${eventend.empName}"></td>
+			 	 		<td th:text="${#dates.format(eventend.decisionDay, 'yyyy/MM/dd')}"></td>
+			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventend.eventId})}">詳細</a></td></tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>

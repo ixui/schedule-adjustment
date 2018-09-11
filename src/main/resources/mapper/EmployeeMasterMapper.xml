@@ -9,7 +9,7 @@
 		    values(#{empNo},#{name},#{mail},#{pass})
 	  </insert>
 	   -->
-	<select id="selectEmpName" resultType="hashMap">
+	<select id="selectEmpName" resultType="Emp">
 			select  employee_master.emp_num,employee_master.emp_name
 	    	from employee_master
 	    	order by employee_master.emp_num
