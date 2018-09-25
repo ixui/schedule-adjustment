@@ -32,6 +32,7 @@ public class EventController {
 
 	public static Logger log = LoggerFactory.getLogger(EventController.class);
 
+	//イベント一覧表示
 	@RequestMapping(value="/eventlist" ,method = RequestMethod.GET)
     public ModelAndView index(ModelAndView mav){
     	List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
@@ -49,11 +50,13 @@ public class EventController {
         return mav;
     }
 
+	//イベント一覧（イベント登録後）
 	@RequestMapping(value="/eventlistregist" ,method = RequestMethod.POST)
 	public ModelAndView eventregist(@ModelAttribute EventRegistForm eventregistForm,
 			BindingResult result,
 			ModelAndView mav){
 			this.eventService.createEvent(eventregistForm);
+			this.eventService.candidateDay(eventregistForm);
 	    	List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
 	    	List<Event> eventListDevision = this.eventService.getEventListDevision();
 	    	List<Event> eventListEnd = this.eventService.getEventListEnd();
@@ -69,6 +72,7 @@ public class EventController {
 		return mav;
 }
 
+	//イベント一覧（詳細検索の結果）
 	@RequestMapping(value="/eventlist" ,method = RequestMethod.POST)
     public ModelAndView search(ModelAndView mav ,@ModelAttribute SearchForm searchForm,
     		BindingResult result){
@@ -92,6 +96,7 @@ public class EventController {
 
 
 
+	//イベント詳細表示
 	@RequestMapping(value="/eventdetails" ,method = RequestMethod.GET)
     public ModelAndView eventdetalis(ModelAndView mav, @RequestParam int id){
     	List<Event> eventListToId = this.eventService.getEventListeventListToId(id);
@@ -108,6 +113,7 @@ public class EventController {
         return  mav;
     }
 
+	//イベント詳細（コメント登録後）
 	@RequestMapping(value="/commentregist" ,method = RequestMethod.POST)
 	public ModelAndView commentregist(@ModelAttribute CommentForm commentForm,
 			BindingResult result,
@@ -125,6 +131,7 @@ public class EventController {
 			return  mav;
     }
 
+	//イベント詳細（ポスト）
 	@RequestMapping(value="/eventdetails" ,method = RequestMethod.POST)
 	public ModelAndView eventreturn(@ModelAttribute EventRegistForm eventForm,
 			BindingResult result,
@@ -142,6 +149,7 @@ public class EventController {
 			return  mav;
     }
 
+	//イベント詳細（開催日決定後）
 	@RequestMapping(value="/eventditailsdecide",method = RequestMethod.POST)
 	public ModelAndView decided(ModelAndView mav ,@ModelAttribute VoteForm voteForm,
 			BindingResult result){
@@ -158,6 +166,7 @@ public class EventController {
 		return mav;
 	}
 
+	//イベント詳細（投票後）
 	@RequestMapping(value="/voteregist",method = RequestMethod.POST)
 	public ModelAndView vote(ModelAndView mav ,@ModelAttribute VoteForm voteForm,
 			BindingResult result){
@@ -174,6 +183,7 @@ public class EventController {
 		return mav;
 	}
 
+	//イベント詳細（詳細変更後）
 	@RequestMapping(value="/eventditailsupdate",method = RequestMethod.POST)
 	public ModelAndView update(ModelAndView mav ,@ModelAttribute EventRegistForm eventregistForm,
 			BindingResult result){
@@ -190,6 +200,7 @@ public class EventController {
 		return mav;
 	}
 
+	//イベント一覧（イベント削除後）
 	@RequestMapping(value="/eventlistdelieted",method = RequestMethod.POST)
 	public ModelAndView delete(ModelAndView mav ,@ModelAttribute EventRegistForm eventregistForm,
 			BindingResult result){
@@ -209,6 +220,7 @@ public class EventController {
 		return mav;
 	}
 
+	//イベント登録表示
 	@RequestMapping(value="/eventregist",method=RequestMethod.GET)
     public ModelAndView eventregist(ModelAndView mav){
     	List<Category> categoryList = this.eventService.getCategoryList();

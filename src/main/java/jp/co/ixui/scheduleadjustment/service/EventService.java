@@ -45,40 +45,48 @@ public class EventService {
 	@Autowired
 	CandidateDayMapper candidateDayMapper;
 
+	//未決定のイベント一覧を取得する（引数なし）
 	public List<Event> getEventListNotDevision() {
 		List<Event> eventListnd = this.eventMapper.selectEventListNotDevision();
 		return eventListnd;
 	}
 
+	//決定済みのイベント一覧を取得する（引数なし）
 	public List<Event> getEventListDevision() {
 		List<Event> eventListd = this.eventMapper.selectEventListDevision();
 		return eventListd;
 	}
 
+	//終了したイベント一覧を取得する（引数なし）
 	public List<Event> getEventListEnd() {
 		List<Event> eventListend = this.eventMapper.selectEventListEnd();
 		return eventListend;
 	}
 
+	//イベント一覧を取得する（引数：イベントID）
 	public List<Event> getEventListeventListToId(int id){
 		List<Event> eventListtoid= this.eventMapper.selectEventListToId(id);
 		return eventListtoid;
 	}
 
+	//カテゴリ一覧を取得する
 	public List<Category> getCategoryList(){
 		List<Category> categoryList= this.categoryMapper.selectCategoryList();
 		return categoryList;
 	}
 
+	//社員一覧を取得する
 	public List<Emp> getEmpList(){
 		List<Emp> empList= this.employeeMapper.selectEmpName();
 		return empList;
 	}
 
 
+	//投票情報を取得する
 	public Map<Date, String> getVoteInfoList(int id){
 		List<VoteInfo> voteList= this.candidateDayMapper.selectCandidateDay(id);
 		Map<Date,String> voteResult = new LinkedHashMap<>();
+		//日付が同じ場合、投票者を横に並べる
 		for(VoteInfo vl :voteList){
 			if(voteResult.containsKey(vl.getCandidateDay())){
 				voteResult.put(vl.getCandidateDay(),voteResult.get(vl.getCandidateDay()) + " , " + vl.getEmpName());
@@ -89,11 +97,13 @@ public class EventService {
 	}
 
 
+	//コメント一覧を取得する
 	public List<Comment> getCommentList(int id){
 		List<Comment> commentList= this.commentMapper.selectComment(id);
 		return commentList;
 	}
 
+	//未決定のイベント一覧を取得する（引数：検索条件）
 	public List<Event> getEventListNotDevision(SearchForm searchForm)  {
 		Search search = new Search();
         search.setHostNum(searchForm.getHostNum());
@@ -102,6 +112,7 @@ public class EventService {
         return eventListnd;
 	}
 
+	//決定済みのイベント一覧を取得する（引数：検索条件）
 	public List<Event> getEventListDevision(SearchForm searchForm)  {
 		Search search = new Search();
 		if (searchForm.getStartDay()  !="") {
@@ -119,6 +130,7 @@ public class EventService {
 		return eventListd;
 	}
 
+	//終了したイベント一覧を取得する（引数：検索条件）
 	public List<Event> getEventListEnd(SearchForm searchForm) {
 		 Search search = new Search();
 		if (searchForm.getStartDay()  !="") {
@@ -134,6 +146,7 @@ public class EventService {
 		return eventListend;
 	}
 
+	//検索条件の表示
 	public Search getSearchCondition(SearchForm searchForm){
 		Search search = new Search();
 
@@ -167,6 +180,7 @@ public class EventService {
 		return search;
 	}
 
+	//イベントを登録する
 	public void createEvent(EventRegistForm eventregistForm) {
 		Event event = new Event();
 		event.setHostNum("459");
@@ -174,11 +188,17 @@ public class EventService {
 		event.setCategoryId(eventregistForm.getCategoryId());
 		event.setPlace(eventregistForm.getPlace());
 		event.setHostComment(eventregistForm.getHostComment());
-		//VoteInfo voteinfo = new VoteInfo();
 		this.eventMapper.createEvent(event);
+	}
+
+	//イベントの候補日を登録する
+	public void candidateDay(EventRegistForm eventregistForm) {
+		VoteInfo voteInfo = new VoteInfo();
+		voteInfo.setEventId(5);
 
 	}
 
+	//コメントを登録する
 	public void commentRegist(CommentForm commentForm){
 		Comment comment = new Comment();
 		comment.setEventId(commentForm.getEventId());
@@ -187,6 +207,7 @@ public class EventService {
 		this.commentMapper.commentRegist(comment);
 	}
 
+	//開催日を登録する
 	public void decidedDay(VoteForm voteForm){
 		VoteInfo voteinfo = new VoteInfo();
 		voteinfo.setCandidateDay(java.sql.Date.valueOf(voteForm.getVoteDay()));
@@ -194,6 +215,7 @@ public class EventService {
 		this.eventMapper.decidedDay(voteinfo);
 	}
 
+	//投票する
 	public void voteDay(VoteForm voteForm){
 		VoteInfo voteinfo = new VoteInfo();
 		voteinfo.setCandidateDay(java.sql.Date.valueOf(voteForm.getVoteDay()));
@@ -203,12 +225,14 @@ public class EventService {
 	}
 
 
+	//イベント情報を登録する
 	public void eventUpdate(EventRegistForm eventregistForm){
 		Event event = new Event();
 		BeanUtils.copyProperties(eventregistForm,event);
 		this.eventMapper.eventUpdate(event);
 	}
 
+	//イベントを削除する
 	public void eventDelete(EventRegistForm eventregistForm){
 		Event event = new Event();
 		event.setEventId(eventregistForm.getEventId());
@@ -218,6 +242,7 @@ public class EventService {
 		this.eventMapper.eventDelete(event);
 	}
 
+	//詳細画面再表示
 	public void detailsRedisplay(EventRegistForm eventForm){
 		Event event = new Event();
 		event.setEventId(eventForm.getEventId());
