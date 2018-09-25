@@ -1,17 +1,14 @@
-package jp.co.ixui.scheduleadjustment.domain;
+package jp.co.ixui.scheduleadjustment.controller.login;
 
-public class Emp {
+public class SignupForm {
+
 	private String empNum;
 	private String empName;
 	private String mailAddress;
 	private String passWord;
+	private String passWords;
 
-	public String getPassWord() {
-		return passWord;
-	}
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
+
 	public String getEmpNum() {
 		return empNum;
 	}
@@ -30,14 +27,16 @@ public class Emp {
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
-	private String password;
-
-	public String getPassword() {
-		return password;
+	public String getPassWord() {
+		return passWord;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
-
-
+	public String getPassWords() {
+		return passWords;
+	}
+	public void setPassWords(String passWords) {
+		this.passWords = passWords;
+	}
 }

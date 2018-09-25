@@ -1,29 +1,61 @@
+$(function() {
+    $('.decided , .end').click(function(){
+        $('.notdevision').hide();
+        $('.devisionend').show();
+    });
+});
+
+$(function() {
+    $('.undecided').click(function(){
+        $('.devisionend').hide();
+        $('.notdevision').show();
+    });
+});
+
+
+function setName() {
+		$('#hostName').val($('#hostNum option:selected').text());
+}
+
+function setCategory() {
+		$('#categoryName').val($('#categoryNum option:selected').text());
+}
+
+
 function newUser(){
      myRet = confirm("登録します。よろしいですか？");
      if ( myRet == true ){
-         alert("登録完了しました。");
          location.href = '/';
+         alert("登録完了しました。");
      }
 }
 
 function eventRegist(){
      myRet = confirm("登録します。よろしいですか？");
      if ( myRet == true ){
+    	 location.href= 'eventlist';
          alert("登録完了しました。");
-         location.href = 'eventlist';
      }
 }
 
-function newVote(){
-	myRet = confirm("投票します。よろしいですか？");
+function voteRegist(){
+	myRet = confirm("開催日を決定します。よろしいですか？");
      if ( myRet == true ){
-         alert("投票完了しました。");
+         alert("決定しました。");
      }
+}
+
+function newVote() {
+	myRet = confirm("投票します。よろしいですか？");
+    if ( myRet == true ){
+        alert("投票しました。");
+    }
 }
 
 function updateEvent(){
 	myRet = confirm("イベントの内容を変更します。よろしいですか？");
      if ( myRet == true ){
+         document.getElementById('eventform').action = 'eventditailsupdate';
          alert("変更完了しました。");
      }
 }
@@ -31,10 +63,13 @@ function updateEvent(){
 function deleteEvent(){
 	myRet = confirm("イベントを削除します。よろしいですか？");
      if ( myRet == true ){
+         document.getElementById('eventform').action = 'eventlistdelieted';
          alert("削除しました。");
-         location.href = 'eventlist';
      }
 }
+
+
+
 
 $(function(){
 

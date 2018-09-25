@@ -11,4 +11,5 @@ import jp.co.ixui.scheduleadjustment.domain.Comment;
 public interface CommentMapper {
 
 	List<Comment> selectComment(int id);
+	void commentRegist(Comment comment);
 }

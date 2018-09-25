@@ -8,15 +8,15 @@
     	from comment
     		inner join employee_master
     			on comment.emp_num = employee_master.emp_num
-    	where event_id = #{id}
+    	where comment.event_id = #{id}
     	order by comment.commment_id
+
   </select>
 
-<!--
-  <insert id="insertComment" parameterType="Comment" useGeneratedKeys="true" keyProperty="comment_id">
+
+  <insert id="commentRegist" >
     insert
-    into comment(event_id,emp_num,comment)
-    values(#{event_id},#{emp_num},#{comment})
+    into comment(event_id,emp_num,participant_comment)
+    values(#{eventId},#{empNum},#{participantComment})
   </insert>
-  -->
 </mapper>

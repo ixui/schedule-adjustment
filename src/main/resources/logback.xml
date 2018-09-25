@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <timestamp key="LOG_DATE" datePattern="yyyyMMdd"/>
+    <property name="LOG_FILE" value="logs/application.log" />
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+        <file>logs/hoppy2.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <fileNamePattern>logs/hoppy2.%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>
+        <maxHistory>10</maxHistory>
+    </rollingPolicy>
+
+    </appender>
+<logger name="org.springframework">
+        <level value="info" />
+    </logger>
+    <logger name="jp.co.ixui.scheduleadjustment">
+        <level value="debug" />
+       </logger>
+
+
+    <root level="warn">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>

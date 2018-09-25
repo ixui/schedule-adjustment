@@ -41,31 +41,33 @@
 			<div class="row pb-2">
  			 	<div class="col-sm-2 labelh">主催者</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " name="hostNum" >
-     				 	<option value="0" selected="selected">選択してください</option>
-						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}" >[[${emplist.empName}]]</option>
+     				 <select class="form-control input-sm " id="hostNum" name="hostNum" onchange="setName()">
+     				 	<option value="" selected="selected">選択してください</option>
+						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}">[[${emplist.empName}]]</option>
 					</select>
+					<input type="hidden"  name="hostName"  value="" id="hostName">
 				</div>
 			</div>
 			<div class="row pb-2" >
  			 	<div class="col-sm-2 labelh">カテゴリ</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" name="categoryNum">
-     				 	<option value="0" selected="selected">選択してください</option>
+     				 <select class="form-control input-sm " id="categoryNum" name="categoryNum" onchange="setCategory()">
+     				 	<option value="" selected="selected">選択してください</option>
 						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}" >[[${categorylist.categoryName}]]</option>
 					</select>
+					<input type="hidden"  name="categoryName"  value="" id="categoryName">
 				</div>
 			</div>
     		<div class="row pb-2">
     			<div class="col-sm-2 labelh">開催日</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <input type="date" class="form-control input-sm " name="startDay" size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay" size="20">
+     				 <input type="date" class="form-control input-sm " name="startDay"  size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay"  size="20">　　まで
     			</div>
     		</div>
     		<div class="row pb-5">
     			<div class="col-sm-3 labelh">日付で並び替え</div>
     			<div class="col-sm-9 form-inline " style="padding: 3px;">
-     				 <input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" >昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc">降順
+     				 <input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked">昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc">降順
     			</div>
     		</div>
 			<div class="text-center pb-3" >
@@ -76,26 +78,34 @@
 		</form>
 		<!-- モーダルウィンドウのコンテンツ終了 -->
 	</div>
-	<p class="text-center">主催者：みいこさん、カテゴリ：みいこ　昇順</p>
+	<p class="text-center notdevision " th:each="search : ${search}">[[${search.hostName}]]　[[${search.categoryName}]]</p>
+	<p class="text-center devisionend" style="display: none;"  th:each="search : ${search}">[[${search.hostName}]]　[[${search.categoryName}]]　[[${search.decisionDay}]]
+	[[${#dates.format(search.startDay, 'yyyy/MM/dd')}]]　[[${search.between}]]　[[${#dates.format(search.endDay, 'yyyy/MM/dd')}]]　[[${search.until}]]　[[${search.sortJp}]]</p>
+
 	<section class="  py-5">
  	 	<div class="container">
  	 		<ul class="nav nav-tabs">
- 	 			<li class="nav-item"><a href="#undecided" class="nav-link active" data-toggle="tab">未決定</a></li>
- 	 			<li class="nav-item"><a href="#decided" class="nav-link" data-toggle="tab">決定</a></li>
- 	 			<li class="nav-item"><a href="#end" class="nav-link " data-toggle="tab">終了</a></li>
+ 	 			<li class="nav-item"><a href="#undecided" class="nav-link active undecided" data-toggle="tab">未決定</a></li>
+ 	 			<li class="nav-item"><a href="#decided" class="nav-link decided" data-toggle="tab">決定</a></li>
+ 	 			<li class="nav-item"><a href="#end" class="nav-link end" data-toggle="tab">終了</a></li>
  	 		</ul>
  	 		<div class="tab-content py-5">
 	 	 		<div id="undecided" class="tab-pane active">
 	 	 		<section class="bg-light text-center py-5">
 	 	 			<div class="container">
+
 			 	 		<table class="table table-hover">
 			 	 		<thead>
+
 			 	 		<tr><th>イベント名</th><th>主催者</th><th>詳細</th></tr>
 			 	 		</thead>
 			 	 		<tbody>
-			 	 		<tr th:each="eventnd : ${eventListNotDevision}"><td th:text="${eventnd.eventName}"></td><td th:text="${eventnd.empName}"></td>
+			 	 		<tr th:each="eventnd : ${eventListNotDevision}">
 
-			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.eventId})}">詳細</a></td></tr>
+				 	 		<td th:text="${eventnd.eventName}"></td><td th:text="${eventnd.empName}"></td>
+
+				 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.eventId})}">詳細</a></td>
+			 	 		</tr>
 			 	 		</tbody>
 			 	 		</table>
 	 	 			</div>

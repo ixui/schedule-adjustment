@@ -12,5 +12,5 @@ import jp.co.ixui.scheduleadjustment.domain.Emp;
 public interface EmployeeMapper {
 
 	List<Emp> selectEmpName();
-	//EmployeeMaster createEmp(employee);
+	void  createEmp (Emp emp);
 }

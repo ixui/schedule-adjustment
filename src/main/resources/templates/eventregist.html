@@ -24,19 +24,19 @@
   <main>
   	<h1 class="text-center mb-5 mt-5 title">イベント登録</h1>
 
-  	<form >
+  	<form action="/eventlistregist" method="post">
 		<div class="container">
 			<p class="col-sm-4 label">主催者：みいこさん</p>
   			<div class="row ">
     			<div class="col-sm-4 label">イベント名</div>
     			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <input type="text" class="form-control input-sm " id="eventname" size="20">
+     				 <input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20">
     			</div>
  			 </div>
  			 <div class="row ">
  			 	<div class="col-sm-4 label">カテゴリ</div>
     			<div class="col-sm-8 form-inline pb-3" style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" name="category">
+     				 <select class="form-control input-sm " id="category" name="categoryId">
      				 	<option value="test1" selected="selected">選択してください</option>
 						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}" >[[${categorylist.categoryName}]]</option>
 					</select>
@@ -45,24 +45,24 @@
     		<div class="row ">
     			<div class="col-sm-4 label">開催場所</div>
     			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <input type="text" class="form-control input-sm " id="place" size="20">
+     				 <input type="text" class="form-control input-sm " id="place" name="place" size="20">
     			</div>
     		</div>
     		<div class="row ">
-    			<div class="col-sm-4 label">開催日</div>
+    			<div class="col-sm-4 label">候補日</div>
     			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <input type="date" class="form-control input-sm " id="startday" size="20">　　　から　　　<input type="date" class="form-control input-sm " id="endday" size="20">
+     				 <input type="date" class="form-control input-sm " id="startday" name="startDay" size="20">　　　から　　　<input type="date" class="form-control input-sm " id="endday" name="endDay" size="20">
     			</div>
     		</div>
     		<div class="row ">
     			<div class="col-sm-4 label">コメント</div>
     			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <textarea class="form-control input-sm " id="comment" rows="4" cols="60" ></textarea>
+     				 <textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60" ></textarea>
     			</div>
     		</div>
 
  			<div class="text-center" style="padding: 30px;">
-    			<button type="button" class="btn btn-success mb-5" onclick="eventRegist()">登録する </button>
+    			<button type="submit" class="btn btn-success mb-5" onclick="eventRegist()">登録する <span class="glyphicon glyphicon-chevron-right"></span></button>
   			</div>
 		</div>
 

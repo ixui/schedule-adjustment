@@ -1,7 +1,5 @@
 package jp.co.ixui.scheduleadjustment;
 
-import java.net.URISyntaxException;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ public class DatabaseConfig {
 	@Primary
 	@Bean(destroyMethod="close")
 	@ConfigurationProperties(prefix="spring.datasource")
-	DataSource datasource() throws URISyntaxException {
+	public static DataSource datasource()  {
 
 		String databaseUrl = System.getenv("MYSQL_URL");
 		String databaseName = System.getenv("MYSQL_NAME");
