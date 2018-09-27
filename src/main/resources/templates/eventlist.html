@@ -37,13 +37,13 @@
 	<div id="modal-content">
 		<!-- モーダルウィンドウのコンテンツ開始 -->
 		<h1 class="text-center mb-5 mt-5 title">絞込み検索</h1>
-		<form action="/eventlist" method="post" >
+		<form action="/eventlist" method="post"  th:object="${formModel}">
 			<div class="row pb-2">
  			 	<div class="col-sm-2 labelh">主催者</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
      				 <select class="form-control input-sm " id="hostNum" name="hostNum" onchange="setName()">
      				 	<option value="" selected="selected">選択してください</option>
-						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}">[[${emplist.empName}]]</option>
+						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}" th:field="*{hostNum}">[[${emplist.empName}]]</option>
 					</select>
 					<input type="hidden"  name="hostName"  value="" id="hostName">
 				</div>
@@ -53,7 +53,7 @@
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
      				 <select class="form-control input-sm " id="categoryNum" name="categoryNum" onchange="setCategory()">
      				 	<option value="" selected="selected">選択してください</option>
-						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}" >[[${categorylist.categoryName}]]</option>
+						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}" th:field="*{categoryNum}">[[${categorylist.categoryName}]]</option>
 					</select>
 					<input type="hidden"  name="categoryName"  value="" id="categoryName">
 				</div>
@@ -61,13 +61,13 @@
     		<div class="row pb-2">
     			<div class="col-sm-2 labelh">開催日</div>
     			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <input type="date" class="form-control input-sm " name="startDay"  size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay"  size="20">　　まで
+     				 <input type="date" class="form-control input-sm " name="startDay" th:field="*{startDay}" size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay" th:field="*{endDay}" size="20">　　まで
     			</div>
     		</div>
     		<div class="row pb-5">
     			<div class="col-sm-3 labelh">日付で並び替え</div>
     			<div class="col-sm-9 form-inline " style="padding: 3px;">
-     				 <input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked">昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc">降順
+     				 <input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked" th:field="*{sort}">昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc" th:field="*{sort}">降順
     			</div>
     		</div>
 			<div class="text-center pb-3" >

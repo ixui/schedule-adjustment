@@ -25,7 +25,7 @@ function setCategory() {
 function newUser(){
      myRet = confirm("登録します。よろしいですか？");
      if ( myRet == true ){
-         location.href = '/';
+         location.href = '/userregisted';
          alert("登録完了しました。");
      }
 }

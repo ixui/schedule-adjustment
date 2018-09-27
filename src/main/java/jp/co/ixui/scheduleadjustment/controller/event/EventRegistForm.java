@@ -1,15 +1,21 @@
 package jp.co.ixui.scheduleadjustment.controller.event;
 
-import java.sql.Date;
+import javax.validation.constraints.NotEmpty;
 
 public class EventRegistForm {
 
+	@NotEmpty(message="イベント名を入力してください")
 	private String eventName;
+	@NotEmpty(message="カテゴリを選択してください")
 	private String categoryId;
+	@NotEmpty(message="開催場所を入力してください")
 	private String place;
+	@NotEmpty(message="コメントを入力してください")
 	private String hostComment;
-	private Date startDay;
-	private Date endDay;
+	@NotEmpty(message="開催日を入力してください")
+	private String  startDay;
+	@NotEmpty(message="開催日を入力してください")
+	private String endDay;
 	private int eventId;
 
 
@@ -38,16 +44,17 @@ public class EventRegistForm {
 	public void setHostComment(String hostComment) {
 		this.hostComment = hostComment;
 	}
-	public Date getStartDay() {
+
+	public String getStartDay() {
 		return startDay;
 	}
-	public void setStartDay(Date startDay) {
+	public void setStartDay(String startDay) {
 		this.startDay = startDay;
 	}
-	public Date getEndDay() {
+	public String getEndDay() {
 		return endDay;
 	}
-	public void setEndDay(Date endDay) {
+	public void setEndDay(String endDay) {
 		this.endDay = endDay;
 	}
 	public String getCategoryId() {

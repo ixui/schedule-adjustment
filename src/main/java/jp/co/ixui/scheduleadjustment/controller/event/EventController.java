@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,14 +48,17 @@ public class EventController {
 		mav.addObject("eventListDevision", eventListDevision);
 		mav.addObject("eventListEnd", eventListEnd);
 		log.debug("あああ");
+		mav.addObject("formModel", new SearchForm());
         return mav;
     }
 
 	//イベント一覧（イベント登録後）
 	@RequestMapping(value="/eventlistregist" ,method = RequestMethod.POST)
-	public ModelAndView eventregist(@ModelAttribute EventRegistForm eventregistForm,
+	public ModelAndView eventregist(@ModelAttribute ("formModel") @Validated EventRegistForm eventregistForm,
 			BindingResult result,
 			ModelAndView mav){
+		ModelAndView res = null;
+		if (!result.hasErrors()){
 			this.eventService.createEvent(eventregistForm);
 			this.eventService.candidateDay(eventregistForm);
 	    	List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
@@ -63,18 +67,23 @@ public class EventController {
 	    	List<Category> categoryList = this.eventService.getCategoryList();
 	    	List<Emp> empList = this.eventService.getEmpList();
 
-			mav.setViewName("eventlist");
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("empList", empList);
 	    	mav.addObject("eventListNotDevision", eventListNotDevision);
 			mav.addObject("eventListDevision", eventListDevision);
 			mav.addObject("eventListEnd", eventListEnd);
-		return mav;
+				res = new ModelAndView("eventlist");
+			}else{
+				mav.setViewName("eventregist");
+				res=mav;
+			}
+		return res;
+
 }
 
 	//イベント一覧（詳細検索の結果）
 	@RequestMapping(value="/eventlist" ,method = RequestMethod.POST)
-    public ModelAndView search(ModelAndView mav ,@ModelAttribute SearchForm searchForm,
+    public ModelAndView search(ModelAndView mav ,@ModelAttribute("formModel") SearchForm searchForm,
     		BindingResult result){
 		List<Event> eventListNotDevision = this.eventService.getEventListNotDevision(searchForm);
     	List<Event> eventListDevision = this.eventService.getEventListDevision(searchForm);
@@ -188,6 +197,7 @@ public class EventController {
 	public ModelAndView update(ModelAndView mav ,@ModelAttribute EventRegistForm eventregistForm,
 			BindingResult result){
 		this.eventService.eventUpdate(eventregistForm);
+		this.eventService.candidateUpdate(eventregistForm);
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(eventregistForm.getEventId());
     	List<Category> categoryList = this.eventService.getCategoryList();
     	Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId());
@@ -225,6 +235,7 @@ public class EventController {
     public ModelAndView eventregist(ModelAndView mav){
     	List<Category> categoryList = this.eventService.getCategoryList();
     	mav.addObject("categoryList", categoryList);
+    	mav.addObject("formModel", new EventRegistForm());
     	mav.setViewName("eventregist");
         return mav;
     }

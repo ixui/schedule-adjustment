@@ -9,6 +9,20 @@ public class VoteInfo {
 	private String voteEmpNum;
 	private String empName;
 
+	public VoteInfo(){
+
+	}
+
+	public VoteInfo(int eventId, Date candidateDay) {
+		this.eventId = eventId;
+		this.candidateDay = candidateDay;
+    }
+
+	public VoteInfo(int eventId, Date candidateDay,String voteEmpNum) {
+		this.eventId = eventId;
+		this.candidateDay = candidateDay;
+		this.voteEmpNum = voteEmpNum;
+    }
 
 	public int getEventId() {
 		return eventId;

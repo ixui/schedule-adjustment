@@ -10,5 +10,7 @@ import jp.co.ixui.scheduleadjustment.domain.VoteInfo;
 public interface CandidateDayMapper {
 
 	 List<VoteInfo> selectCandidateDay(int id) ;
+	void candidateDay(List<VoteInfo> voteInfo);
+	void candidateDelete(int id);
 
 }

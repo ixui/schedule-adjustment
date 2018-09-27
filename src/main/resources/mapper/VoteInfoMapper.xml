@@ -4,9 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="jp.co.ixui.scheduleadjustment.mapper.VoteInfoMapper">
- <insert id="voteDay" >
-		    insert
-		    into vote_info(event_id,candidate_day,vote_emp_num)
-		    values(#{eventId},#{candidateDay},#{voteEmpNum})
-	  </insert>
+ 	<insert id="voteDay" parameterType="java.util.List">
+		insert
+		into
+			vote_info(event_id,candidate_day,vote_emp_num)
+		values
+		<foreach collection="list" item="element" separator="," >
+			(#{element.eventId},#{element.candidateDay},#{element.voteEmpNum})
+		</foreach>
+	</insert>
+
+	<delete id="voteDelete">
+		delete
+		from
+			vote_info
+		where
+			vote_info.event_id = #{eventId}
+		and
+			vote_info.vote_emp_num = '294'
+	</delete>
+
+
 </mapper>

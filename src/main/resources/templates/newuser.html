@@ -23,41 +23,51 @@
   <main>
   	<h1 class="text-center mb-5 mt-5 title">新規ユーザー登録</h1>
 
-	<form action="/" method="post">
+	<form action="/userregisted" method="post" th:object="${formModel}">
 		<div class="container">
   			<div class="row ">
   				<div class="col-sm-4 labeluser"></div>
     			<div class="col-sm-2 labelh">社員番号</div>
-    			<div class="col-sm-6 form-inline " style="padding: 6px;">
-     				 <input type="text" class="form-control input-sm " name="empNum" size="20">
-    			</div>
+    			<div class="col-sm-3  " style="padding: 6px;">
+     				 <input type="text" class="form-control input-sm " name="empNum"  th:value="*{empNum}" th:errorclass="err" />
+     				 <p th:if="${#fields.hasErrors('empNum')}" th:errors="*{empNum}" th:errorclass="err"></p>
+     			</div>
+
+
  			 </div>
  			 <div class="row ">
  				<div class="col-sm-4 labeluser"></div>
     			<div class="col-sm-2 labelh">お名前</div>
-    			<div class="col-sm-6 form-inline " style="padding: 6px;">
-     				 <input type="text" class="form-control input-sm " name="empName" size="20">
-    			</div>
+    			<div class="col-sm-3" style="padding: 6px;">
+     				 <input type="text" class="form-control input-sm " name="empName"    th:value="*{empName}" th:errorclass="err" />
+     				 <div  th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}" th:errorclass="err"></div>
+     			</div>
+
+
+
  			 </div>
  			 <div class="row ">
  				<div class="col-sm-4 labeluser"></div>
     			<div class="col-sm-2 labelh">メールアドレス</div>
-    			<div class="col-sm-6 form-inline " style="padding: 6px;">
-     				 <input type="address" class="form-control input-sm " name="mailAddress" size="20">
+    			<div class="col-sm-3 " style="padding: 6px;">
+     				 <input type="address" class="form-control input-sm " name="mailAddress"  th:value="*{mailAddress}" th:errorclass="err" />
+     				  <p th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" th:errorclass="err"></p>
     			</div>
  			 </div>
  			 <div class="row ">
  			  	<div class="col-sm-4 labeluser"></div>
     			<div class="col-sm-2 labelh">パスワード</div>
-    			<div class="col-sm-6 form-inline " style="padding: 6px;">
-     				 <input type="password" class="form-control input-sm " name="passWord" size="20">
+    			<div class="col-sm-3  " style="padding: 6px;">
+     				 <input type="password" class="form-control input-sm " name="passWord" th:field="*{passWord}" th:errorclass="err" />
+     				  <p th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}" th:errorclass="err"></p>
     			</div>
  			 </div>
  			  <div class="row ">
   			  	<div class="col-sm-4 labeluser"></div>
     			<div class="col-sm-2 labelh">パスワード（確認用）</div>
-    			<div class="col-sm-6 form-inline " style="padding: 6px;">
-     				 <input type="password" class="form-control input-sm " name="passWords" size="20">
+    			<div class="col-sm-3  " style="padding: 6px;">
+     				 <input type="password" class="form-control input-sm " name="passWords" th:field="*{passWords}"   th:errorclass="err" />
+     				  <p th:if="${#fields.hasErrors('passWords')}" th:errors="*{passWords}" th:errorclass="err"></p>
     			</div>
  			 </div>
  			<div class="text-center" style="padding: 30px;">

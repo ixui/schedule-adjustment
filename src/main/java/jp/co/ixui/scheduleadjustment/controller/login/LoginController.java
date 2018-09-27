@@ -3,6 +3,7 @@ package jp.co.ixui.scheduleadjustment.controller.login;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,19 +23,27 @@ public class LoginController {
         return "index";
     }
 
-	@RequestMapping(value="/" ,method = RequestMethod.POST)
-    public ModelAndView userregist(@ModelAttribute SignupForm signupForm,
+	@RequestMapping(value="/userregisted" ,method = RequestMethod.POST)
+    public ModelAndView userregist(@ModelAttribute ("formModel")@Validated SignupForm signupForm,
 				BindingResult result,
 				ModelAndView mav){
-		this.userService.createUser(signupForm);
-			mav.setViewName("index");
-			return mav;
+		ModelAndView res = null;
+		if (!result.hasErrors()){
+				this.userService.createUser(signupForm);
+				res = new ModelAndView("index");
+			}else{
+				mav.setViewName("newuser");
+				res=mav;
+			}
+		return res;
 	}
 
 
 	@RequestMapping("/newuser")
-    public String newuser(){
-        return "newuser";
+    public ModelAndView newuser(ModelAndView mav){
+		mav.addObject("formModel", new SignupForm());
+		mav.setViewName("newuser");
+        return mav;
     }
 
 }

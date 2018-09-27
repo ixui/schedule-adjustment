@@ -1,5 +1,7 @@
 package jp.co.ixui.scheduleadjustment.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import jp.co.ixui.scheduleadjustment.domain.VoteInfo;
@@ -10,6 +12,7 @@ import jp.co.ixui.scheduleadjustment.domain.VoteInfo;
 public interface VoteInfoMapper {
 
 
-	void voteDay(VoteInfo voteinfo);
+	void voteDay(List<VoteInfo> voteInfo);
+	void voteDelete(int id);
 
 }
