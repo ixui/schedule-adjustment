@@ -1,71 +1,79 @@
 $(function() {
-    $('.decided , .end').click(function(){
-        $('.notdevision').hide();
-        $('.devisionend').show();
-    });
+		$('.decided , .end').click(function(){
+				$('.notdevision').hide();
+				$('.devisionend').show();
+		});
 });
 
 $(function() {
-    $('.undecided').click(function(){
-        $('.devisionend').hide();
-        $('.notdevision').show();
-    });
+		$('.undecided').click(function(){
+				$('.devisionend').hide();
+				$('.notdevision').show();
+		});
 });
 
 
 function setName() {
+	if ($('#hostNum option:selected').text() == ("選択してください")){
+		$('#hostName').val("");
+	}else{
 		$('#hostName').val($('#hostNum option:selected').text());
+	}
 }
 
 function setCategory() {
+	if ($('#categoryNum option:selected').text() == ("選択してください")){
+		$('#hostName').val("");
+	}else{
 		$('#categoryName').val($('#categoryNum option:selected').text());
+	}
 }
 
 
 function newUser(){
-     myRet = confirm("登録します。よろしいですか？");
-     if ( myRet == true ){
-         location.href = '/userregisted';
-         alert("登録完了しました。");
-     }
+		myRet = confirm("登録します。よろしいですか？");
+		if ( myRet == true ){
+				location.href = '/userregisted';
+				alert("登録完了しました。");
+		}
 }
 
 function eventRegist(){
-     myRet = confirm("登録します。よろしいですか？");
-     if ( myRet == true ){
-    	 location.href= 'eventlist';
-         alert("登録完了しました。");
-     }
+		myRet = confirm("登録します。よろしいですか？");
+		if ( myRet == true ){
+			location.href= 'eventlist';
+				alert("登録完了しました。");
+		}
 }
 
 function voteRegist(){
 	myRet = confirm("開催日を決定します。よろしいですか？");
-     if ( myRet == true ){
-         alert("決定しました。");
-     }
+		if ( myRet == true ){
+				alert("決定しました。");
+		}
 }
 
 function newVote() {
 	myRet = confirm("投票します。よろしいですか？");
-    if ( myRet == true ){
-        alert("投票しました。");
-    }
+		if ( myRet == true ){
+				alert("投票しました。");
+		}
 }
 
 function updateEvent(){
 	myRet = confirm("イベントの内容を変更します。よろしいですか？");
-     if ( myRet == true ){
-         document.getElementById('eventform').action = 'eventditailsupdate';
-         alert("変更完了しました。");
-     }
+		if ( myRet == true ){
+				document.getElementById('eventform').action = 'eventditailsupdate';
+				alert("変更完了しました。");
+		}
 }
 
 function deleteEvent(){
 	myRet = confirm("イベントを削除します。よろしいですか？");
-     if ( myRet == true ){
-         document.getElementById('eventform').action = 'eventlistdelieted';
-         alert("削除しました。");
-     }
+		if ( myRet == true ){
+				document.getElementById('eventform').action = 'eventlistdelieted';
+				alert("削除しました。");
+		}
 }
 
 

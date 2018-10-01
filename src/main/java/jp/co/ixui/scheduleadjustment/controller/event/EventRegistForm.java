@@ -12,9 +12,9 @@ public class EventRegistForm {
 	private String place;
 	@NotEmpty(message="コメントを入力してください")
 	private String hostComment;
-	@NotEmpty(message="開催日を入力してください")
+	@NotEmpty(message="開催日の始めを入力してください　　　　")
 	private String  startDay;
-	@NotEmpty(message="開催日を入力してください")
+	@NotEmpty(message="開催日の終わりを入力してください")
 	private String endDay;
 	private int eventId;
 

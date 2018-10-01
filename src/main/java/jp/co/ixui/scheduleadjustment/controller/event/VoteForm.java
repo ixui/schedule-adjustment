@@ -1,7 +1,10 @@
 package jp.co.ixui.scheduleadjustment.controller.event;
 
+import javax.validation.constraints.NotNull;
+
 public class VoteForm {
 
+	@NotNull(message="開催日を選択してください")
 	private String voteDay;
 	private String participantId;
 	private int eventId;

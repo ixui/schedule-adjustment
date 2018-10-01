@@ -1,37 +1,37 @@
 <!doctype html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <link href="/css/hoppy2.css" rel="stylesheet">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+		<link href="/css/hoppy2.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="/js/hoppy2.js"></script>
-    <title>hoppy2イベント一覧</title>
+		<title>hoppy2イベント一覧</title>
 
-  </head>
-  <body>
+	</head>
+	<body onLoad="setName();setCategory()">
 
 
-  <header>
-   <div align="right">
-  	<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧 </button>
-  	<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
-  	<button type="button" class="btn btn-info mr-3" onclick="location.href='/'">ログアウト</button>
-  	</div>
-  </header>
-  <main>
-  	<h1 class="text-center mb-5 mt-5 title">イベント一覧</h1>
+	<header>
+	<div align="right">
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧 </button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='/'">ログアウト</button>
+		</div>
+	</header>
+	<main>
+		<h1 class="text-center mb-5 mt-5 title">イベント一覧</h1>
 
 
 
 		<div align="right">
-	  		<button type="button" id="modal-open" class="btn btn-info mr-5 button-link"  >絞込み検索する</button>
-	  	</div>
+				<button type="button" id="modal-open" class="btn btn-info mr-5 button-link"  >絞込み検索する</button>
+			</div>
 
 	<!-- ここからモーダルウィンドウ -->
 	<div id="modal-content">
@@ -39,41 +39,41 @@
 		<h1 class="text-center mb-5 mt-5 title">絞込み検索</h1>
 		<form action="/eventlist" method="post"  th:object="${formModel}">
 			<div class="row pb-2">
- 			 	<div class="col-sm-2 labelh">主催者</div>
-    			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="hostNum" name="hostNum" onchange="setName()">
-     				 	<option value="" selected="selected">選択してください</option>
+					<div class="col-sm-2 labelh">主催者</div>
+					<div class="col-sm-10 form-inline " style="padding: 3px;">
+							<select class="form-control input-sm " id="hostNum" name="hostNum" onchange="setName()">
+								<option value="" selected="selected">選択してください</option>
 						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}" th:field="*{hostNum}">[[${emplist.empName}]]</option>
 					</select>
 					<input type="hidden"  name="hostName"  value="" id="hostName">
 				</div>
 			</div>
 			<div class="row pb-2" >
- 			 	<div class="col-sm-2 labelh">カテゴリ</div>
-    			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <select class="form-control input-sm " id="categoryNum" name="categoryNum" onchange="setCategory()">
-     				 	<option value="" selected="selected">選択してください</option>
+					<div class="col-sm-2 labelh">カテゴリ</div>
+					<div class="col-sm-10 form-inline " style="padding: 3px;">
+							<select class="form-control input-sm " id="categoryNum" name="categoryNum" onchange="setCategory()">
+								<option value="" selected="selected">選択してください</option>
 						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}" th:field="*{categoryNum}">[[${categorylist.categoryName}]]</option>
 					</select>
 					<input type="hidden"  name="categoryName"  value="" id="categoryName">
 				</div>
 			</div>
-    		<div class="row pb-2">
-    			<div class="col-sm-2 labelh">開催日</div>
-    			<div class="col-sm-10 form-inline " style="padding: 3px;">
-     				 <input type="date" class="form-control input-sm " name="startDay" th:field="*{startDay}" size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay" th:field="*{endDay}" size="20">　　まで
-    			</div>
-    		</div>
-    		<div class="row pb-5">
-    			<div class="col-sm-3 labelh">日付で並び替え</div>
-    			<div class="col-sm-9 form-inline " style="padding: 3px;">
-     				 <input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked" th:field="*{sort}">昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc" th:field="*{sort}">降順
-    			</div>
-    		</div>
+				<div class="row pb-2">
+					<div class="col-sm-2 labelh">開催日</div>
+					<div class="col-sm-10 form-inline " style="padding: 3px;">
+							<input type="date" class="form-control input-sm " name="startDay" th:field="*{startDay}" size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay" th:field="*{endDay}" size="20">　　まで
+					</div>
+				</div>
+				<div class="row pb-5">
+					<div class="col-sm-3 labelh">日付で並び替え</div>
+					<div class="col-sm-9 form-inline " style="padding: 3px;">
+							<input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked"  >昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc" th:field="*{sort}">降順
+					</div>
+				</div>
 			<div class="text-center pb-3" >
-    			<button type="submit" id="modal-close" class="btn btn-info mr-5 button-link pr-3"  >検索する</button>
+					<button type="submit" id="modal-close" class="btn btn-info mr-5 button-link pr-3"  >検索する</button>
 				<button type="button" id="modal-close" class="btn btn-info mr-5 button-link"  >キャンセル</button>
-  			</div>
+				</div>
 
 		</form>
 		<!-- モーダルウィンドウのコンテンツ終了 -->
@@ -83,90 +83,90 @@
 	[[${#dates.format(search.startDay, 'yyyy/MM/dd')}]]　[[${search.between}]]　[[${#dates.format(search.endDay, 'yyyy/MM/dd')}]]　[[${search.until}]]　[[${search.sortJp}]]</p>
 
 	<section class="  py-5">
- 	 	<div class="container">
- 	 		<ul class="nav nav-tabs">
- 	 			<li class="nav-item"><a href="#undecided" class="nav-link active undecided" data-toggle="tab">未決定</a></li>
- 	 			<li class="nav-item"><a href="#decided" class="nav-link decided" data-toggle="tab">決定</a></li>
- 	 			<li class="nav-item"><a href="#end" class="nav-link end" data-toggle="tab">終了</a></li>
- 	 		</ul>
- 	 		<div class="tab-content py-5">
-	 	 		<div id="undecided" class="tab-pane active">
-	 	 		<section class="bg-light text-center py-5">
-	 	 			<div class="container">
+			<div class="container">
+				<ul class="nav nav-tabs">
+					<li class="nav-item"><a href="#undecided" class="nav-link active undecided" data-toggle="tab">未決定</a></li>
+					<li class="nav-item"><a href="#decided" class="nav-link decided" data-toggle="tab">決定</a></li>
+					<li class="nav-item"><a href="#end" class="nav-link end" data-toggle="tab">終了</a></li>
+				</ul>
+				<div class="tab-content py-5">
+					<div id="undecided" class="tab-pane active">
+					<section class="bg-light text-center py-5">
+						<div class="container">
 
-			 	 		<table class="table table-hover">
-			 	 		<thead>
+							<table class="table table-hover">
+							<thead>
 
-			 	 		<tr><th>イベント名</th><th>主催者</th><th>詳細</th></tr>
-			 	 		</thead>
-			 	 		<tbody>
-			 	 		<tr th:each="eventnd : ${eventListNotDevision}">
+							<tr><th>イベント名</th><th>主催者</th><th>詳細</th></tr>
+							</thead>
+							<tbody>
+							<tr th:each="eventnd : ${eventListNotDevision}">
 
-				 	 		<td th:text="${eventnd.eventName}"></td><td th:text="${eventnd.empName}"></td>
+								<td th:text="${eventnd.eventName}"></td><td th:text="${eventnd.empName}"></td>
 
-				 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.eventId})}">詳細</a></td>
-			 	 		</tr>
-			 	 		</tbody>
-			 	 		</table>
-	 	 			</div>
- 	 			</section>
-
-
-	 	 		</div>
-	 	 		<div id="decided" class="tab-pane">
-	 	 		<section class="bg-light text-center py-5">
-	 	 			<div class="container">
-			 	 		<table class="table table-hover">
-			 	 		<thead>
-			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
-			 	 		</thead>
-			 	 		<tbody>
-			 	 		<tr th:each="eventd : ${eventListDevision}"><td th:text="${eventd.eventName}"></td><td th:text="${eventd.empName}"></td>
-			 	 		<td th:text="${#dates.format(eventd.decisionDay, 'yyyy/MM/dd')}"></td>
-			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventd.eventId})}">詳細</a></td></tr>
-			 	 		</tbody>
-			 	 		</table>
-	 	 			</div>
- 	 			</section>
-	 	 			<p></p>
-	 	 		</div>
-	 	 		<div id="end" class="tab-pane">
-	 	 		<section class="bg-light text-center py-5">
-	 	 			<div class="container">
-			 	 		<table class="table table-hover">
-			 	 		<thead>
-			 	 		<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
-			 	 		</thead>
-			 	 		<tbody>
-			 	 		<tr th:each="eventend : ${eventListEnd}"><td th:text="${eventend.eventName}"></td><td th:text="${eventend.empName}"></td>
-			 	 		<td th:text="${#dates.format(eventend.decisionDay, 'yyyy/MM/dd')}"></td>
-			 	 		<td><a href="eventdetails" th:href="@{eventdetails(id=${eventend.eventId})}">詳細</a></td></tr>
-			 	 		</tbody>
-			 	 		</table>
-	 	 			</div>
- 	 			</section>
-	 	 			<p></p>
-	 	 		</div>
-	 	 	</div>
- 	 	</div>
- 	 </section>
+								<td><a href="eventdetails" th:href="@{eventdetails(id=${eventnd.eventId})}">詳細</a></td>
+							</tr>
+							</tbody>
+							</table>
+						</div>
+					</section>
 
 
-
-   </main>
-  <footer class="text-center text-muted py-4">
-  	<hr>
-  	hoppy2
-  </footer>
+					</div>
+					<div id="decided" class="tab-pane">
+					<section class="bg-light text-center py-5">
+						<div class="container">
+							<table class="table table-hover">
+							<thead>
+							<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
+							</thead>
+							<tbody>
+							<tr th:each="eventd : ${eventListDevision}"><td th:text="${eventd.eventName}"></td><td th:text="${eventd.empName}"></td>
+							<td th:text="${#dates.format(eventd.decisionDay, 'yyyy/MM/dd')}"></td>
+							<td><a href="eventdetails" th:href="@{eventdetails(id=${eventd.eventId})}">詳細</a></td></tr>
+							</tbody>
+							</table>
+						</div>
+					</section>
+						<p></p>
+					</div>
+					<div id="end" class="tab-pane">
+					<section class="bg-light text-center py-5">
+						<div class="container">
+							<table class="table table-hover">
+							<thead>
+							<tr><th>イベント名</th><th>主催者</th><th>開催日</th><th>詳細</th></tr>
+							</thead>
+							<tbody>
+							<tr th:each="eventend : ${eventListEnd}"><td th:text="${eventend.eventName}"></td><td th:text="${eventend.empName}"></td>
+							<td th:text="${#dates.format(eventend.decisionDay, 'yyyy/MM/dd')}"></td>
+							<td><a href="eventdetails" th:href="@{eventdetails(id=${eventend.eventId})}">詳細</a></td></tr>
+							</tbody>
+							</table>
+						</div>
+					</section>
+						<p></p>
+					</div>
+				</div>
+			</div>
+		</section>
 
 
 
+	</main>
+	<footer class="text-center text-muted py-4">
+		<hr>
+		hoppy2
+	</footer>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
-  </body>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+	</body>
 </html>

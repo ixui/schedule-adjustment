@@ -1,95 +1,106 @@
 <!doctype html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 	<link href="/css/hoppy2.css" rel="stylesheet">
 	<script src="/js/hoppy2.js"></script>
-    <title>hoppy2イベント登録</title>
+		<title>hoppy2イベント登録</title>
 
-  </head>
-  <body>
+	</head>
+	<body>
 
-  <header>
-   <div align="right">
-  	<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧</button>
-  	<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
-  	<button type="button" class="btn btn-info mr-3" onclick="location.href='/'">ログアウト</button>
-  	</div>
-  </header>
-  <main>
-  	<h1 class="text-center mb-5 mt-5 title">イベント登録</h1>
+	<header>
+	<div align="right">
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧</button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='/'">ログアウト</button>
+		</div>
+	</header>
+	<main>
+		<h1 class="text-center mb-5 mt-5 title">イベント登録</h1>
 
-  	<form action="/eventlistregist" method="post"  th:object="${formModel}">
+		<form action="/eventlistregist" method="post"  th:object="${formModel}">
 		<div class="container">
 			<p class="col-sm-4 label">主催者：みいこさん</p>
-  			<div class="row ">
-    			<div class="col-sm-4 label">イベント名</div>
-    			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="*{hostComment}" th:errorclass="err">
-     				 <p th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:errorclass="err"></p>
-    			</div>
- 			 </div>
- 			 <div class="row ">
- 			 	<div class="col-sm-4 label">カテゴリ</div>
-    			<div class="col-sm-8 form-inline pb-3" style="padding: 3px;">
-     				 <select class="form-control input-sm " id="category" name="categoryId">
-     				 	<option value="" selected="selected">選択してください</option>
-						<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}"  th:field="*{categoryId}" th:errorclass="err">[[${categorylist.categoryName}]]</option>
-					</select>
-					 <p th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" th:errorclass="err"></p>
-    			</div>
-    		</div>
-    		<div class="row ">
-    			<div class="col-sm-4 label">開催場所</div>
-    			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="*{place}" th:errorclass="err">
-     				 <p th:if="${#fields.hasErrors('place')}" th:errors="*{place}" th:errorclass="err" ></p>
-    			</div>
-    		</div>
-    		<div class="row ">
-    			<div class="col-sm-4 label">候補日</div>
-    			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <p><input type="date" class="form-control input-sm " id="startday" name="startDay" size="20"  th:field="*{startDay}" th:errorclass="err">　　　から　　　<input type="date" class="form-control input-sm " id="endday" name="endDay" size="20" th:field="*{endDay}" th:errorclass="err">
-     				</p>
-     				 <p th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}" th:errorclass="err"></p>
-     				 <p th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}" th:errorclass="err"></p>
-    			</div>
-    		</div>
-    		<div class="row ">
-    			<div class="col-sm-4 label">コメント</div>
-    			<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-     				 <textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60"  th:value="*{hostComment}" th:errorclass="err"></textarea>
-     				 <p th:if="${#fields.hasErrors('hostComment')}" th:errors="*{hostComment}" th:errorclass="err"></p>
-    			</div>
-    		</div>
+				<div class="row ">
+					<div class="col-sm-4 label">イベント名</div>
+					<div class="col-sm-3  pb-3" style="padding: 3px;">
+							<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="*{eventName}" th:errorclass="err">
+							<div th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:errorclass="err"></div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 label">カテゴリ</div>
+					<div class="col-sm-3 pb-3" style="padding: 3px;">
+							<select class="form-control input-sm " id="categoryId" name="categoryId">
+								<option value="" selected="selected">選択してください</option>
+								<option th:each="categorylist : ${categoryList}"  th:value="${categorylist.categoryId}"  th:field="*{categoryId}">[[${categorylist.categoryName}]]</option>
+							</select>
+							<div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" th:errorclass="err" ></div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 label">開催場所</div>
+					<div class="col-sm-3  pb-3" style="padding: 3px;">
+							<input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="*{place}" th:errorclass="err">
+							<div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" th:errorclass="err" ></div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 label">候補日</div>
+					<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+							<input type="date" class="form-control input-sm " id="startday" name="startDay" size="20"  th:field="*{startDay}" th:errorclass="err">　　　から　　　
+							<input type="date" class="form-control input-sm " id="endday" name="endDay" size="20" th:field="*{endDay}" th:errorclass="err">
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 label"></div>
+					<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+							<div th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}" th:errorclass="err"></div>
+							<div th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}" th:errorclass="err"></div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 label">コメント</div>
+					<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+							<textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60"  th:value="*{hostComment}" th:errorclass="err"></textarea>
 
- 			<div class="text-center" style="padding: 30px;">
-    			<button type="submit" class="btn btn-success mb-5" onclick="eventRegist()">登録する <span class="glyphicon glyphicon-chevron-right"></span></button>
-  			</div>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 label"></div>
+					<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+							<div th:if="${#fields.hasErrors('hostComment')}" th:errors="*{hostComment}" th:errorclass="err"></div>
+					</div>
+				</div>
+
+			<div class="text-center" style="padding: 30px;">
+					<button type="submit" class="btn btn-success mb-5" onclick="eventRegist()">登録する <span class="glyphicon glyphicon-chevron-right"></span></button>
+				</div>
 		</div>
 
 	</form>
 
 
-   </main>
-  <footer class="text-center text-muted py-4">
-  	<hr>
-  	hoppy2
-  </footer>
+	</main>
+	<footer class="text-center text-muted py-4">
+		<hr>
+		hoppy2
+	</footer>
 
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
-  </body>
+	</body>
 </html>

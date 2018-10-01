@@ -2,6 +2,7 @@ package jp.co.ixui.scheduleadjustment.controller.event;
 
 public class SearchForm {
 
+
 	private String hostNum;
 	private String hostName;
 	private String categoryNum;

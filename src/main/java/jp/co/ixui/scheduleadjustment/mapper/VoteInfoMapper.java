@@ -14,5 +14,6 @@ public interface VoteInfoMapper {
 
 	void voteDay(List<VoteInfo> voteInfo);
 	void voteDelete(int id);
+	List<VoteInfo> getParticipant(int id);
 
 }

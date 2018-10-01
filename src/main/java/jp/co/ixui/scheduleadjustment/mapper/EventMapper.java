@@ -27,6 +27,7 @@ public interface EventMapper {
 	void candidateDelete(Event event);
 	void commentDelete(Event event);
 	void eventDelete(Event event);
+	Event getEventRegistId();
 
 }
 

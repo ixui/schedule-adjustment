@@ -1,7 +1,10 @@
 package jp.co.ixui.scheduleadjustment.controller.event;
 
+import javax.validation.constraints.NotEmpty;
+
 public class CommentForm {
 
+	@NotEmpty(message="コメントを入力してください")
 	private String participantComment;
 	private int eventId;
 
