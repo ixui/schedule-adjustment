@@ -2,23 +2,51 @@ package jp.co.ixui.scheduleadjustment.controller.event;
 
 import javax.validation.constraints.NotEmpty;
 
+import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.CheckDate;
+import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.Future;
+import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.Period;
+
+@Period(fieldFrom="startDay", fieldTo="endDay")
+
 public class EventRegistForm {
 
 	@NotEmpty(message="イベント名を入力してください")
 	private String eventName;
+	
+	
 	@NotEmpty(message="カテゴリを選択してください")
 	private String categoryId;
+	
+	
 	@NotEmpty(message="開催場所を入力してください")
 	private String place;
+	
+	
 	@NotEmpty(message="コメントを入力してください")
 	private String hostComment;
+	
+	@CheckDate
+	@Future
 	@NotEmpty(message="開催日の始めを入力してください　　　　")
 	private String  startDay;
+	
+	@CheckDate
 	@NotEmpty(message="開催日の終わりを入力してください")
 	private String endDay;
+	
+	
 	private int eventId;
+	
+	
+	private String hostNum;
 
 
+	public String getHostNum() {
+		return hostNum;
+	}
+	public void setHostNum(String hostNum) {
+		this.hostNum = hostNum;
+	}
 	public int getEventId() {
 		return eventId;
 	}

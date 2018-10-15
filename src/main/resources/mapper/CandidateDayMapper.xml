@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.ixui.scheduleadjustment.mapper.CandidateDayMapper">
 	<select id="selectCandidateDay" resultType="VoteInfo">
 		select
 			candidate_day.candidate_day,employee_master.emp_name,candidate_day.event_id
+			,vote_info.vote_emp_num
 		from
 			candidate_day
 		left join
@@ -22,11 +23,29 @@
 			candidate_day.event_id = #{id}
 		order by
 			candidate_day.candidate_day,employee_master.emp_num
-  </select>
+	</select>
+	
+	<select id="selectDayAndNum" resultType="VoteInfo">
+		select
+			candidate_day.candidate_day,vote_info.vote_emp_num
+		from
+			candidate_day
+		left join
+			vote_info
+		on
+			candidate_day.event_id = vote_info.event_id
+		and
+			candidate_day.candidate_day = vote_info.candidate_day
+		where
+			candidate_day.event_id = #{id}
+		order by
+			candidate_day.candidate_day
+	</select>
+	
 
 
 
-  	<insert id="candidateDay" parameterType="java.util.List" >
+		<insert id="candidateDay" parameterType="java.util.List" >
 		insert
 		into candidate_day(event_id,candidate_day)
 		values

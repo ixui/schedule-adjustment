@@ -1,14 +1,13 @@
 package jp.co.ixui.scheduleadjustment.controller.event;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.co.ixui.scheduleadjustment.controller.login.SignupForm;
 import jp.co.ixui.scheduleadjustment.domain.Category;
+import jp.co.ixui.scheduleadjustment.domain.Checked;
 import jp.co.ixui.scheduleadjustment.domain.Comment;
 import jp.co.ixui.scheduleadjustment.domain.Emp;
 import jp.co.ixui.scheduleadjustment.domain.Event;
@@ -25,12 +26,14 @@ import jp.co.ixui.scheduleadjustment.domain.Search;
 import jp.co.ixui.scheduleadjustment.service.EventService;
 
 
-@Transactional
+
 @Controller
 public class EventController {
 
 	@Autowired
 	EventService eventService;
+	@Autowired
+	HttpSession session;
 
 	public static Logger log = LoggerFactory.getLogger(EventController.class);
 
@@ -40,13 +43,14 @@ public class EventController {
 	 * @param mav
 	 * @return mav
 	 */
-	@RequestMapping(value="/eventlist" ,method = RequestMethod.GET)
-	public ModelAndView index(ModelAndView mav){
+	@RequestMapping(value="/eventlists" ,method = RequestMethod.GET)
+	public ModelAndView eventlist(ModelAndView mav){
 		List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
 		List<Event> eventListDevision = this.eventService.getEventListDevision();
 		List<Event> eventListEnd = this.eventService.getEventListEnd();
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Emp> empList = this.eventService.getEmpList();
+	
 		mav.setViewName("eventlist");
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("empList", empList);
@@ -71,15 +75,15 @@ public class EventController {
 			BindingResult result,
 			ModelAndView mav){
 		if (result.hasErrors()) {
+			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
 			List<Category> categoryList = this.eventService.getCategoryList();
+			mav.addObject("empInfo",user);
 			mav.addObject("categoryList", categoryList);
 			mav.setViewName("eventregist");
 			return mav;
 		}
 		
 		this.eventService.createEvent(eventregistForm);
-		EventRegistForm eventRegistId = this.eventService.getEventRegistId(eventregistForm);
-		this.eventService.candidateDay(eventRegistId);
 		
 		List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
 		List<Event> eventListDevision = this.eventService.getEventListDevision();
@@ -93,6 +97,7 @@ public class EventController {
 		mav.addObject("eventListDevision", eventListDevision);
 		mav.addObject("eventListEnd", eventListEnd);
 		mav.addObject("formModel", new SearchForm());
+		mav.addObject("dbregist","success");
 		mav.setViewName("eventlist");
 		
 		return mav;
@@ -108,8 +113,25 @@ public class EventController {
 	 * @return mav
 	 */
 	@RequestMapping(value="/eventlist" ,method = RequestMethod.POST)
-	public ModelAndView search(ModelAndView mav ,@ModelAttribute("formModel") SearchForm searchForm,
+	public ModelAndView search(ModelAndView mav ,@ModelAttribute("formModel") @Validated SearchForm searchForm,
 			BindingResult result){
+		if (result.hasErrors()) {
+			List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
+			List<Event> eventListDevision = this.eventService.getEventListDevision();
+			List<Event> eventListEnd = this.eventService.getEventListEnd();
+			List<Category> categoryList = this.eventService.getCategoryList();
+			List<Emp> empList = this.eventService.getEmpList();
+
+			mav.setViewName("eventlist");
+			mav.addObject("categoryList", categoryList);
+			mav.addObject("empList", empList);
+			mav.addObject("eventListNotDevision", eventListNotDevision);
+			mav.addObject("eventListDevision", eventListDevision);
+			mav.addObject("eventListEnd", eventListEnd);
+
+			return mav;
+		}
+		
 		List<Event> eventListNotDevision = this.eventService.getEventListNotDevision(searchForm);
 		List<Event> eventListDevision = this.eventService.getEventListDevision(searchForm);
 		List<Event> eventListEnd = this.eventService.getEventListEnd(searchForm);
@@ -139,9 +161,11 @@ public class EventController {
 	public ModelAndView eventdetalis(ModelAndView mav, @RequestParam int id){
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(id);
 		List<Category> categoryList = this.eventService.getCategoryList();
-		Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(id);
+		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(id,user);
 		List<Comment> commentList = this.eventService.getCommentList(id);
 
+		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
@@ -169,8 +193,11 @@ public class EventController {
 		if (result.hasErrors()){
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(commentForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
-			Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(commentForm.getEventId());
 			List<Comment> commentList = this.eventService.getCommentList(commentForm.getEventId());
+			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(commentForm.getEventId(),user);
+			
+			mav.addObject("empInfo",user);			
 			mav.setViewName("eventdetails");
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
@@ -180,40 +207,14 @@ public class EventController {
 			mav.addObject("eventModel",new EventRegistForm());
 			return mav;
 			}
-			
-			this.eventService.commentRegist(commentForm);
+			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			this.eventService.commentRegist(commentForm,user);
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(commentForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
-			Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(commentForm.getEventId());
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(commentForm.getEventId(),user);
 			List<Comment> commentList = this.eventService.getCommentList(commentForm.getEventId());
-			mav.setViewName("eventdetails");
-			mav.addObject("categoryList", categoryList);
-			mav.addObject("eventListToId", eventListToId);
-			mav.addObject("voteinfoList", voteinfoList);
-			mav.addObject("commentList", commentList);
-			mav.addObject("commentModel", new CommentForm());
-			mav.addObject("voteModel",new VoteForm());
-			mav.addObject("eventModel",new EventRegistForm());
-		return mav;
-	}
-
-	/**
-	 * イベント詳細（ポスト）
-	 * 
-	 * @param eventForm
-	 * @param result
-	 * @param mav
-	 * @return mav
-	 */
-	@RequestMapping(value="/eventdetails" ,method = RequestMethod.POST)
-	public ModelAndView eventreturn(@ModelAttribute EventRegistForm eventForm,
-			BindingResult result,
-			ModelAndView mav){
-			this.eventService.detailsRedisplay(eventForm);
-			List<Event> eventListToId = this.eventService.getEventListeventListToId(eventForm.getEventId());
-			List<Category> categoryList = this.eventService.getCategoryList();
-			Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(eventForm.getEventId());
-			List<Comment> commentList = this.eventService.getCommentList(eventForm.getEventId());
+			
+			mav.addObject("empInfo",user);
 			mav.setViewName("eventdetails");
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
@@ -223,7 +224,7 @@ public class EventController {
 			mav.addObject("voteModel",new VoteForm());
 			mav.addObject("eventModel",new EventRegistForm());
 			
-			return  mav;
+		return mav;
 	}
 
 	/**
@@ -240,8 +241,11 @@ public class EventController {
 		if (result.hasErrors()) {
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
-			Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId());
 			List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
+			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId(),user);
+			
+			mav.addObject("empInfo",user);
 			mav.setViewName("eventdetails");
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
@@ -255,8 +259,11 @@ public class EventController {
 		this.eventService.decidedDay(voteForm);
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
-		Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId());
 		List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
+		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId(),user);
+		
+		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
@@ -265,6 +272,7 @@ public class EventController {
 		mav.addObject("commentModel", new CommentForm());
 		mav.addObject("voteModel",new VoteForm());
 		mav.addObject("eventModel",new EventRegistForm());
+		mav.addObject("dbregist","success");
 		return mav;
 	}
 
@@ -279,11 +287,14 @@ public class EventController {
 	@RequestMapping(value="/voteregist",method = RequestMethod.POST)
 	public ModelAndView vote(ModelAndView mav ,@ModelAttribute VoteForm voteForm,
 			BindingResult result){
-		this.eventService.voteDay(voteForm);
+		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		this.eventService.voteDay(voteForm,user);
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
-		Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId());
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId(),user);
 		List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
+		
+		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
@@ -292,6 +303,7 @@ public class EventController {
 		mav.addObject("commentModel", new CommentForm());
 		mav.addObject("voteModel",new VoteForm());
 		mav.addObject("eventModel",new EventRegistForm());
+		mav.addObject("dbregist","success");
 		return mav;
 	}
 
@@ -309,8 +321,11 @@ public class EventController {
 		if (result.hasErrors()) {
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(eventregistForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
-			Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId());
 			List<Comment> commentList = this.eventService.getCommentList(eventregistForm.getEventId());
+			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId(),user);
+			
+			mav.addObject("empInfo",user);
 			mav.setViewName("eventdetails");
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
@@ -326,8 +341,11 @@ public class EventController {
 		this.eventService.candidateUpdate(eventregistForm);
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(eventregistForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
-		Map<Date, String> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId());
 		List<Comment> commentList = this.eventService.getCommentList(eventregistForm.getEventId());
+		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId(),user);
+		
+		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
@@ -336,6 +354,7 @@ public class EventController {
 		mav.addObject("commentModel", new CommentForm());
 		mav.addObject("voteModel",new VoteForm());
 		mav.addObject("eventModel",new EventRegistForm());
+		mav.addObject("dbregist","success");
 		return mav;
 	}
 
@@ -364,6 +383,7 @@ public class EventController {
 		mav.addObject("eventListDevision", eventListDevision);
 		mav.addObject("eventListEnd", eventListEnd);
 		mav.addObject("formModel", new SearchForm());
+		mav.addObject("dbregist","success");
 
 		return mav;
 	}
@@ -377,6 +397,8 @@ public class EventController {
 	@RequestMapping(value="/eventregist",method=RequestMethod.GET)
 	public ModelAndView eventregist(ModelAndView mav){
 		List<Category> categoryList = this.eventService.getCategoryList();
+		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		mav.addObject("empInfo",user);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("formModel", new EventRegistForm());
 		mav.setViewName("eventregist");

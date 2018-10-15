@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.ixui.scheduleadjustment.mapper.EmployeeMapper">
-	  <insert id="createEmp" >
-		    insert
-		    into employee_master(emp_num,emp_name,mail_adress,password)
-		    values(#{empNum},#{empName},#{mailAddress},#{passWord})
-	  </insert>
+		<insert id="createEmp" >
+				insert
+				into employee_master(emp_num,emp_name,mail_adress,password)
+				values(#{empNum},#{empName},#{mailAddress},#{passWord})
+		</insert>
 
 	<select id="selectEmpName" resultType="Emp">
 			select  employee_master.emp_num,employee_master.emp_name
-	    	from employee_master
-	    	order by employee_master.emp_num
+				from employee_master
+				order by employee_master.emp_num
+	</select>
+	<select id="selectUser" resultType="Emp">
+		SELECT * FROM employee_master WHERE employee_master.emp_num = #{empNum}
 	</select>
 </mapper>

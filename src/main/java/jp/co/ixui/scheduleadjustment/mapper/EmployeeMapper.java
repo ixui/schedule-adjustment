@@ -13,4 +13,5 @@ public interface EmployeeMapper {
 
 	List<Emp> selectEmpName();
 	void  createEmp (Emp emp);
+	Emp selectUser(String empNum);
 }

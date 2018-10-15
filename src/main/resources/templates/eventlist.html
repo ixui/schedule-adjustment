@@ -14,14 +14,14 @@
 		<title>hoppy2イベント一覧</title>
 
 	</head>
-	<body onLoad="setName();setCategory()">
+	<body onLoad="setName();setCategory()" th:onLoad="'Completion(\'' + ${dbregist} + '\');'">
 
 
 	<header>
 	<div align="right">
 		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧 </button>
 		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
-		<button type="button" class="btn btn-info mr-3" onclick="location.href='/'">ログアウト</button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='/logout'">ログアウト</button>
 		</div>
 	</header>
 	<main>
@@ -37,11 +37,12 @@
 	<div id="modal-content">
 		<!-- モーダルウィンドウのコンテンツ開始 -->
 		<h1 class="text-center mb-5 mt-5 title">絞込み検索</h1>
-		<form action="/eventlist" method="post"  th:object="${formModel}">
+		<form action="/eventlist" method="post"  th:object="${formModel}" name="search">
+			<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
 			<div class="row pb-2">
 					<div class="col-sm-2 labelh">主催者</div>
 					<div class="col-sm-10 form-inline " style="padding: 3px;">
-							<select class="form-control input-sm " id="hostNum" name="hostNum" onchange="setName()">
+							<select class="form-control input-sm " id="hostNum" name="hostNum" onchange="setName()" autofocus>
 								<option value="" selected="selected">選択してください</option>
 						<option th:each="emplist : ${empList}"  th:value="${emplist.empNum}" th:field="*{hostNum}">[[${emplist.empName}]]</option>
 					</select>

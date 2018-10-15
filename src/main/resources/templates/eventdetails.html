@@ -12,7 +12,7 @@
 		<title>hoppy2イベント詳細</title>
 
 	</head>
-	<body>
+	<body th:onLoad="'Completion(\'' + ${dbregist} + '\');'" >
 
 	<header>
 	<div align="right">
@@ -22,113 +22,166 @@
 		</div>
 	</header>
 	<main>
-		<h1 class="text-center mb-5 mt-5 title">イベント詳細</h1>
-		<form th:each="eventid : ${eventListToId}" action="" method="post" id="eventform" name="eventform" th:object="${eventModel}">
-	<div class="ditailsbuttons">
-		<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} eq null">
-				<button type="submit" class="btn btn-success mr-3 ditailsbutton" onclick="updateEvent()">変更する</button>
-					<button type="submit" class="btn btn-success ditailsbutton" onclick="deleteEvent()">削除する</button>
-		</div>
-		<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} neq null">
-				<button type="button" class="btn btn-success mr-3 ditailsbutton" onclick="updateEvent()" disabled="disabled">変更する</button>
-					<button type="button" class="btn btn-success ditailsbutton" onclick="deleteEvent()" disabled="disabled">削除する</button>
-		</div>
-
-		</div>
-
-		<div class="container">
-			<p class=" label" >主催者：<span th:text="${eventid.empName}" th:value="${eventid.empNum}"></span> さん</p>
-				<div class="row ">
-					<div class="col-sm-4 label ">イベント名</div>
-					<div class="col-sm-8 form-inline " style="padding: 3px;">
-							<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="${eventid.eventName}">
-					</div>
-					<div th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:errorclass="err" ></div>
+	<h1 class="text-center mb-5 mt-5 title">イベント詳細</h1>
+	
+	
+	<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} eq ${empInfo.empNum}">
+		<form th:each="eventid : ${eventListToId}" action="" method="post" id="eventform" name="eventForm" th:object="${eventModel}">
+			<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${eventModel}" th:errorclass="err"></div>
+			<div class="ditailsbuttons">
+				<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} eq null">
+						<button type="submit" class="btn btn-success mr-3 ditailsbutton" onclick="return updateEvent();">変更する</button>
+							<button type="submit" class="btn btn-success ditailsbutton" onclick="return deleteEvent();">削除する</button>
 				</div>
-				<div class="row ">
-					<div class="col-sm-4 label ">カテゴリ</div>
-					<div class="col-sm-8 form-inline " style="padding: 3px;">
+				<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} neq null">
+						<button type="button" class="btn btn-success mr-3 ditailsbutton" onclick="updateEvent()" disabled="disabled">変更する</button>
+							<button type="button" class="btn btn-success ditailsbutton" onclick="deleteEvent()" disabled="disabled">削除する</button>
+				</div>
+		
+				</div>
+	
+			<div class="container">
+				<p class=" label" >主催者：<span th:text="${eventid.empName}" th:value="${eventid.empNum}"></span>さん</p>
+					<div class="row ">
+						<div class="col-sm-4 label ">イベント名</div>
+						<div class="col-sm-3 " style="padding: 3px;">
+								<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="${eventid.eventName}" th:errorclass="err" autofocus>
+								<div th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:errorclass="err" ></div>
+						</div>
+						
+					</div>
+					<div class="row ">
+						<div class="col-sm-4 label ">カテゴリ</div>
+						<div class="col-sm-3 " style="padding: 3px;">
 							<select class="form-control input-sm " id="category" name="categoryId">
 								<option  selected="selected" th:text="${eventid.categoryName}" th:value="${eventid.categoryId}"></option>
-								<option th:each="categorylist : ${categoryList}" th:if="${categorylist.categoryName} neq ${eventid.categoryName}" th:value="${categorylist.categoryId}" th:field="*{categoryId}">[[${categorylist.categoryName}]]</option>
-					</select>
+								<option th:each="categorylist : ${categoryList}" th:if="${categorylist.categoryName} neq ${eventid.categoryName}" th:value="${categorylist.categoryId}" th:field="*{categoryId}" th:errorclass="err">[[${categorylist.categoryName}]]</option>
+							</select>
+							<div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" th:errorclass="err" ></div>
+						</div>
+						
 					</div>
-					<div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" th:errorclass="err" ></div>
-				</div>
-				<div class="row ">
-					<div class="col-sm-4 label">開催場所</div>
-					<div class="col-sm-8 form-inline " style="padding: 3px;">
-							<input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="${eventid.place}">
+					<div class="row ">
+						<div class="col-sm-4 label">開催場所</div>
+						<div class="col-sm-3 " style="padding: 3px;">
+								<input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="${eventid.place}" th:errorclass="err">
+								<div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" th:errorclass="err" ></div>
+						</div>
 					</div>
-					<div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" th:errorclass="err" ></div>
+					<div class="row ">
+						<div class="col-sm-4 label">候補日</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;" >
+								<input type="date" class="form-control input-sm " id="startday" name="startDay" size="20"  th:each="voteinfo,candidateday: ${voteinfoList}" 
+								th:if="${candidateday.first}" th:value="${#dates.format(voteinfo.candidateDay, 'yyyy-MM-dd')}" th:errorclass="err">
+								　　　から　　　
+								<input type="date" class="form-control input-sm " id="endday" name="endDay" size="20" th:each="voteinfo,candidateday: ${voteinfoList}" 
+								th:if="${candidateday.last}" th:value="${#dates.format(voteinfo.candidateDay, 'yyyy-MM-dd')}" th:errorclass="err">
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-sm-4 label"></div>
+						<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+								<div th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}" th:errorclass="err"></div>
+								<div th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}" th:errorclass="err"></div>
+						</div>
+					</div>
 					
-				</div>
-				<div class="row ">
-					<div class="col-sm-4 label">候補日</div>
-					<div class="col-sm-8 form-inline " style="padding: 3px;" >
-							<input type="date" class="form-control input-sm " id="startday" name="startDay" size="20"  th:each="voteinfo,candidateday: ${voteinfoList}" 
-							th:if="${candidateday.first}" th:value="${#dates.format(voteinfo.key, 'yyyy-MM-dd')}" >
-							　　　から　　　
-							<input type="date" class="form-control input-sm " id="endday" name="endDay" size="20" th:each="voteinfo,candidateday: ${voteinfoList}" 
-							th:if="${candidateday.last}" th:value="${#dates.format(voteinfo.key, 'yyyy-MM-dd')}" >
+					<div class="row ">
+						<div class="col-sm-4 label">開催日</div>
+	
+						<div class="col-sm-8 form-inline " style="padding: 3px;">[[${#dates.format(eventid.decisionDay, 'yyyy/MM/dd')}?: '決まってません']]</div>
 					</div>
-					<div th:if="${#fields.hasErrors('place')}" th:errors="*{startDay}" th:errorclass="err" ></div>
-					<div th:if="${#fields.hasErrors('place')}" th:errors="*{endDay}" th:errorclass="err" ></div>
-				</div>
-				<div class="row ">
-					<div class="col-sm-4 label">開催日</div>
-
-					<div class="col-sm-8 form-inline " style="padding: 3px;">[[${#dates.format(eventid.decisionDay, 'yyyy/MM/dd')}?: '決まってません']]</div>
-				</div>
-				<div class="row ">
-					<div class="col-sm-4 label ">コメント</div>
-					<div class="col-sm-8  " style="padding: 3px;">
-							<textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60" th:text="${eventid.hostComment}" th:field="*{hostComment}">
-							</textarea>
+					
+					<div class="row ">
+						<div class="col-sm-4 label">コメント</div>
+						<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+								<textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60"  th:text="${eventid.hostComment}" th:value="*{hostComment}" th:errorclass="err"></textarea>
+	
+						</div>
 					</div>
-					<div th:if="${#fields.hasErrors('hostComment')}" th:errors="*{hostComment}" th:errorclass="err" ></div>
-				</div>
-				<input type="hidden" name="eventId" th:value="${eventid.eventId}">
-
-		</div>
-
-	</form>
+					<div class="row ">
+						<div class="col-sm-4 label"></div>
+						<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+								<div th:if="${#fields.hasErrors('hostComment')}" th:errors="*{hostComment}" th:errorclass="err"></div>
+						</div>
+					</div>
+					<input type="hidden" name="eventId" th:value="${eventid.eventId}">
+			</div>
+		</form>
+	</div>
+	
+	<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} neq ${empInfo.empNum}">
+		<form th:each="eventid : ${eventListToId}">
+			<div class="container">
+				<p class=" label">主催者：<span th:text="${eventid.empName}" th:value="${eventid.empNum}"></span>さん</p>
+				<div class="row ">
+						<div class="col-sm-4 label">イベント名</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;" th:text="${eventid.eventName}"></div>
+					</div>
+					<div class="row ">
+						<div class="col-sm-4 label">カテゴリ</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;" th:text="${eventid.categoryName}"></div>
+					</div>
+				<div class="row ">
+						<div class="col-sm-4 label">開催場所</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;" th:text="${eventid.place}"></div>
+					</div>
+					<div class="row ">
+						<div class="col-sm-4 label">候補日</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;"  >
+						<span th:each="voteinfo,candidateday: ${voteinfoList}" th:if="${candidateday.first}" th:text="${#dates.format(voteinfo.candidateDay, 'yyyy/MM/dd')}"></span>　　　から　　　  
+						<span th:each="voteinfo,candidateday: ${voteinfoList}" th:if="${candidateday.last}" th:text="${#dates.format(voteinfo.candidateDay, 'yyyy/MM/dd')}"></span></div>
+					</div>
+					<div class="row ">
+						<div class="col-sm-4 label">開催日</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;">[[${#dates.format(eventid.decisionDay, 'yyyy/MM/dd')}?: '決まってません']]</div>
+					</div>
+					<div class="row ">
+						<div class="col-sm-4 label">コメント</div>
+						<div class="col-sm-8 form-inline " style="padding: 3px;" th:text="${eventid.hostComment}"></div>
+					</div>
+			</div>
+		</form>
+	</div>
 
 
 	<table cellspacing="0">
 		<tr style="vertical-align:top;">
 			<td id="leftframe">
 				<h1 class="text-center mb-5 mt-5 title">みんなの投票</h1>
-				<form class="sdform" action="eventditailsdecide" method="post" id="voteform" name="voteform" th:object="${voteModel}">
-					<div class="selectday" th:each="voteinfo : ${voteinfoList}" >
-						<input type="radio" name="voteDay" th:value="${voteinfo.key}" class="mb-5" th:field="*{voteDay}"> [[${#dates.format(voteinfo.key, 'yyyy/MM/dd')}]]
-						<span >：　[[${voteinfo.value}]]</span>
-						<input type="hidden" name="eventId" th:each="eventid : ${eventListToId}" th:value="${eventid.eventId}">
+				<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} eq ${empInfo.empNum}">
+					<form class="sdform" action="eventditailsdecide" method="post" id="voteform" name="voteform" th:object="${voteModel}">
+						<div class="selectday" th:each="voteinfo : ${voteinfoList}" >
+							<input type="radio" name="voteDay" th:value="${voteinfo.candidateDay}" class="mb-5" th:field="*{voteDay}"> [[${#dates.format(voteinfo.candidateDay, 'yyyy/MM/dd')}]]
+							<span >：　[[${voteinfo.voteEmpName}]]</span>
+							<input type="hidden" name="eventId" th:each="eventid : ${eventListToId}" th:value="${eventid.eventId}">
+							</div>
+							<div th:if="${#fields.hasErrors('voteDay')}" th:errors="*{voteDay}" th:errorclass="err" ></div>
+							<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} eq null">
+								<button type="submit" class="btn btn-success mb-5 mt-3 " onclick="return voteRegist();">決定する <span class="glyphicon glyphicon-chevron-right"></span></button>
+							</div>
+							<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} neq null">
+								<button type="button" class="btn btn-success mb-5 mt-3 " onclick="voteRegist()" disabled="disabled">決定する <span class="glyphicon glyphicon-chevron-right" ></span></button>
+							</div>
+					</form>
+				</div>
+
+				<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} neq ${empInfo.empNum}">
+					<form class="sdform" action="voteregist" method="post" id="voteform" name="voteform">
+						<div class="selectday" th:each="voteinfo : ${voteinfoList}">
+								<input type="checkbox" name="voteDay" th:value="${voteinfo.candidateDay}" class="mb-5" th:checked="${voteinfo.check}"> [[${#dates.format(voteinfo.candidateDay, 'yyyy/MM/dd')}]]
+								<span >：　[[${voteinfo.voteEmpName}]]</span>
+								<input type="hidden" name="eventId" th:each="eventid : ${eventListToId}" th:value="${eventid.eventId}">
+
 						</div>
-						<div th:if="${#fields.hasErrors('voteDay')}" th:errors="*{voteDay}" th:errorclass="err" ></div>
 						<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} eq null">
-							<button type="submit" class="btn btn-success mb-5 mt-3 " onclick="voteRegist()">決定する <span class="glyphicon glyphicon-chevron-right"></span></button>
-						</div>
-						<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} neq null">
-							<button type="button" class="btn btn-success mb-5 mt-3 " onclick="voteRegist()" disabled="disabled">決定する <span class="glyphicon glyphicon-chevron-right" ></span></button>
-						</div>
-				</form>
-
-
-				<form class="sdform" action="voteregist" method="post" id="voteform" name="voteform">
-					<div class="selectday" th:each="voteinfo : ${voteinfoList}" >
-						<input type="checkbox" name="voteDay" th:value="${voteinfo.key}" class="mb-5"> [[${#dates.format(voteinfo.key, 'yyyy/MM/dd')}]]
-						<span >：　[[${voteinfo.value}]]</span>
-						<input type="hidden" name="eventId" th:each="eventid : ${eventListToId}" th:value="${eventid.eventId}">
-
-						</div>
-						<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} eq null">
-							<button type="submit" class="btn btn-success mb-5 mt-3 " onclick="newVote()">投票する <span class="glyphicon glyphicon-chevron-right"></span></button>
+							<button type="submit" class="btn btn-success mb-5 mt-3 " onclick="return newVote();">投票する <span class="glyphicon glyphicon-chevron-right"></span></button>
 						</div>
 						<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} neq null">
 							<button type="button" class="btn btn-success mb-5 mt-3 " onclick="newVote()" disabled="disabled">投票する <span class="glyphicon glyphicon-chevron-right" ></span></button>
 						</div>
-				</form>
+					</form>
+				</div>
 			</td>
 
 

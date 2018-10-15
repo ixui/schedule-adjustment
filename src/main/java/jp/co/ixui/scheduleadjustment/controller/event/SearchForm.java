@@ -1,5 +1,10 @@
 package jp.co.ixui.scheduleadjustment.controller.event;
 
+import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.CheckDate;
+import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.Period;
+
+@Period(fieldFrom="startDay", fieldTo="endDay")
+
 public class SearchForm {
 
 
@@ -7,7 +12,13 @@ public class SearchForm {
 	private String hostName;
 	private String categoryNum;
 	private String categoryName;
+	
+	@CheckDate
 	private String startDay;
+	
+	@CheckDate
+	private String endDay;
+	private String sort;
 
 	public String getHostNum() {
 		return hostNum;
@@ -53,6 +64,5 @@ public class SearchForm {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	private String endDay;
-	private String sort;
+	
 }

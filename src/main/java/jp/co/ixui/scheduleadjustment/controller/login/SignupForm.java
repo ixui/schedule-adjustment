@@ -3,21 +3,45 @@ package jp.co.ixui.scheduleadjustment.controller.login;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import jp.co.ixui.scheduleadjustment.controller.login.validator.annotation.PasswordEquals;
+import jp.co.ixui.scheduleadjustment.controller.login.validator.annotation.UserExists;
+
+
+
+@UserExists
+@PasswordEquals(fieldPass="passWord", fieldConfirmPass="passWords")
 public class SignupForm {
 
 	@NotEmpty(message="社員番号を入力してください")
 	private String empNum;
+	
+	
 	@NotEmpty(message="お名前を入力してください")
 	private String empName;
+	
+	
 	@NotEmpty(message="メールアドレスを入力してください")
 	@Email(message="メールアドレスの形式にしてください")
 	private String mailAddress;
+	
+	
 	@NotEmpty(message="パスワードを入力してください")
 	private String passWord;
+	
+	
 	@NotEmpty(message="確認用パスワードを入力してください")
 	private String passWords;
 
 
+	public SignupForm() {
+		
+	}
+	
+	public SignupForm(String empNum, String empName) {
+		this.empNum = empNum;
+		this.empName = empName;
+	}
+	
 	public String getEmpNum() {
 		return empNum;
 	}

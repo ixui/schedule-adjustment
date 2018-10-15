@@ -8,9 +8,8 @@ public class VoteForm {
 	private String voteDay;
 	private String participantId;
 	private int eventId;
-
-
-
+	
+	
 	public String getVoteDay() {
 		return voteDay;
 	}
@@ -29,4 +28,8 @@ public class VoteForm {
 	public void setEventId(int eventId) {
 		this.eventId = eventId;
 	}
+
+
+
+
 }

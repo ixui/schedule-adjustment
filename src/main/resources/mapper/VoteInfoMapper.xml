@@ -21,7 +21,7 @@
 		where
 			vote_info.event_id = #{eventId}
 		and
-			vote_info.vote_emp_num = '294'
+			vote_info.vote_emp_num = #{empNum}
 	</delete>
 	
 	<select id="getParticipant" resultType="VoteInfo">

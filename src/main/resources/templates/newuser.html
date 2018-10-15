@@ -1,97 +1,98 @@
 <!doctype html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
-  <body>
+	<body>
 
-  <header></header>
-  <main>
+	<header></header>
+	<main>
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="/css/hoppy2.css" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 	<script src="/js/hoppy2.js"></script>
-    <title>hoppy2新規ユーザー登録</title>
+		<title>hoppy2新規ユーザー登録</title>
 
-  </head>
-  <body>
+	</head>
+	<body onLoad="document.newUser.empNum.focus()">
 
-  <header></header>
-  <main>
-  	<h1 class="text-center mb-5 mt-5 title">新規ユーザー登録</h1>
-
-	<form action="/userregisted" method="post" th:object="${formModel}">
+	<header></header>
+	<main>
+		<h1 class="text-center mb-5 mt-5 title">新規ユーザー登録</h1>
+	
+	<form action="/userregisted" method="post" th:object="${formModel}" name="newUser">
 		<div class="container">
-  			<div class="row ">
-  				<div class="col-sm-4 labeluser"></div>
-    			<div class="col-sm-2 labelh">社員番号</div>
-    			<div class="col-sm-3  " style="padding: 6px;">
-     				 <input type="text" class="form-control input-sm " name="empNum"  th:value="*{empNum}" th:errorclass="err" />
-     				 <p th:if="${#fields.hasErrors('empNum')}" th:errors="*{empNum}" th:errorclass="err"></p>
-     			</div>
+		<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
+				<div class="row ">
+					<div class="col-sm-4 labeluser"></div>
+					<div class="col-sm-2 labelh">社員番号</div>
+					<div class="col-sm-3  " style="padding: 6px;">
+							<input type="text" class="form-control input-sm " name="empNum"  th:value="*{empNum}" th:errorclass="err" />
+							<p th:if="${#fields.hasErrors('empNum')}" th:errors="*{empNum}" th:errorclass="err"></p>
+					</div>
 
 
- 			 </div>
- 			 <div class="row ">
- 				<div class="col-sm-4 labeluser"></div>
-    			<div class="col-sm-2 labelh">お名前</div>
-    			<div class="col-sm-3" style="padding: 6px;">
-     				 <input type="text" class="form-control input-sm " name="empName"    th:value="*{empName}" th:errorclass="err" />
-     				 <div  th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}" th:errorclass="err"></div>
-     			</div>
+				</div>
+				<div class="row ">
+				<div class="col-sm-4 labeluser"></div>
+					<div class="col-sm-2 labelh">お名前</div>
+					<div class="col-sm-3" style="padding: 6px;">
+							<input type="text" class="form-control input-sm " name="empName"    th:value="*{empName}" th:errorclass="err" />
+							<div  th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}" th:errorclass="err"></div>
+					</div>
 
 
 
- 			 </div>
- 			 <div class="row ">
- 				<div class="col-sm-4 labeluser"></div>
-    			<div class="col-sm-2 labelh">メールアドレス</div>
-    			<div class="col-sm-3 " style="padding: 6px;">
-     				 <input type="address" class="form-control input-sm " name="mailAddress"  th:value="*{mailAddress}" th:errorclass="err" />
-     				  <p th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" th:errorclass="err"></p>
-    			</div>
- 			 </div>
- 			 <div class="row ">
- 			  	<div class="col-sm-4 labeluser"></div>
-    			<div class="col-sm-2 labelh">パスワード</div>
-    			<div class="col-sm-3  " style="padding: 6px;">
-     				 <input type="password" class="form-control input-sm " name="passWord" th:field="*{passWord}" th:errorclass="err" />
-     				  <p th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}" th:errorclass="err"></p>
-    			</div>
- 			 </div>
- 			  <div class="row ">
-  			  	<div class="col-sm-4 labeluser"></div>
-    			<div class="col-sm-2 labelh">パスワード（確認用）</div>
-    			<div class="col-sm-3  " style="padding: 6px;">
-     				 <input type="password" class="form-control input-sm " name="passWords" th:field="*{passWords}"   th:errorclass="err" />
-     				  <p th:if="${#fields.hasErrors('passWords')}" th:errors="*{passWords}" th:errorclass="err"></p>
-    			</div>
- 			 </div>
- 			<div class="text-center" style="padding: 30px;">
-    			<button type="submit" class="btn btn-success mr-5" onclick="newUser()">登録する <span class="glyphicon glyphicon-chevron-right"></span></button>
+				</div>
+				<div class="row ">
+				<div class="col-sm-4 labeluser"></div>
+					<div class="col-sm-2 labelh">メールアドレス</div>
+					<div class="col-sm-3 " style="padding: 6px;">
+							<input type="address" class="form-control input-sm " name="mailAddress"  th:value="*{mailAddress}" th:errorclass="err" />
+							<p th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" th:errorclass="err"></p>
+					</div>
+				</div>
+				<div class="row ">
+					<div class="col-sm-4 labeluser"></div>
+					<div class="col-sm-2 labelh">パスワード</div>
+					<div class="col-sm-3  " style="padding: 6px;">
+							<input type="password" class="form-control input-sm " name="passWord" th:field="*{passWord}" th:errorclass="err" />
+							<p th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}" th:errorclass="err"></p>
+					</div>
+				</div>
+				<div class="row ">
+						<div class="col-sm-4 labeluser"></div>
+					<div class="col-sm-2 labelh">パスワード（確認用）</div>
+					<div class="col-sm-3  " style="padding: 6px;">
+							<input type="password" class="form-control input-sm " name="passWords" th:field="*{passWords}"   th:errorclass="err" />
+							<p th:if="${#fields.hasErrors('passWords')}" th:errors="*{passWords}" th:errorclass="err"></p>
+					</div>
+				</div>
+			<div class="text-center" style="padding: 30px;">
+					<button type="submit" class="btn btn-success mr-5" onclick="return newUser();">登録する <span class="glyphicon glyphicon-chevron-right"></span></button>
 
-    			<button type="button" class="btn btn-info" onclick="location.href='/'">キャンセル <span class="glyphicon glyphicon-chevron-right"></span></button>
-  			</div>
+					<button type="button" class="btn btn-info" onclick="location.href='/'">キャンセル <span class="glyphicon glyphicon-chevron-right"></span></button>
+				</div>
 		</div>
 
 	</form>
 
 
-   </main>
-  <footer class="text-center text-muted py-4">
-  	<hr>
-  	hoppy2
-  </footer>
+	</main>
+	<footer class="text-center text-muted py-4">
+		<hr>
+		hoppy2
+	</footer>
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 
-  </body>
+	</body>
 </html>

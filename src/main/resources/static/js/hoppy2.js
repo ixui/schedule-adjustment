@@ -30,50 +30,60 @@ function setCategory() {
 }
 
 
+function Completion(dbregist){
+	if(dbregist != "null"){
+		alert("完了しました。");
+	}
+}
+
 function newUser(){
 		myRet = confirm("登録します。よろしいですか？");
-		if ( myRet == true ){
-				location.href = '/userregisted';
-				alert("登録完了しました。");
+		if(myRet){
+			return true;
 		}
+		return false;
 }
 
 function eventRegist(){
 		myRet = confirm("登録します。よろしいですか？");
-		if ( myRet == true ){
-			location.href= 'eventlist';
-				alert("登録完了しました。");
+		if(myRet){
+			return true;
 		}
+		return false;
 }
 
 function voteRegist(){
 	myRet = confirm("開催日を決定します。よろしいですか？");
-		if ( myRet == true ){
-				alert("決定しました。");
-		}
+	if(myRet){
+		return true;
+	}
+	return false;
 }
 
 function newVote() {
 	myRet = confirm("投票します。よろしいですか？");
-		if ( myRet == true ){
-				alert("投票しました。");
-		}
+	if(myRet){
+		return true;
+	}
+	return false;
 }
 
 function updateEvent(){
 	myRet = confirm("イベントの内容を変更します。よろしいですか？");
-		if ( myRet == true ){
-				document.getElementById('eventform').action = 'eventditailsupdate';
-				alert("変更完了しました。");
-		}
+	if(myRet){
+		document.getElementById('eventform').action = 'eventditailsupdate';
+		return true;
+	}
+	return false;
 }
 
 function deleteEvent(){
 	myRet = confirm("イベントを削除します。よろしいですか？");
-		if ( myRet == true ){
-				document.getElementById('eventform').action = 'eventlistdelieted';
-				alert("削除しました。");
-		}
+	if(myRet){
+		document.getElementById('eventform').action = 'eventlistdelieted';
+		return true;
+	}
+	return false;
 }
 
 

@@ -26,12 +26,12 @@ public class DatabaseConfig {
 		String userName = System.getenv("MYSQL_USER_ID");
 		String password = System.getenv("MYSQL_USER_PASS");
 
-		 return DataSourceBuilder.create()
-	                .username(userName)
-	                .password(password)
-	                .url(url)
-	                .driverClassName("com.mysql.jdbc.Driver")
-	                .build();
+		return DataSourceBuilder.create()
+					.username(userName)
+					.password(password)
+					.url(url)
+					.driverClassName("com.mysql.jdbc.Driver")
+					.build();
 
 	}
 }
