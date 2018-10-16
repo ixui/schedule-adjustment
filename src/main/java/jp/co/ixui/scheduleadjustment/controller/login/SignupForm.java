@@ -11,6 +11,15 @@ import jp.co.ixui.scheduleadjustment.controller.login.validator.annotation.UserE
 @UserExists
 @PasswordEquals(fieldPass="passWord", fieldConfirmPass="passWords")
 public class SignupForm {
+	
+	public SignupForm(){
+		
+	}
+	
+	public SignupForm(String empName,String empNum ){
+		this.empNum = empNum;
+		this.empName = empName;
+	}
 
 	@NotEmpty(message="社員番号を入力してください")
 	private String empNum;
