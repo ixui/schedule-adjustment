@@ -23,7 +23,7 @@
 	<main>
 		<h1 class="text-center mb-5 mt-5 title">新規ユーザー登録</h1>
 	
-	<form action="/userregisted" method="post" th:object="${formModel}" name="newUser">
+	<form action="/userregisted" method="post" th:object="${formModel}" name="userForm">
 		<div class="container">
 		<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
 				<div class="row ">

@@ -33,14 +33,7 @@ public class SignupForm {
 	private String passWords;
 
 
-	public SignupForm() {
-		
-	}
 	
-	public SignupForm(String empNum, String empName) {
-		this.empNum = empNum;
-		this.empName = empName;
-	}
 	
 	public String getEmpNum() {
 		return empNum;

@@ -24,7 +24,7 @@
 	<main>
 		<h1 class="text-center mb-5 mt-5 title">イベント登録</h1>
 
-		<form action="/eventlistregist" method="post"  th:object="${formModel}" name="eventRegist">
+		<form action="/eventlistregist" method="post"  th:object="${formModel}" name="eventRegistForm">
 		<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
 		<div class="container">
 			<p class="label">主催者：<span th:text="${empInfo.empName}" ></span>さん</p>

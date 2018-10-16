@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import jp.co.ixui.scheduleadjustment.LoginUserDetails;
 import jp.co.ixui.scheduleadjustment.controller.login.SignupForm;
 import jp.co.ixui.scheduleadjustment.domain.Category;
 import jp.co.ixui.scheduleadjustment.domain.Checked;
@@ -43,8 +45,8 @@ public class EventController {
 	 * @param mav
 	 * @return mav
 	 */
-	@RequestMapping(value="/eventlists" ,method = RequestMethod.GET)
-	public ModelAndView eventlist(ModelAndView mav){
+	@RequestMapping(value="/eventlist" ,method = RequestMethod.GET)
+	public ModelAndView eventlist(@AuthenticationPrincipal LoginUserDetails loginUserDetails,ModelAndView mav){
 		List<Event> eventListNotDevision = this.eventService.getEventListNotDevision();
 		List<Event> eventListDevision = this.eventService.getEventListDevision();
 		List<Event> eventListEnd = this.eventService.getEventListEnd();

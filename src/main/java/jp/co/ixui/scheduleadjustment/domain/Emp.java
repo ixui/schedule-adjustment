@@ -5,6 +5,7 @@ public class Emp {
 	private String empName;
 	private String mailAddress;
 	private String passWord;
+	
 
 	public String getPassWord() {
 		return passWord;
@@ -30,14 +31,12 @@ public class Emp {
 	public void setMailAddress(String mailAddress) {
 		this.mailAddress = mailAddress;
 	}
-	private String password;
 
-	public String getPassword() {
-		return password;
+	public Emp authEmp(String empNum, String passWord) {
+		// TODO 自動生成されたメソッド・スタブ
+		this.empNum = empNum;
+		this.passWord = passWord;
+		return null;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 
 }

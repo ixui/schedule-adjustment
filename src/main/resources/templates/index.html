@@ -18,8 +18,11 @@
 	</header>
 	<main>
 		<h1 class="text-center mb-5 mt-5 title">ログイン</h1>
+		
+		<!-- ログインできなかった時のエラーメッセージ -->
+		<p th:if="${loginError}" class="text-center err">社員番号またはパスワードが違います。</p>
 
-	<form name="login">
+	<form th:action="@{/login}" method="post" id="loginForm">
 		<div class="container">
 				<div class="row mb-3">
 					<div class="col-sm-5 labeluser">社員番号</div>
@@ -34,7 +37,7 @@
 					</div>
 				</div>
 			<div class="text-center" style="padding: 30px;">
-					<button type="button" class="btn btn-info mb-5" onclick="location.href='eventlist'">ログイン <span class="glyphicon glyphicon-chevron-right"></span></button>
+					<button type="submit" class="btn btn-info mb-5">ログイン <span class="glyphicon glyphicon-chevron-right"></span></button>
 					<br>
 					<button type="button" class="btn btn-info" onclick="location.href='newuser'">新規ユーザー登録 <span class="glyphicon glyphicon-chevron-right"></span></button>
 				</div>
