@@ -18,6 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	
 
 
 	// 特定のリクエストに対してセキュリティ設定をカスタマイズする
@@ -33,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// 認証設定
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			http.csrf().disable();
 
 			// index、新規登録にはすべてのユーザがアクセスできるようにする
 			http.authorizeRequests()

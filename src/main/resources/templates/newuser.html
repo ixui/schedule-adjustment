@@ -17,7 +17,7 @@
 		<title>hoppy2新規ユーザー登録</title>
 
 	</head>
-	<body onLoad="document.newUser.empNum.focus()">
+	<body>
 
 	<header></header>
 	<main>
@@ -30,7 +30,7 @@
 					<div class="col-sm-4 labeluser"></div>
 					<div class="col-sm-2 labelh">社員番号</div>
 					<div class="col-sm-3  " style="padding: 6px;">
-							<input type="text" class="form-control input-sm " name="empNum"  th:value="*{empNum}" th:errorclass="err" />
+							<input type="text" class="form-control input-sm " name="empNum"  th:value="*{empNum}" th:errorclass="err" autofocus />
 							<p th:if="${#fields.hasErrors('empNum')}" th:errors="*{empNum}" th:errorclass="err"></p>
 					</div>
 

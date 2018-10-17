@@ -52,7 +52,7 @@ public class EventController {
 		List<Event> eventListEnd = this.eventService.getEventListEnd();
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Emp> empList = this.eventService.getEmpList();
-		session.setAttribute("EmpInfo",new SignupForm(loginUserDetails.empName,loginUserDetails.empNum));
+		session.setAttribute("EmpInfo",new SignupForm(loginUserDetails.getEmpName(),loginUserDetails.getEmpNum()));
 	
 		mav.setViewName("eventlist");
 		mav.addObject("categoryList", categoryList);

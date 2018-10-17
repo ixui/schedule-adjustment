@@ -12,17 +12,33 @@ public class LoginUserDetails extends User {
 
 	private final Emp emp;
 
-	public String empName;
-	public String empNum;
+	private String empName;
+	private String empNum;
 	
+	public String getEmpName() {
+		return empName;
+	}
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	public String getEmpNum() {
+		return empNum;
+	}
+
+	public void setEmpNum(String empNum) {
+		this.empNum = empNum;
+	}
+
 	public LoginUserDetails(Emp emp) {
 		super(
 				emp.getEmpNum(),
 				emp.getPassWord(),
 				AuthorityUtils.createAuthorityList("ROLE_USER")
 				);
-		empName = emp.getEmpName();
-		empNum = emp.getEmpNum();
+		setEmpName(emp.getEmpName()) ;
+		setEmpNum(emp.getEmpNum());
 		this.emp = emp;
 	}
 

@@ -1,6 +1,7 @@
 package jp.co.ixui.scheduleadjustment.controller.event;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.CheckDate;
 import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.Future;
@@ -10,6 +11,7 @@ import jp.co.ixui.scheduleadjustment.controller.event.validator.annotation.Perio
 
 public class EventRegistForm {
 
+	@Size(max = 20, message="文字数オーバーです")
 	@NotEmpty(message="イベント名を入力してください")
 	private String eventName;
 	
@@ -17,11 +19,11 @@ public class EventRegistForm {
 	@NotEmpty(message="カテゴリを選択してください")
 	private String categoryId;
 	
-	
+	@Size(max = 20, message="文字数オーバーです")
 	@NotEmpty(message="開催場所を入力してください")
 	private String place;
 	
-	
+	@Size(max = 200, message="文字数オーバーです")
 	@NotEmpty(message="コメントを入力してください")
 	private String hostComment;
 	

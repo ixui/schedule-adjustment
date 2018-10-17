@@ -68,7 +68,12 @@
 				<div class="row pb-5">
 					<div class="col-sm-3 labelh">日付で並び替え</div>
 					<div class="col-sm-9 form-inline " style="padding: 3px;">
-							<input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked"  >昇順　　　<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc" th:field="*{sort}">降順
+						<label class="point mr-5">
+							<input type="radio" class="form-control input-sm" id="sortasc"  name="sort" value="asc" checked="checked"  >昇順
+						</label>
+						<label class="point">
+							<input type="radio" class="form-control input-sm " id="sortdesc"  name="sort" value="desc" th:field="*{sort}">降順
+						</label>
 					</div>
 				</div>
 			<div class="text-center pb-3" >

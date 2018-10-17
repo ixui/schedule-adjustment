@@ -28,7 +28,7 @@ import jp.co.ixui.scheduleadjustment.controller.login.validator.PasswordEqualsVa
 @SuppressWarnings("javadoc")
 public @interface PasswordEquals {
 
-	String message() default "パスワードが一致していません";
+	String message() default "パスワードと確認用パスワードが一致していません";
 
 	Class<?>[] groups() default {};
 
