@@ -26,12 +26,17 @@
 	
 	
 	<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} eq ${empInfo.empNum}">
-		<form th:each="eventid : ${eventListToId}" action="" method="post" id="eventform" name="eventForm" th:object="${eventModel}">
+		<form th:each="eventid : ${eventListToId}" th:action="@{/eventditailsupdate}" action="" method="post" id="eventform" name="eventForm" th:object="${eventModel}">
 			<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${eventModel}" th:errorclass="err"></div>
 			<div class="ditailsbuttons">
 				<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} eq null">
 						<button type="submit" class="btn btn-success mr-3 ditailsbutton" onclick="return updateEvent();">変更する</button>
+						<span th:if="${canDelete} eq true">
 							<button type="submit" class="btn btn-success ditailsbutton" onclick="return deleteEvent();">削除する</button>
+						</span>
+						<span th:if="${canDelete} neq true">
+							<button type="button" class="btn btn-success ditailsbutton" onclick="deleteEvent()" disabled="disabled">削除する</button>
+						</span>
 				</div>
 				<div th:each="eventid : ${eventListToId}" th:if="${eventid.decisionDay} neq null">
 						<button type="button" class="btn btn-success mr-3 ditailsbutton" onclick="updateEvent()" disabled="disabled">変更する</button>
@@ -141,6 +146,7 @@
 						<div class="col-sm-4 label">コメント</div>
 						<div class="col-sm-8 form-inline " style="padding: 3px;" th:text="${eventid.hostComment}"></div>
 					</div>
+					
 			</div>
 		</form>
 	</div>
@@ -151,7 +157,7 @@
 			<td id="leftframe">
 				<h1 class="text-center mb-5 mt-5 title">みんなの投票</h1>
 				<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} eq ${empInfo.empNum}">
-					<form class="sdform" action="eventditailsdecide" method="post" id="voteform" name="voteform" th:object="${voteModel}">
+					<form class="sdform" th:action="@{/eventditailsdecide}" action="eventditailsdecide" method="post" id="voteform" name="voteform" th:object="${voteModel}">
 						<div class="selectday" th:each="voteinfo : ${voteinfoList}" >
 							<label class="point">
 								<input type="radio"  name="voteDay" th:value="${voteinfo.candidateDay}" class="mb-5" th:field="*{voteDay}">
@@ -170,7 +176,7 @@
 				</div>
 
 				<div th:each="eventid : ${eventListToId}" th:if="${eventid.empNum} neq ${empInfo.empNum}">
-					<form class="sdform" action="voteregist" method="post" id="voteform" name="voteform">
+					<form class="sdform" th:action="@{/voteregist}" action="voteregist" method="post" id="voteform" name="voteform">
 						<div class="selectday" th:each="voteinfo : ${voteinfoList}">
 							<label class="point">
 								<input type="checkbox"  name="voteDay" th:value="${voteinfo.candidateDay}" class="mb-5" th:checked="${voteinfo.check}">
@@ -192,7 +198,7 @@
 			<td id="rightframe">
 				<h1 class="text-center mb-5 mt-5 title">コメント</h1>
 				<div class="composition" >
-					<form  action="/commentregist" method="post" th:object="${commentModel}">
+					<form th:action="@{/commentregist}" action="/commentregist" method="post" th:object="${commentModel}">
 					<textarea class="form-control input-sm " id="comment" rows="4px" name="participantComment" th:text="*{participantComment}" th:errorclass="err"></textarea>
 					<div th:if="${#fields.hasErrors('participantComment')}" th:errors="*{participantComment}" th:errorclass="err" ></div>
 					<input type="hidden" name="eventId" th:each="eventid : ${eventListToId}" th:value="${eventid.eventId}">

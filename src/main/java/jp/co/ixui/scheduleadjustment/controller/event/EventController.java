@@ -25,6 +25,7 @@ import jp.co.ixui.scheduleadjustment.domain.Comment;
 import jp.co.ixui.scheduleadjustment.domain.Emp;
 import jp.co.ixui.scheduleadjustment.domain.Event;
 import jp.co.ixui.scheduleadjustment.domain.Search;
+import jp.co.ixui.scheduleadjustment.domain.VoteInfo;
 import jp.co.ixui.scheduleadjustment.service.EventService;
 
 
@@ -165,11 +166,14 @@ public class EventController {
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(id);
 		List<Category> categoryList = this.eventService.getCategoryList();
 		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
-		List<Checked> voteinfoList = this.eventService.getVoteInfoList(id,user);
+		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(id);
+		boolean delete = this.eventService.canDelite(voteInfo);
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		List<Comment> commentList = this.eventService.getCommentList(id);
 
 		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
+		mav.addObject("canDelete",delete);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
 		mav.addObject("voteinfoList", voteinfoList);
@@ -198,10 +202,13 @@ public class EventController {
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<Comment> commentList = this.eventService.getCommentList(commentForm.getEventId());
 			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
-			List<Checked> voteinfoList = this.eventService.getVoteInfoList(commentForm.getEventId(),user);
+			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(commentForm.getEventId());
+			boolean delete = this.eventService.canDelite(voteInfo);
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			
 			mav.addObject("empInfo",user);			
 			mav.setViewName("eventdetails");
+			mav.addObject("canDelete",delete);
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
 			mav.addObject("voteinfoList", voteinfoList);
@@ -214,11 +221,14 @@ public class EventController {
 			this.eventService.commentRegist(commentForm,user);
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(commentForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
-			List<Checked> voteinfoList = this.eventService.getVoteInfoList(commentForm.getEventId(),user);
+			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(commentForm.getEventId());
+			boolean delete = this.eventService.canDelite(voteInfo);
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			List<Comment> commentList = this.eventService.getCommentList(commentForm.getEventId());
 			
 			mav.addObject("empInfo",user);
 			mav.setViewName("eventdetails");
+			mav.addObject("canDelete",delete);
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
 			mav.addObject("voteinfoList", voteinfoList);
@@ -246,10 +256,13 @@ public class EventController {
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
 			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
-			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId(),user);
+			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(voteForm.getEventId());
+			boolean delete = this.eventService.canDelite(voteInfo);
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			
 			mav.addObject("empInfo",user);
 			mav.setViewName("eventdetails");
+			mav.addObject("canDelete",delete);
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
 			mav.addObject("voteinfoList", voteinfoList);
@@ -264,10 +277,13 @@ public class EventController {
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
 		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
-		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId(),user);
+		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(voteForm.getEventId());
+		boolean delete = this.eventService.canDelite(voteInfo);
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		
 		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
+		mav.addObject("canDelete",delete);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
 		mav.addObject("voteinfoList", voteinfoList);
@@ -294,11 +310,14 @@ public class EventController {
 		this.eventService.voteDay(voteForm,user);
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
-		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteForm.getEventId(),user);
+		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(voteForm.getEventId());
+		boolean delete = this.eventService.canDelite(voteInfo);
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
 		
 		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
+		mav.addObject("canDelete",delete);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
 		mav.addObject("voteinfoList", voteinfoList);
@@ -326,10 +345,13 @@ public class EventController {
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<Comment> commentList = this.eventService.getCommentList(eventregistForm.getEventId());
 			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
-			List<Checked> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId(),user);
+			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(eventregistForm.getEventId());
+			boolean delete = this.eventService.canDelite(voteInfo);
+			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			
 			mav.addObject("empInfo",user);
 			mav.setViewName("eventdetails");
+			mav.addObject("canDelete",delete);
 			mav.addObject("categoryList", categoryList);
 			mav.addObject("eventListToId", eventListToId);
 			mav.addObject("voteinfoList", voteinfoList);
@@ -346,10 +368,13 @@ public class EventController {
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Comment> commentList = this.eventService.getCommentList(eventregistForm.getEventId());
 		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
-		List<Checked> voteinfoList = this.eventService.getVoteInfoList(eventregistForm.getEventId(),user);
+		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(eventregistForm.getEventId());
+		boolean delete = this.eventService.canDelite(voteInfo);
+		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		
 		mav.addObject("empInfo",user);
 		mav.setViewName("eventdetails");
+		mav.addObject("canDelete",delete);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("eventListToId", eventListToId);
 		mav.addObject("voteinfoList", voteinfoList);

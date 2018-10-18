@@ -115,15 +115,40 @@ public class EventService {
 		List<Emp> empList= this.employeeMapper.selectEmpName();
 		return empList;
 	}
+	
 
 	/**
 	 * 投票情報を取得する
 	 *
-	 * @param id イベントID
+	 * @param id イベントid
+	 * @return voteList
+	 */
+	public List<VoteInfo> getVoteInfo(int id){
+		List<VoteInfo> voteList= this.candidateDayMapper.selectCandidateDay(id);
+		return voteList;
+		
+	}
+	
+	public boolean canDelite(List<VoteInfo> voteList){
+		boolean delete = true;
+		for (VoteInfo vl :voteList) {
+			if (vl.getEmpName() != null){
+				delete = false;
+				break;
+			}
+		}
+		return delete;
+	}
+	
+	
+	
+	/**
+	 * 投票情報を取得して表示用のリストを作る
+	 *
+	 * @param voteList 投票情報
 	 * @return voteResult
 	 */
-	public List<Checked> getVoteInfoList(int id,SignupForm user){
-		List<VoteInfo> voteList= this.candidateDayMapper.selectCandidateDay(id);
+	public List<Checked> getVoteInfoList(List<VoteInfo> voteList,SignupForm user){
 		List<Checked> voteResult = new ArrayList<>();
 		
 		for (VoteInfo vl :voteList) {
