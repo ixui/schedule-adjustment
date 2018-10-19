@@ -49,6 +49,10 @@ footer{
 	background-color: rgba( 0,0,0, 0.75 ) ;
 }
 
+.noJp{
+	ime-mode: disabled;
+}
+
 .label{
 	padding-left:200px;
 	line-height: 40px;

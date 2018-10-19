@@ -37,7 +37,7 @@
 	<div id="modal-content">
 		<!-- モーダルウィンドウのコンテンツ開始 -->
 		<h1 class="text-center mb-5 mt-5 title">絞込み検索</h1>
-		<form action="/eventlist" method="post"  th:object="${formModel}" name="search">
+		<form action="/eventlist" th:action="@{/eventlist}" method="post"  th:object="${formModel}" name="search">
 			<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
 			<div class="row pb-2">
 					<div class="col-sm-2 labelh">主催者</div>

@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			http.formLogin()
 					// ログインフォーム表示パス
 					.loginPage("/")
+					
 					// ログイン処理のパス
 					.loginProcessingUrl("/login")
 					//失敗時にどこに遷移するか

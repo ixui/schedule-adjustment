@@ -46,7 +46,6 @@ public class LoginController {
 		this.userService.createUser(signupForm);
 		mav.setViewName("index");
 		mav.addObject("dbregist","success");
-		
 		return mav;
 	}
 

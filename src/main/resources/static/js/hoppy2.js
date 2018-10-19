@@ -33,6 +33,7 @@ function setCategory() {
 function Completion(dbregist){
 	if(dbregist != "null"){
 		alert("完了しました。");
+		location.href = '/';
 	}
 }
 
