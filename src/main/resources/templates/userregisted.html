@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -8,24 +8,19 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 		<link href="/css/hoppy2.css" rel="stylesheet">
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="/js/hoppy2.js"></script>
-		<title>エラー</title>
+		<script src="/js/hoppy2.js"></script>
+		<title>登録完了しました。</title>
 		
 	</head>
-	<body>
+	
+	<body th:onLoad="'CompletionUser(\'' + ${dbregist} + '\');'" >
 
 
 	<header>
-	<div align="right">
-		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlistb.html'">イベント一覧 </button>
-		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregistb.html'">イベント登録</button>
-		<button type="button" class="btn btn-info mr-3" onclick="location.href='loginpageb.html'">ログアウト</button>
-		</div>
+
 	</header>
 	<main>
-		<h1  class="text-center mb-5 mt-5 title">予期せぬエラーです。管理者に問い合わせてください。</h1>
+		<h1  class="text-center mb-5 mt-5 title">ログイン画面に移動します。そのままでお待ちください。</h1>
 	</main>
 	<footer class="text-center text-muted py-4">
 		<hr>
