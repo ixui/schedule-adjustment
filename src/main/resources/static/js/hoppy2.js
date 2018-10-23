@@ -30,12 +30,6 @@ function setCategory() {
 }
 
 
-function CompletionUser(dbregist){
-	if(dbregist != "null"){
-		alert("完了しました。");
-		location.href = '/';
-	}
-}
 
 function Completion(dbregist){
 	if(dbregist != "null"){

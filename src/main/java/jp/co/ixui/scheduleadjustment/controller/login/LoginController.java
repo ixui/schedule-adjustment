@@ -2,6 +2,8 @@ package jp.co.ixui.scheduleadjustment.controller.login;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.ixui.scheduleadjustment.service.UserService;
 
@@ -23,7 +26,11 @@ public class LoginController {
 	UserService userService;
 
 	@RequestMapping(value="/" ,method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(HttpServletRequest request,Model model) {
+		if (this.userService.isValidUserSession(request)) {
+			return "redirect:/eventlist";
+		}
+		
 		model.addAttribute(new SignupForm());
 		return "index";
 	}
@@ -35,18 +42,16 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/userregisted" ,method = RequestMethod.POST)
-	public ModelAndView userRegist(@ModelAttribute("formModel") @Validated SignupForm signupForm,	
-				BindingResult result,
-				ModelAndView mav) throws Exception,IOException{
+	public String userRegist(@ModelAttribute("formModel") @Validated SignupForm signupForm,	
+				BindingResult result,RedirectAttributes attributes) throws Exception,IOException{
 		if (result.hasErrors()) {
-			mav.setViewName("newuser");
-			return mav;
+			return "newuser";
 		}
 		
 		this.userService.createUser(signupForm);
-		mav.setViewName("userregisted");
-		mav.addObject("dbregist","success");
-		return mav;
+		attributes.addFlashAttribute("dbregist","success");
+		
+		return "redirect:/";
 	}
 
 	
