@@ -23,10 +23,7 @@ public interface EventMapper {
 	void createEvent(Event event);
 	void decidedDay(VoteInfo voteinfo);
 	void eventUpdate(Event event);
-	void voteDelete(Event event);
-	void candidateDelete(Event event);
-	void commentDelete(Event event);
-	void eventDelete(Event event);
+	void eventDelete(int id);
 	Event getEventRegistId();
 
 }

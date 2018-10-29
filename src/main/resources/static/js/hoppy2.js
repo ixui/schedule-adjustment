@@ -23,7 +23,7 @@ function setName() {
 
 function setCategory() {
 	if ($('#categoryNum option:selected').text() == ("選択してください")){
-		$('#hostName').val("");
+		$('#categoryName').val("");
 	}else{
 		$('#categoryName').val($('#categoryNum option:selected').text());
 	}

@@ -1,22 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jp.co.ixui.scheduleadjustment.mapper.CommentMapper">
-  <select id="selectComment" resultType="Comment">
-    select  comment.participant_comment,employee_master.emp_name
-    	from comment
-    		inner join employee_master
-    			on comment.emp_num = employee_master.emp_num
-    	where comment.event_id = #{id}
-    	order by comment.commment_id
+	<select id="selectComment" resultType="Comment">
+		select
+			comment.participant_comment,employee_master.emp_name
+		from
+			comment
+		inner join
+			employee_master
+		on
+			comment.emp_num = employee_master.emp_num
+		where
+			comment.event_id = #{id}
+		order by
+			comment.commment_id
+	</select>
 
-  </select>
-
-
-  <insert id="commentRegist" >
-    insert
-    into comment(event_id,emp_num,participant_comment)
-    values(#{eventId},#{empNum},#{participantComment})
-  </insert>
+	<delete id="commentDelete">
+		delete
+		from
+			comment
+		where
+			comment.event_id = #{id};
+	</delete>
+	
+	<insert id="commentRegist" >
+		insert
+		into
+			comment(event_id,emp_num,participant_comment)
+		values
+			(#{eventId},#{empNum},#{participantComment})
+	</insert>
 </mapper>

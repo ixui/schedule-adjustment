@@ -20,7 +20,6 @@ import jp.co.ixui.scheduleadjustment.controller.event.CommentForm;
 import jp.co.ixui.scheduleadjustment.controller.event.EventRegistForm;
 import jp.co.ixui.scheduleadjustment.controller.event.SearchForm;
 import jp.co.ixui.scheduleadjustment.controller.event.VoteForm;
-import jp.co.ixui.scheduleadjustment.controller.login.SignupForm;
 import jp.co.ixui.scheduleadjustment.domain.Category;
 import jp.co.ixui.scheduleadjustment.domain.Checked;
 import jp.co.ixui.scheduleadjustment.domain.Comment;
@@ -129,7 +128,7 @@ public class EventService {
 		
 	}
 	
-	public boolean canDelite(List<VoteInfo> voteList){
+	public boolean canDelete(List<VoteInfo> voteList){
 		boolean delete = true;
 		for (VoteInfo vl :voteList) {
 			if (vl.getEmpName() != null){
@@ -148,7 +147,7 @@ public class EventService {
 	 * @param voteList 投票情報
 	 * @return voteResult
 	 */
-	public List<Checked> getVoteInfoList(List<VoteInfo> voteList,SignupForm user){
+	public List<Checked> getVoteInfoList(List<VoteInfo> voteList,Emp user){
 		List<Checked> voteResult = new ArrayList<>();
 		
 		for (VoteInfo vl :voteList) {
@@ -354,7 +353,7 @@ public class EventService {
 	 * @param commentForm
 	 * @param user 
 	 */
-	public void commentRegist(CommentForm commentForm, SignupForm user){
+	public void commentRegist(CommentForm commentForm, Emp user){
 		Comment comment = new Comment();
 		comment.setEventId(commentForm.getEventId());
 		comment.setEmpNum(user.getEmpNum());
@@ -380,7 +379,7 @@ public class EventService {
 	 * @param voteForm
 	 * @param user 
 	 */
-	public void voteDay(VoteForm voteForm, SignupForm user){
+	public void voteDay(VoteForm voteForm, Emp user){
 		Map<String, Object> pastVote = new LinkedHashMap<>();
 		pastVote.put("eventId",voteForm.getEventId());
 		pastVote.put("empNum",user.getEmpNum());
@@ -421,30 +420,10 @@ public class EventService {
 		//投票者情報を取得する
 		List<VoteInfo> participant = this.voteMapper.getParticipant(eventregistForm.getEventId());
 		//投票がされている場合は処理を行わない
-		if(participant == null){
+		if(participant.isEmpty()){
 			//一度前の候補日を削除する
 			this.candidateDayMapper.candidateDelete(eventregistForm.getEventId());
-			List<VoteInfo> voteInfo = new ArrayList<VoteInfo>();
-			Calendar startDayCal = Calendar.getInstance();
-			startDayCal.setTime(java.sql.Date.valueOf(eventregistForm.getStartDay()) );
-			Calendar endDayCal = Calendar.getInstance();
-			endDayCal.setTime(java.sql.Date.valueOf(eventregistForm.getEndDay()) );
-			voteInfo.add(new VoteInfo (eventregistForm.getEventId(),(java.sql.Date.valueOf(eventregistForm.getStartDay()) )));
-			boolean roop = true;
-			while (roop){
-				startDayCal.add(Calendar.DAY_OF_MONTH, 1);
-				java.sql.Date candidateday = new java.sql.Date(startDayCal.getTimeInMillis());
-				voteInfo.add(new VoteInfo (eventregistForm.getEventId(),candidateday));
-				if (startDayCal.equals(endDayCal)){
-					roop =false;
-				}
-			}
-			Iterator<VoteInfo> it = voteInfo.iterator();
-			while (it.hasNext()) {
-				VoteInfo data = it.next();
-				log.debug(data.getEventId() + ":" + data.getCandidateDay());
-			}
-			this.candidateDayMapper.candidateDay(voteInfo);
+			this.candidateDay(eventregistForm);
 		}
 	}
 
@@ -454,12 +433,10 @@ public class EventService {
 	 * @param eventregistForm
 	 */
 	public void eventDelete(EventRegistForm eventregistForm){
-		Event event = new Event();
-		event.setEventId(eventregistForm.getEventId());
-		this.eventMapper.voteDelete(event);
-		this.eventMapper.candidateDelete(event);
-		this.eventMapper.commentDelete(event);
-		this.eventMapper.eventDelete(event);
+		int id = eventregistForm.getEventId();
+		this.candidateDayMapper.candidateDelete(id);
+		this.commentMapper.commentDelete(id);
+		this.eventMapper.eventDelete(id);
 	}
 
 	

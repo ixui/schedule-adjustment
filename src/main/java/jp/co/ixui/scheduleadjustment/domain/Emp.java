@@ -6,6 +6,14 @@ public class Emp {
 	private String mailAddress;
 	private String passWord;
 	
+	public Emp(){
+		
+	}
+	
+	public Emp(String empName,String empNum ){
+		this.empNum = empNum;
+		this.empName = empName;
+	}
 
 	public String getPassWord() {
 		return passWord;

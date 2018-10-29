@@ -14,7 +14,15 @@
 		<title>hoppy2イベント一覧</title>
 
 	</head>
-	<body onLoad="setName();setCategory()" th:onLoad="'Completion(\'' + ${dbregist} + '\');'">
+	<body th:onLoad="'Completion(\'' + ${dbregist} + '\');'">
+	
+	<script type="text/javascript">
+	window.addEventListener('DOMContentLoaded', function() {
+		setName();
+		setCategory();
+		})
+		
+	</script>
 
 
 	<header>
@@ -62,9 +70,19 @@
 				<div class="row pb-2">
 					<div class="col-sm-2 labelh">開催日</div>
 					<div class="col-sm-10 form-inline " style="padding: 3px;">
-							<input type="date" class="form-control input-sm " name="startDay" th:field="*{startDay}" size="20">　　　から　　　<input type="date" class="form-control input-sm " name="endDay" th:field="*{endDay}" size="20">　　まで
+							<input type="date" class="form-control input-sm " name="startDay" th:field="*{startDay}" size="20" th:errorclass="err">
+							<span class="ml-5 mr-5">から</span>
+							<input type="date" class="form-control input-sm " name="endDay" th:field="*{endDay}" size="20" th:errorclass="err">
+							<span class="ml-5 ">まで</span>
 					</div>
 				</div>
+				<div class="row ">
+						<div class="col-sm-2 labelh">　　　</div>
+						<div class="col-sm-10 form-inline" style="padding: 3px;">
+								<div th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}" th:errorclass="err"></div>
+								<div th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}" th:errorclass="err"></div>
+						</div>
+					</div>
 				<div class="row pb-5">
 					<div class="col-sm-3 labelh">日付で並び替え</div>
 					<div class="col-sm-9 form-inline " style="padding: 3px;">

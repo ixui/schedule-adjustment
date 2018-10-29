@@ -18,79 +18,112 @@
 	</select>
 
 	<select id="selectEventListNotDevision" resultType="Event">
-		select event.event_id,event.event_name,employee_master.emp_name
-	from event
-	inner join employee_master
-	on event.host_num = employee_master.emp_num
-	where  event.decision_day is  null
-	<if test="hostNum != null and hostNum != ''">
-			and event.host_num = #{hostNum}
+		select
+			event.event_id,event.event_name,employee_master.emp_name
+		from
+			event
+		inner join
+			employee_master
+		on
+			event.host_num = employee_master.emp_num
+		where
+			event.decision_day is  null
+		<if test="hostNum != null and hostNum != ''">
+			and
+				event.host_num = #{hostNum}
 		</if>
 		<if test="categoryNum != null and categoryNum !=''">
-			and event.category_id = #{categoryNum}
+			and
+				event.category_id = #{categoryNum}
 		</if>
-	order by event.event_id desc
+		order by
+			event.event_id desc
 	</select>
 
 
 	<select id="selectEventListDevision" resultType="Event">
-	select event.event_id,event.event_name,employee_master.emp_name,event.decision_day
-			from event
-				inner join employee_master
-					on event.host_num = employee_master.emp_num
-			where  event.decision_day is not null
-			and <![CDATA[ event.decision_day >= CURRENT_DATE()]]>
+		select
+			event.event_id,event.event_name,employee_master.emp_name,event.decision_day
+		from
+			event
+		inner join
+			employee_master
+		on
+			event.host_num = employee_master.emp_num
+		where
+			event.decision_day is not null
+		and
+			<![CDATA[ event.decision_day >= CURRENT_DATE()]]>
 		<if test="hostNum != null and hostNum != ''">
-				and event.host_num = #{hostNum}
-			</if>
-			<if test="categoryNum != null and categoryNum !=''">
-				and event.category_id = #{categoryNum}
-			</if>
-			<if test="startDay != null">
-				and <![CDATA[event.decision_day >= #{startDay}]]>
-			</if>
-			<if test="endDay != null">
-				and <![CDATA[event.decision_day <= #{endDay}]]>
-			</if>
-			<if test="sort != null and sort !=''">
-				order by event.decision_day ${sort}
-			</if>
-			<if test="sort = null">
-				order by event.decision_day desc
-			</if>
+			and
+				event.host_num = #{hostNum}
+		</if>
+		<if test="categoryNum != null and categoryNum !=''">
+			and
+				event.category_id = #{categoryNum}
+		</if>
+		<if test="startDay != null">
+			and
+				<![CDATA[event.decision_day >= #{startDay}]]>
+		</if>
+		<if test="endDay != null">
+			and
+				<![CDATA[event.decision_day <= #{endDay}]]>
+		</if>
+		<if test="sort != null and sort !=''">
+			order by
+				event.decision_day ${sort}
+		</if>
+		<if test="sort == null">
+			order by
+				event.decision_day 
+		</if>
 	</select>
 
 	<select id="selectEventListEnd" resultType="Event">
-			select event.event_id,event.event_name,employee_master.emp_name,event.decision_day
-			from event
-				inner join employee_master
-					on event.host_num = employee_master.emp_num
-			where  event.decision_day is not null
-			and <![CDATA[ event.decision_day < CURRENT_DATE()]]>
+		select
+			event.event_id,event.event_name,employee_master.emp_name,event.decision_day
+		from
+			event
+		inner join
+			employee_master
+		on
+			event.host_num = employee_master.emp_num
+		where
+			event.decision_day is not null
+		and
+			<![CDATA[ event.decision_day < CURRENT_DATE()]]>
 		<if test="hostNum != null and hostNum != ''">
-				and event.host_num = #{hostNum}
-			</if>
-			<if test="categoryNum != null and categoryNum !=''">
-				and event.category_id = #{categoryNum}
-			</if>
-			<if test="startDay != null">
-				and <![CDATA[event.decision_day >= #{startDay}]]>
-			</if>
-			<if test="endDay != null">
-				and <![CDATA[event.decision_day <= #{endDay}]]>
-			</if>
-			<if test="sort != null and sort !=''">
-				order by event.decision_day ${sort}
-			</if>
-			<if test="sort = null">
-				order by event.decision_day
-			</if>
+			and event.host_num = #{hostNum}
+		</if>
+		<if test="categoryNum != null and categoryNum !=''">
+			and
+				event.category_id = #{categoryNum}
+		</if>
+		<if test="startDay != null">
+			and
+				<![CDATA[event.decision_day >= #{startDay}]]>
+		</if>
+		<if test="endDay != null">
+			and
+				<![CDATA[event.decision_day <= #{endDay}]]>
+		</if>
+		<if test="sort != null and sort !=''">
+			order
+				by event.decision_day ${sort}
+		</if>
+		<if test="sort == null">
+			order
+				by event.decision_day desc
+		</if>
 	</select>
 
 	<insert id="createEvent" >
-		insert into event(event_name,host_num,category_id,place,host_comment)
-		values(#{eventName},#{hostNum},#{categoryId},#{place},#{hostComment})
-		</insert>
+		insert into
+			event(event_name,host_num,category_id,place,host_comment)
+		values
+			(#{eventName},#{hostNum},#{categoryId},#{place},#{hostComment})
+	</insert>
 
 	<update id="decidedDay">
 		update
@@ -101,49 +134,24 @@
 			event.event_id = #{eventId}
 	</update>
 
-		<update id="eventUpdate">
-			update
-				event
-			set
+	<update id="eventUpdate">
+		update
+			event
+		set
 			event.event_name = #{eventName}
 			,event.category_id =  #{categoryId}
 			,event.place =  #{place}
 			,event.host_comment =  #{hostComment}
 		where
 			event.event_id = #{eventId}
-
-		</update>
-
-	<delete id="voteDelete">
-		delete
-		from
-			vote_info
-		where
-			vote_info.event_id = #{eventId};
-	</delete>
-
-	<delete id="candidateDelete">
-		delete
-		from
-			candidate_day
-		where
-			candidate_day.event_id = #{eventId};
-	</delete>
-
-	<delete id="commentDelete">
-		delete
-		from
-			comment
-		where
-			comment.event_id = #{eventId};
-	</delete>
-
+	</update>
+	
 	<delete id="eventDelete">
 		delete
 		from
 			event
 		where
-			event.event_id = #{eventId};
+			event.event_id = #{id};
 	</delete>
 
 	<select id="getEventRegistId" resultType="Event">
@@ -153,7 +161,7 @@
 			event
 		where
 			event.event_id=(SELECT MAX(event.event_id) FROM event)
-</select>
+	</select>
 
 
 </mapper>

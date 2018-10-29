@@ -26,7 +26,7 @@ import jp.co.ixui.scheduleadjustment.controller.event.validator.CheckDateValidat
 @ReportAsSingleViolation
 @SuppressWarnings("javadoc")
 public @interface CheckDate {
-	String message() default "日付の形式で入力してください。";
+	String message() default "日付の形式で入力してください。　　　";
 	
 	Class<?>[] groups() default {};
 

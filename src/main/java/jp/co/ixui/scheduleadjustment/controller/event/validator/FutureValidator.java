@@ -28,11 +28,14 @@ public class FutureValidator implements ConstraintValidator<Future, String> {
 		}
 
 		// 現在時刻より前の場合はfalse
-		LocalDate rsvDate = LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		try{LocalDate rsvDate = LocalDate.parse(input, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		LocalDate localDateNow = LocalDate.now();
 		if (rsvDate.compareTo(localDateNow) < 0) {
 			return false;
 		}
+		}catch(Exception e){
+			return true;
+			}
 
 		return true;
 	}

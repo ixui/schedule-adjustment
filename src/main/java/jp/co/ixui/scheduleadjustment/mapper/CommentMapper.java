@@ -12,4 +12,5 @@ public interface CommentMapper {
 
 	List<Comment> selectComment(int id);
 	void commentRegist(Comment comment);
+	void commentDelete(int id);
 }

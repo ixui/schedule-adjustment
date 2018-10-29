@@ -27,9 +27,10 @@ public class EventRegistForm {
 	@NotEmpty(message="コメントを入力してください")
 	private String hostComment;
 	
-	@CheckDate
+	
 	@Future
 	@NotEmpty(message="開催日の始めを入力してください　　　　")
+	@CheckDate
 	private String  startDay;
 	
 	@CheckDate

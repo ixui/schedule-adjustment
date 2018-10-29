@@ -26,12 +26,10 @@ public class LoginController {
 	UserService userService;
 
 	@RequestMapping(value="/" ,method = RequestMethod.GET)
-	public String index(HttpServletRequest request,Model model) {
+	public String index(HttpServletRequest request) {
 		if (this.userService.isValidUserSession(request)) {
 			return "redirect:/eventlist";
 		}
-		
-		model.addAttribute(new SignupForm());
 		return "index";
 	}
 	

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import jp.co.ixui.scheduleadjustment.LoginUserDetails;
-import jp.co.ixui.scheduleadjustment.controller.login.SignupForm;
 import jp.co.ixui.scheduleadjustment.domain.Category;
 import jp.co.ixui.scheduleadjustment.domain.Checked;
 import jp.co.ixui.scheduleadjustment.domain.Comment;
@@ -53,7 +52,7 @@ public class EventController {
 		List<Event> eventListEnd = this.eventService.getEventListEnd();
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Emp> empList = this.eventService.getEmpList();
-		session.setAttribute("EmpInfo",new SignupForm(loginUserDetails.getEmpName(),loginUserDetails.getEmpNum()));
+		session.setAttribute("EmpInfo",new Emp(loginUserDetails.getEmpName(),loginUserDetails.getEmpNum()));
 	
 		mav.setViewName("eventlist");
 		mav.addObject("categoryList", categoryList);
@@ -79,7 +78,7 @@ public class EventController {
 			BindingResult result,
 			ModelAndView mav){
 		if (result.hasErrors()) {
-			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			Emp user = (Emp)session.getAttribute("EmpInfo");
 			List<Category> categoryList = this.eventService.getCategoryList();
 			mav.addObject("empInfo",user);
 			mav.addObject("categoryList", categoryList);
@@ -165,9 +164,9 @@ public class EventController {
 	public ModelAndView eventdetalis(ModelAndView mav, @RequestParam int id){
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(id);
 		List<Category> categoryList = this.eventService.getCategoryList();
-		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		Emp user = (Emp)session.getAttribute("EmpInfo");
 		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(id);
-		boolean delete = this.eventService.canDelite(voteInfo);
+		boolean delete = this.eventService.canDelete(voteInfo);
 		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		List<Comment> commentList = this.eventService.getCommentList(id);
 
@@ -201,9 +200,9 @@ public class EventController {
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(commentForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<Comment> commentList = this.eventService.getCommentList(commentForm.getEventId());
-			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			Emp user = (Emp)session.getAttribute("EmpInfo");
 			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(commentForm.getEventId());
-			boolean delete = this.eventService.canDelite(voteInfo);
+			boolean delete = this.eventService.canDelete(voteInfo);
 			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			
 			mav.addObject("empInfo",user);			
@@ -217,12 +216,12 @@ public class EventController {
 			mav.addObject("eventModel",new EventRegistForm());
 			return mav;
 			}
-			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			Emp user = (Emp)session.getAttribute("EmpInfo");
 			this.eventService.commentRegist(commentForm,user);
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(commentForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(commentForm.getEventId());
-			boolean delete = this.eventService.canDelite(voteInfo);
+			boolean delete = this.eventService.canDelete(voteInfo);
 			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			List<Comment> commentList = this.eventService.getCommentList(commentForm.getEventId());
 			
@@ -255,9 +254,9 @@ public class EventController {
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
-			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			Emp user = (Emp)session.getAttribute("EmpInfo");
 			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(voteForm.getEventId());
-			boolean delete = this.eventService.canDelite(voteInfo);
+			boolean delete = this.eventService.canDelete(voteInfo);
 			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			
 			mav.addObject("empInfo",user);
@@ -276,9 +275,9 @@ public class EventController {
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
-		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		Emp user = (Emp)session.getAttribute("EmpInfo");
 		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(voteForm.getEventId());
-		boolean delete = this.eventService.canDelite(voteInfo);
+		boolean delete = this.eventService.canDelete(voteInfo);
 		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		
 		mav.addObject("empInfo",user);
@@ -306,12 +305,12 @@ public class EventController {
 	@RequestMapping(value="/voteregist",method = RequestMethod.POST)
 	public ModelAndView vote(ModelAndView mav ,@ModelAttribute VoteForm voteForm,
 			BindingResult result){
-		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		Emp user = (Emp)session.getAttribute("EmpInfo");
 		this.eventService.voteDay(voteForm,user);
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(voteForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(voteForm.getEventId());
-		boolean delete = this.eventService.canDelite(voteInfo);
+		boolean delete = this.eventService.canDelete(voteInfo);
 		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		List<Comment> commentList = this.eventService.getCommentList(voteForm.getEventId());
 		
@@ -344,9 +343,9 @@ public class EventController {
 			List<Event> eventListToId = this.eventService.getEventListeventListToId(eventregistForm.getEventId());
 			List<Category> categoryList = this.eventService.getCategoryList();
 			List<Comment> commentList = this.eventService.getCommentList(eventregistForm.getEventId());
-			SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+			Emp user = (Emp)session.getAttribute("EmpInfo");
 			List<VoteInfo> voteInfo =this.eventService.getVoteInfo(eventregistForm.getEventId());
-			boolean delete = this.eventService.canDelite(voteInfo);
+			boolean delete = this.eventService.canDelete(voteInfo);
 			List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 			
 			mav.addObject("empInfo",user);
@@ -367,9 +366,9 @@ public class EventController {
 		List<Event> eventListToId = this.eventService.getEventListeventListToId(eventregistForm.getEventId());
 		List<Category> categoryList = this.eventService.getCategoryList();
 		List<Comment> commentList = this.eventService.getCommentList(eventregistForm.getEventId());
-		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		Emp user = (Emp)session.getAttribute("EmpInfo");
 		List<VoteInfo> voteInfo =this.eventService.getVoteInfo(eventregistForm.getEventId());
-		boolean delete = this.eventService.canDelite(voteInfo);
+		boolean delete = this.eventService.canDelete(voteInfo);
 		List<Checked> voteinfoList = this.eventService.getVoteInfoList(voteInfo,user);
 		
 		mav.addObject("empInfo",user);
@@ -425,7 +424,7 @@ public class EventController {
 	@RequestMapping(value="/eventregist",method=RequestMethod.GET)
 	public ModelAndView eventregist(ModelAndView mav){
 		List<Category> categoryList = this.eventService.getCategoryList();
-		SignupForm user = (SignupForm)session.getAttribute("EmpInfo");
+		Emp user = (Emp)session.getAttribute("EmpInfo");
 		mav.addObject("empInfo",user);
 		mav.addObject("categoryList", categoryList);
 		mav.addObject("formModel", new EventRegistForm());

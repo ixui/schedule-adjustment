@@ -45,9 +45,10 @@
 
 
 
-		<insert id="candidateDay" parameterType="java.util.List" >
+	<insert id="candidateDay" parameterType="java.util.List" >
 		insert
-		into candidate_day(event_id,candidate_day)
+		into
+			candidate_day(event_id,candidate_day)
 		values
 		<foreach collection="list" item="element" separator="," >
 			(#{element.eventId},#{element.candidateDay})
@@ -59,7 +60,7 @@
 		from
 			candidate_day
 		where
-			candidate_day.event_id = #{eventId};
+			candidate_day.event_id = #{id};
 	</delete>
 
 </mapper>

@@ -51,7 +51,7 @@
 				<div class="col-sm-4 labeluser"></div>
 					<div class="col-sm-2 labelh">メールアドレス</div>
 					<div class="col-sm-3 " style="padding: 6px;">
-							<input type="address" class="form-control input-sm noJp" name="mailAddress"  th:value="*{mailAddress}" th:errorclass="err" />
+							<input type="text" class="form-control input-sm noJp" name="mailAddress"  th:value="*{mailAddress}" th:errorclass="err" />
 							<p th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" th:errorclass="err"></p>
 					</div>
 				</div>
@@ -59,7 +59,7 @@
 					<div class="col-sm-4 labeluser"></div>
 					<div class="col-sm-2 labelh">パスワード</div>
 					<div class="col-sm-3  " style="padding: 6px;">
-							<input type="password" class="form-control input-sm " name="passWord" th:field="*{passWord}" th:errorclass="err" />
+							<input type="password" class="form-control input-sm " name="passWord" th:field="*{passWord}" />
 							<p th:if="${#fields.hasErrors('passWord')}" th:errors="*{passWord}" th:errorclass="err"></p>
 					</div>
 				</div>
@@ -67,7 +67,7 @@
 						<div class="col-sm-4 labeluser"></div>
 					<div class="col-sm-2 labelh">パスワード（確認用）</div>
 					<div class="col-sm-3  " style="padding: 6px;">
-							<input type="password" class="form-control input-sm " name="passWords" th:field="*{passWords}"   th:errorclass="err" />
+							<input type="password" class="form-control input-sm " name="passWords" th:field="*{passWords}"/>
 							<p th:if="${#fields.hasErrors('passWords')}" th:errors="*{passWords}" th:errorclass="err"></p>
 					</div>
 				</div>
