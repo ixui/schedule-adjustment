@@ -28,6 +28,7 @@ import jp.co.ixui.scheduleadjustment.domain.Event;
 import jp.co.ixui.scheduleadjustment.domain.Search;
 import jp.co.ixui.scheduleadjustment.domain.VoteInfo;
 import jp.co.ixui.scheduleadjustment.service.EventService;
+import jp.co.ixui.scheduleadjustment.service.UserService;
 
 
 
@@ -36,6 +37,8 @@ public class EventController {
 
 	@Autowired
 	EventService eventService;
+	@Autowired
+	UserService userService;
 	@Autowired
 	HttpSession session;
 
@@ -153,6 +156,14 @@ public class EventController {
 		return mav;
 	}
 	
+	/**
+	 * イベント一覧表示（イベント登録後）GET送信
+	 *
+	 */
+	@RequestMapping(value="/eventlistregist" ,method = RequestMethod.GET)
+	public String eventregist() {
+		return "redirect:/";
+	}
 
 	/**
 	 * イベント一覧表示（絞込み検索の結果）
@@ -186,6 +197,7 @@ public class EventController {
 
 		return mav;
 	}
+	
 	
 	/**
 	 * イベント詳細示基本セット
@@ -271,6 +283,15 @@ public class EventController {
 			
 		return mav;
 	}
+	
+	/**
+	 * イベント詳細（コメント登録後）GET送信
+	 *	
+	 */
+	@RequestMapping(value="/commentregist" ,method = RequestMethod.GET)
+	public String commentregist() {
+		return "redirect:/";
+	}
 
 	/**
 	 * イベント詳細（開催日決定後）
@@ -297,6 +318,16 @@ public class EventController {
 		mav.addObject("dbregist","success");
 		return mav;
 	}
+	
+	/**
+	 * イベント詳細（開催日決定後）GET送信
+	 *
+	 */
+	@RequestMapping(value="/eventditailsdecide" ,method = RequestMethod.GET)
+	public String decided() {
+		return "redirect:/";
+	}
+
 
 	/**
 	 * イベント詳細（投票後）
@@ -330,6 +361,16 @@ public class EventController {
 		mav.addObject("eventModel",new EventRegistForm());
 		mav.addObject("dbregist","success");
 		return mav;
+	}
+	
+	/**
+	 * イベント詳細（投票後）GET送信
+	 *
+	 * @param request
+	 */
+	@RequestMapping(value="/voteregist" ,method = RequestMethod.GET)
+	public String vote() {
+		return "redirect:/";
 	}
 
 	/**
@@ -374,6 +415,15 @@ public class EventController {
 		mav.addObject("dbregist","success");
 		return mav;
 	}
+	
+	/**
+	 * イベント詳細（詳細変更後）GET送信
+	 *
+	 */
+	@RequestMapping(value="/eventditailsupdate" ,method = RequestMethod.GET)
+	public String update() {
+		return "redirect:/";
+	}
 
 	/**
 	 * イベント詳細（イベント削除後）
@@ -394,6 +444,16 @@ public class EventController {
 		return mav;
 	}
 
+	/**
+	 * イベント詳細（イベント削除後）GET送信
+	 *
+	 */
+	@RequestMapping(value="/eventlistdelieted" ,method = RequestMethod.GET)
+	public String delete() {
+		return "redirect:/";
+	}
+	
+	
 	/**
 	 * イベント登録表示
 	 *

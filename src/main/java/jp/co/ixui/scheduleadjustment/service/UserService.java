@@ -18,6 +18,12 @@ public class UserService {
 	@Autowired
 	EmployeeMapper employeeMapper;
 
+	
+	/**
+	 * 新規ユーザー登録をする
+	 *
+	 * @param signupForm
+	 */
 	public void createUser(SignupForm signupForm) {
 		Emp emp = new Emp();
 		emp.setEmpNum(signupForm.getEmpNum());

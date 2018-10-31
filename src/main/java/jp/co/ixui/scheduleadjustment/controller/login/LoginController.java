@@ -77,7 +77,11 @@ public class LoginController {
 	}
 	
 	
-	
+	/**
+	 * ログイン画面表示
+	 *
+	 * @param request
+	 */
 	@RequestMapping(value="/" ,method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
 		if (this.userService.isValidUserSession(request)) {
@@ -86,27 +90,52 @@ public class LoginController {
 		return "index";
 	}
 	
+	/**
+	 * ログイン失敗
+	 *
+	 * @param model
+	
+	 */
 	@RequestMapping(value = "/login-error")
 	public String loginError(Model model) {
 		model.addAttribute("loginError", true);
 		return "index";
 	}
 
+	/**
+	 * 新規ユーザー登録後
+	 *
+	 * @param signupForm
+	 * @param result
+	 * @param attributes
+	 */
 	@RequestMapping(value="/userregisted" ,method = RequestMethod.POST)
 	public String userRegist(@ModelAttribute("formModel") @Validated SignupForm signupForm,	
 				BindingResult result,RedirectAttributes attributes) throws Exception,IOException{
 		if (result.hasErrors()) {
 			return "newuser";
 		}
-		
 		this.userService.createUser(signupForm);
 		attributes.addFlashAttribute("dbregist","success");
-		
 		return "redirect:/";
 	}
 
+	/**
+	 * 新規ユーザー登録後 GET送信
+	 *
+	 * 
+	 */
+	@RequestMapping(value="/userregisted" ,method = RequestMethod.GET)
+	public String userRegist() {
+		return "redirect:/";
+	}
 	
-	
+	/**
+	 * 新規ユーザー登録画面表示
+	 *
+	 * @param mav
+	 * @return mav
+	 */
 	@RequestMapping("/newuser")
 	public ModelAndView newuser(ModelAndView mav){
 		mav.addObject("formModel", new SignupForm());
