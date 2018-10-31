@@ -24,14 +24,6 @@
 			vote_info.vote_emp_num = #{empNum}
 	</delete>
 	
-	<select id="getParticipant" resultType="VoteInfo">
-			select
-				vote_info.vote_emp_num
-			from
-				vote_info
-			where
-				vote_info.event_id = #{eventId}
-	</select>
 
 
 </mapper>

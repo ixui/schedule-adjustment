@@ -14,7 +14,6 @@ public interface VoteInfoMapper {
 
 
 	void voteDay(List<VoteInfo> voteInfo);
-	List<VoteInfo> getParticipant(int id);
 	void voteDelete(Map<String, Object> pastVote);
 
 

@@ -90,8 +90,8 @@ public class EventService {
 	 * @param id イベントID
 	 * @return eventListtoid
 	 */
-	public List<Event> getEventListeventListToId(int id){
-		List<Event> eventListtoid= this.eventMapper.selectEventListToId(id);
+	public Event getEventFromId(int id){
+		Event eventListtoid= this.eventMapper.selectEventFromId(id);
 		return eventListtoid;
 	}
 
@@ -147,13 +147,13 @@ public class EventService {
 	 * @param voteList 投票情報
 	 * @return voteResult
 	 */
-	public List<Checked> getVoteInfoList(List<VoteInfo> voteList,Emp user){
+	public List<Checked> getVoteInfoList(List<VoteInfo> voteList,String empNum){
 		List<Checked> voteResult = new ArrayList<>();
 		
 		for (VoteInfo vl :voteList) {
 			boolean isChecked = false;
 			//ログインしている人と同じ社員番号があったら、チェックを入れる
-			if (Objects.equals(vl.getVoteEmpNum(), user.getEmpNum())) {
+			if (Objects.equals(vl.getVoteEmpNum(), empNum)) {
 				isChecked = true;
 			}
 			//日付が同じ場合、投票者を横に並べる
@@ -351,12 +351,12 @@ public class EventService {
 	 * コメントを登録する
 	 *
 	 * @param commentForm
-	 * @param user 
+	 * @param empNum 
 	 */
-	public void commentRegist(CommentForm commentForm, Emp user){
+	public void commentRegist(CommentForm commentForm, String empNum){
 		Comment comment = new Comment();
 		comment.setEventId(commentForm.getEventId());
-		comment.setEmpNum(user.getEmpNum());
+		comment.setEmpNum(empNum);
 		comment.setParticipantComment(commentForm.getParticipantComment());
 		this.commentMapper.commentRegist(comment);
 	}
@@ -377,18 +377,18 @@ public class EventService {
 	 * 投票する
 	 *
 	 * @param voteForm
-	 * @param user 
+	 * @param empNum 
 	 */
-	public void voteDay(VoteForm voteForm, Emp user){
+	public void voteDay(VoteForm voteForm, String empNum){
 		Map<String, Object> pastVote = new LinkedHashMap<>();
 		pastVote.put("eventId",voteForm.getEventId());
-		pastVote.put("empNum",user.getEmpNum());
+		pastVote.put("empNum",empNum);
 		this.voteMapper.voteDelete(pastVote);
 		if (voteForm.getVoteDay()  !=null) {
 			List<VoteInfo> voteInfo = new ArrayList<VoteInfo>();
 			String[] voteDay = voteForm.getVoteDay().split(",", 0);
 			for (int i = 0; i<voteDay.length; i++){
-				voteInfo.add(new VoteInfo (voteForm.getEventId(),(java.sql.Date.valueOf(voteDay[i]) ),user.getEmpNum()));
+				voteInfo.add(new VoteInfo (voteForm.getEventId(),(java.sql.Date.valueOf(voteDay[i]) ),empNum));
 			}
 			Iterator<VoteInfo> it = voteInfo.iterator();
 			while (it.hasNext()) {
@@ -404,36 +404,27 @@ public class EventService {
 	 * イベント情報を変更する
 	 *
 	 * @param eventregistForm
+	 * @param delete 
 	 */
-	public void eventUpdate(EventRegistForm eventregistForm){
+	public void eventUpdate(EventRegistForm eventregistForm, boolean delete){
+		if(delete){
+			//一度前の候補日を削除する
+			this.candidateDayMapper.candidateDelete(eventregistForm.getEventId());
+			//候補日の更新
+			this.candidateDay(eventregistForm);
+		}
 		Event event = new Event();
 		BeanUtils.copyProperties(eventregistForm,event);
 		this.eventMapper.eventUpdate(event);
 	}
 
-	/**
-	 * イベントの候補日を変更する
-	 *
-	 * @param eventregistForm
-	 */
-	public void candidateUpdate(EventRegistForm eventregistForm) {
-		//投票者情報を取得する
-		List<VoteInfo> participant = this.voteMapper.getParticipant(eventregistForm.getEventId());
-		//投票がされている場合は処理を行わない
-		if(participant.isEmpty()){
-			//一度前の候補日を削除する
-			this.candidateDayMapper.candidateDelete(eventregistForm.getEventId());
-			this.candidateDay(eventregistForm);
-		}
-	}
 
 	/**
 	 * イベントを削除する
 	 *
-	 * @param eventregistForm
+	 * @param id
 	 */
-	public void eventDelete(EventRegistForm eventregistForm){
-		int id = eventregistForm.getEventId();
+	public void eventDelete(int id){
 		this.candidateDayMapper.candidateDelete(id);
 		this.commentMapper.commentDelete(id);
 		this.eventMapper.eventDelete(id);
