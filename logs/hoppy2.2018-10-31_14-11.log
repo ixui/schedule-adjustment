@@ -1,0 +1,30 @@
+485248 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.commentRegist - ==>  Preparing: insert into comment(event_id,emp_num,participant_comment) values (?,?,?) 
+485248 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.commentRegist - ==>  Preparing: insert into comment(event_id,emp_num,participant_comment) values (?,?,?) 
+485253 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.commentRegist - ==> Parameters: 9(Integer), 103(String), 拙者はブラ殿おにぎりを作りたいでござる(String)
+485253 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.commentRegist - ==> Parameters: 9(Integer), 103(String), 拙者はブラ殿おにぎりを作りたいでござる(String)
+485674 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.commentRegist - <==    Updates: 1
+485674 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.commentRegist - <==    Updates: 1
+486439 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.E.selectEventFromId - ==>  Preparing: select employee_master.emp_name,employee_master.emp_num, event.event_name,category_master.category_name,event.place, event.host_comment,category_master.category_id,event.decision_day, event.event_id from event inner join employee_master on event.host_num = employee_master.emp_num inner join category_master on event.category_id = category_master.category_id where event_id = ? 
+486439 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.E.selectEventFromId - ==>  Preparing: select employee_master.emp_name,employee_master.emp_num, event.event_name,category_master.category_name,event.place, event.host_comment,category_master.category_id,event.decision_day, event.event_id from event inner join employee_master on event.host_num = employee_master.emp_num inner join category_master on event.category_id = category_master.category_id where event_id = ? 
+486439 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.E.selectEventFromId - ==> Parameters: 9(Integer)
+486439 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.E.selectEventFromId - ==> Parameters: 9(Integer)
+486626 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.E.selectEventFromId - <==      Total: 1
+486626 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.E.selectEventFromId - <==      Total: 1
+487373 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCandidateDay - ==>  Preparing: select candidate_day.candidate_day,employee_master.emp_name,candidate_day.event_id ,vote_info.vote_emp_num from candidate_day left join vote_info on candidate_day.event_id = vote_info.event_id and candidate_day.candidate_day = vote_info.candidate_day left join employee_master on vote_info.vote_emp_num = employee_master.emp_num where candidate_day.event_id = ? order by candidate_day.candidate_day,employee_master.emp_num 
+487373 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCandidateDay - ==>  Preparing: select candidate_day.candidate_day,employee_master.emp_name,candidate_day.event_id ,vote_info.vote_emp_num from candidate_day left join vote_info on candidate_day.event_id = vote_info.event_id and candidate_day.candidate_day = vote_info.candidate_day left join employee_master on vote_info.vote_emp_num = employee_master.emp_num where candidate_day.event_id = ? order by candidate_day.candidate_day,employee_master.emp_num 
+487373 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCandidateDay - ==> Parameters: 9(Integer)
+487373 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCandidateDay - ==> Parameters: 9(Integer)
+487564 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCandidateDay - <==      Total: 2
+487564 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCandidateDay - <==      Total: 2
+489069 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCategoryList - ==>  Preparing: select * from category_master order by category_master.category_id 
+489069 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCategoryList - ==>  Preparing: select * from category_master order by category_master.category_id 
+489069 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCategoryList - ==> Parameters: 
+489069 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCategoryList - ==> Parameters: 
+489264 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCategoryList - <==      Total: 4
+489264 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectCategoryList - <==      Total: 4
+490775 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectComment - ==>  Preparing: select comment.participant_comment,employee_master.emp_name from comment inner join employee_master on comment.emp_num = employee_master.emp_num where comment.event_id = ? order by comment.commment_id 
+490775 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectComment - ==>  Preparing: select comment.participant_comment,employee_master.emp_name from comment inner join employee_master on comment.emp_num = employee_master.emp_num where comment.event_id = ? order by comment.commment_id 
+490775 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectComment - ==> Parameters: 9(Integer)
+490775 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectComment - ==> Parameters: 9(Integer)
+490966 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectComment - <==      Total: 2
+490966 [http-nio-8080-exec-2] DEBUG j.c.i.s.m.C.selectComment - <==      Total: 2

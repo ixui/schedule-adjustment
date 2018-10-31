@@ -1,0 +1,18 @@
+584538 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectCategoryList - ==>  Preparing: select * from category_master order by category_master.category_id 
+584538 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectCategoryList - ==>  Preparing: select * from category_master order by category_master.category_id 
+584565 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectCategoryList - ==> Parameters: 
+584565 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectCategoryList - ==> Parameters: 
+584751 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectCategoryList - <==      Total: 4
+584751 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectCategoryList - <==      Total: 4
+586247 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectComment - ==>  Preparing: select comment.participant_comment,employee_master.emp_name from comment inner join employee_master on comment.emp_num = employee_master.emp_num where comment.event_id = ? order by comment.commment_id 
+586247 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectComment - ==>  Preparing: select comment.participant_comment,employee_master.emp_name from comment inner join employee_master on comment.emp_num = employee_master.emp_num where comment.event_id = ? order by comment.commment_id 
+586247 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectComment - ==> Parameters: 7(Integer)
+586247 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectComment - ==> Parameters: 7(Integer)
+586433 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectComment - <==      Total: 2
+586433 [http-nio-8080-exec-5] DEBUG j.c.i.s.m.C.selectComment - <==      Total: 2
+606604 [http-nio-8080-exec-9] DEBUG j.c.i.s.m.C.selectCategoryList - ==>  Preparing: select * from category_master order by category_master.category_id 
+606604 [http-nio-8080-exec-9] DEBUG j.c.i.s.m.C.selectCategoryList - ==>  Preparing: select * from category_master order by category_master.category_id 
+606605 [http-nio-8080-exec-9] DEBUG j.c.i.s.m.C.selectCategoryList - ==> Parameters: 
+606605 [http-nio-8080-exec-9] DEBUG j.c.i.s.m.C.selectCategoryList - ==> Parameters: 
+606789 [http-nio-8080-exec-9] DEBUG j.c.i.s.m.C.selectCategoryList - <==      Total: 4
+606789 [http-nio-8080-exec-9] DEBUG j.c.i.s.m.C.selectCategoryList - <==      Total: 4
