@@ -10,10 +10,10 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="/css/hoppy2.css" rel="stylesheet">
+		<link href="/css/hoppy2.css" th:href="@{/css/hoppy2.css}" rel="stylesheet">
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-	<script src="/js/hoppy2.js"></script>
+		<script src="/js/hoppy2.js" th:src="@{/js/hoppy2.js}"></script>
 		<title>hoppy2新規ユーザー登録</title>
 
 	</head>
@@ -23,7 +23,7 @@
 	<main>
 		<h1 class="text-center mb-5 mt-5 title">新規ユーザー登録</h1>
 	
-	<form action="/userregisted" method="post" th:object="${formModel}" name="userForm">
+	<form action="/Hoppy2/userregisted" method="post" th:object="${formModel}" name="userForm">
 		<div class="container">
 		<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
 				<div class="row ">
@@ -74,7 +74,7 @@
 			<div class="text-center" style="padding: 30px;">
 					<button type="submit" class="btn btn-success mr-5" onclick="return newUser();">登録する <span class="glyphicon glyphicon-chevron-right"></span></button>
 
-					<button type="button" class="btn btn-info" onclick="location.href='/'">キャンセル <span class="glyphicon glyphicon-chevron-right"></span></button>
+					<button type="button" class="btn btn-info" onclick="location.href='/Hoppy2'">キャンセル <span class="glyphicon glyphicon-chevron-right"></span></button>
 				</div>
 		</div>
 

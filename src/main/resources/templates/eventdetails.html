@@ -7,8 +7,8 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-	<link href="/css/hoppy2.css" rel="stylesheet">
-	<script src="/js/hoppy2.js"></script>
+	<link href="/css/hoppy2.css" th:href="@{/css/hoppy2.css}" rel="stylesheet">
+	<script src="/js/hoppy2.js" th:src="@{/js/hoppy2.js}"></script>
 		<title>hoppy2イベント詳細</title>
 
 	</head>
@@ -18,7 +18,7 @@
 	<div align="right">
 		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧</button>
 		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
-		<button type="button" class="btn btn-info mr-3" onclick="location.href='/logout'">ログアウト</button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='/Hoppy2/logout'">ログアウト</button>
 		</div>
 	</header>
 	<main>
@@ -50,18 +50,31 @@
 					<div class="row ">
 						<div class="col-sm-4 label ">イベント名</div>
 						<div class="col-sm-3 " style="padding: 3px;">
-								<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="${eventid.eventName}" th:errorclass="err" autofocus>
-								<div th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:errorclass="err" ></div>
+							<div th:if="${eventid.decisionDay} eq null">
+							<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="${eventid.eventName}" th:errorclass="err" autofocus>
+							</div>
+							<div  th:if="${eventid.decisionDay} neq null">
+							<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" th:value="${eventid.eventName}" th:errorclass="err" autofocus disabled="disabled">
+							</div>
+							<div th:if="${#fields.hasErrors('eventName')}" th:errors="*{eventName}" th:errorclass="err" ></div>
 						</div>
 						
 					</div>
 					<div class="row ">
 						<div class="col-sm-4 label ">カテゴリ</div>
 						<div class="col-sm-3 " style="padding: 3px;">
+						<div th:if="${eventid.decisionDay} eq null">
 							<select class="form-control input-sm " id="category" name="categoryId">
 								<option  selected="selected" th:text="${eventid.categoryName}" th:value="${eventid.categoryId}"></option>
 								<option th:each="categorylist : ${categoryList}" th:if="${categorylist.categoryName} neq ${eventid.categoryName}" th:value="${categorylist.categoryId}" th:field="*{categoryId}" th:errorclass="err">[[${categorylist.categoryName}]]</option>
 							</select>
+						</div>
+						<div th:if="${eventid.decisionDay} neq null">
+							<select class="form-control input-sm " id="category" name="categoryId" disabled="disabled">
+								<option  selected="selected" th:text="${eventid.categoryName}" th:value="${eventid.categoryId}" ></option>
+								
+							</select>
+						</div>
 							<div th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}" th:errorclass="err" ></div>
 						</div>
 						
@@ -69,7 +82,12 @@
 					<div class="row ">
 						<div class="col-sm-4 label">開催場所</div>
 						<div class="col-sm-3 " style="padding: 3px;">
+							<div th:if="${eventid.decisionDay} eq null">
 								<input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="${eventid.place}" th:errorclass="err">
+							</div>
+							<div th:if="${eventid.decisionDay} neq null">
+								<input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="${eventid.place}" th:errorclass="err" disabled="disabled">
+							</div>
 								<div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" th:errorclass="err" ></div>
 						</div>
 					</div>
@@ -110,7 +128,12 @@
 					<div class="row ">
 						<div class="col-sm-4 label">コメント</div>
 						<div class="col-sm-8 form-inline" style="padding: 3px;">
+							<div th:if="${eventid.decisionDay} eq null">
 								<textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60"  th:text="${eventid.hostComment}" th:value="*{hostComment}" th:errorclass="err"></textarea>
+							</div>
+							<div th:if="${eventid.decisionDay} neq null">
+								<textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60"  th:text="${eventid.hostComment}" th:value="*{hostComment}" th:errorclass="err" disabled="disabled"></textarea>
+							</div>
 	
 						</div>
 					</div>

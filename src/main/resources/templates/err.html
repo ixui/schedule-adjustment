@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -7,10 +7,10 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-		<link href="/css/hoppy2.css" rel="stylesheet">
+		<link href="/css/hoppy2.css" th:href="@{/css/hoppy2.css}" rel="stylesheet">
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="/js/hoppy2.js"></script>
+	<script src="/js/hoppy2.js" th:src="@{/js/hoppy2.js}"></script>
 		<title>エラー</title>
 		
 	</head>

@@ -12,7 +12,7 @@
 				</encoder>
 				<file>logs/hoppy2.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/hoppy2.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+			<fileNamePattern>logs/hoppy2.%d.log</fileNamePattern>
 			<maxHistory>24</maxHistory>
 		</rollingPolicy>
 

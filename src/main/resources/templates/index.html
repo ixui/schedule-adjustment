@@ -7,8 +7,8 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-		<link href="/css/hoppy2.css" rel="stylesheet">
-		<script src="/js/hoppy2.js"></script>
+		<link href="/css/hoppy2.css" th:href="@{/css/hoppy2.css}" rel="stylesheet">
+		<script src="/js/hoppy2.js" th:src="@{/js/hoppy2.js}"></script>
 		<title>hoppy2ログインページ</title>
 	</head>
 	<body  th:onLoad="'Completion(\'' + ${dbregist} + '\');'" >
@@ -24,14 +24,16 @@
 	<form th:action="@{/login}" method="post" id="loginForm">
 		<div class="container">
 				<div class="row mb-3">
-					<div class="col-sm-5 labeluser">社員番号</div>
-					<div class="col-sm-7 form-inline " style="padding: 3px;">
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh textcenter">社員番号</div>
+					<div class="col-sm-1 form-inline " style="padding: 3px;">
 							<input type="text" class="form-control input-sm noJp" id="empNum" name="empNum" size="20" autofocus>
 					</div>
 				</div>
 				<div class="row mb-3">
-					<div class="col-sm-5 labeluser">パスワード</div>
-					<div class="col-sm-7 form-inline " style="padding: 3px;">
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh textcenter">パスワード</div>
+					<div class="col-sm-1 form-inline " style="padding: 3px;">
 							<input type="password" class="form-control input-sm " id="passWord" name="passWord" size="20">
 					</div>
 				</div>

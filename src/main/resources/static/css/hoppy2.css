@@ -79,6 +79,10 @@ footer{
 	line-height: 50px;
 }
 
+.textcenter{
+	text-align:center;
+}
+
 
 .err{
 	color: #FF0000 !important;

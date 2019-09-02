@@ -7,8 +7,8 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-	<link href="/css/hoppy2.css" rel="stylesheet">
-	<script src="/js/hoppy2.js"></script>
+		<link href="/css/hoppy2.css" th:href="@{/css/hoppy2.css}" rel="stylesheet">
+		<script src="/js/hoppy2.js" th:src="@{/js/hoppy2.js}"></script>
 		<title>hoppy2イベント登録</title>
 
 	</head>
@@ -18,7 +18,7 @@
 	<div align="right">
 		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventlist'">イベント一覧</button>
 		<button type="button" class="btn btn-info mr-3" onclick="location.href='eventregist'">イベント登録</button>
-		<button type="button" class="btn btn-info mr-3" onclick="location.href='/logout'">ログアウト</button>
+		<button type="button" class="btn btn-info mr-3" onclick="location.href='/Hoppy2/logout'">ログアウト</button>
 		</div>
 	</header>
 	<main>
@@ -27,10 +27,11 @@
 		<form th:action="@{/eventlistregist}" action="/eventlistregist" method="post"  th:object="${formModel}" name="eventRegistForm">
 		<div  class="text-center" th:if="${#fields.hasGlobalErrors()}" th:errors="${formModel}" th:errorclass="err"></div>
 		<div class="container">
-			<p class="label">主催者：<span th:text="${empInfo.empName}" ></span>さん</p>
+			<p class="label" style="margin-left: 100px;">主催者：<span th:text="${empInfo.empName}" ></span>さん</p>
 			<input type="hidden" name="hostNum" th:value="${empInfo.empNum}">
 				<div class="row ">
-					<div class="col-sm-4 label">イベント名</div>
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh textcenter">イベント名</div>
 					<div class="col-sm-3  pb-3" style="padding: 3px;">
 							<input type="text" class="form-control input-sm " id="eventname" name="eventName" size="20" 
 								th:value="*{eventName}" th:errorclass="err" autofocus>
@@ -38,7 +39,8 @@
 					</div>
 				</div>
 				<div class="row ">
-					<div class="col-sm-4 label">カテゴリ</div>
+				<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh textcenter">カテゴリ</div>
 					<div class="col-sm-3 pb-3" style="padding: 3px;">
 							<select class="form-control input-sm " id="categoryId" name="categoryId">
 								<option value="" selected="selected">選択してください</option>
@@ -48,37 +50,42 @@
 					</div>
 				</div>
 				<div class="row ">
-					<div class="col-sm-4 label">開催場所</div>
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh textcenter">開催場所</div>
 					<div class="col-sm-3  pb-3" style="padding: 3px;">
 							<input type="text" class="form-control input-sm " id="place" name="place" size="20" th:value="*{place}" th:errorclass="err">
 							<div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" th:errorclass="err" ></div>
 					</div>
 				</div>
 				<div class="row ">
-					<div class="col-sm-4 label">候補日</div>
-					<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
-							<input type="date" class="form-control input-sm " id="startday" name="startDay" size="20"  th:field="*{startDay}" th:errorclass="err">
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-2 labelh textcenter" style="margin-left: 40px;">候補日</div>
+					<div class="col-sm-6 form-inline textcenter pb-3" style="padding: 3px;margin-left: 25px;" >
+							<input type="date" class="form-control input-sm " id="startday" name="startDay" size="35"  th:field="*{startDay}" th:errorclass="err">
 							<span class="ml-5 mr-5">から</span>
 							<input type="date" class="form-control input-sm " id="endday" name="endDay" size="20" th:field="*{endDay}" th:errorclass="err">
 					</div>
 				</div>
 				<div class="row ">
-					<div class="col-sm-4 label"></div>
-					<div class="col-sm-8 form-inline" style="padding: 3px;">
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh"></div>
+					<div class="col-sm-5 form-inline" style="padding: 3px;">
 							<div th:if="${#fields.hasErrors('startDay')}" th:errors="*{startDay}" th:errorclass="err"></div>
 							<div th:if="${#fields.hasErrors('endDay')}" th:errors="*{endDay}" th:errorclass="err"></div>
 					</div>
 				</div>
 				<div class="row ">
-					<div class="col-sm-4 label">コメント</div>
-					<div class="col-sm-8 form-inline  pb-3" style="padding: 3px;">
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh textcenter">コメント</div>
+					<div class="col-sm-5 form-inline  pb-3" style="padding: 3px;">
 							<textarea class="form-control input-sm " id="comment" name="hostComment" rows="4" cols="60"  th:text="*{hostComment}" th:errorclass="err"></textarea>
 
 					</div>
 				</div>
 				<div class="row ">
-					<div class="col-sm-4 label"></div>
-					<div class="col-sm-8 form-inline " style="padding: 3px;">
+					<div class="col-sm-3 labeluser"></div>
+					<div class="col-sm-3 labelh"></div>
+					<div class="col-sm-5 form-inline " style="padding: 3px;">
 							<div th:if="${#fields.hasErrors('hostComment')}" th:errors="*{hostComment}" th:errorclass="err"></div>
 					</div>
 				</div>
