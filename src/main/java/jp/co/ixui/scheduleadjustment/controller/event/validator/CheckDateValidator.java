@@ -1,6 +1,6 @@
 package jp.co.ixui.scheduleadjustment.controller.event.validator;
 
-import java.text.DateFormat;
+import java.sql.Date;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,7 +17,7 @@ public class CheckDateValidator implements ConstraintValidator<CheckDate, String
 
 	@Override
 	public void initialize(CheckDate annotation) {
-		
+
 	}
 	@Override
 	public boolean isValid(String input, ConstraintValidatorContext context) {
@@ -26,19 +26,19 @@ public class CheckDateValidator implements ConstraintValidator<CheckDate, String
 			if ("".equals(input)) {
 				return true;
 			}
-			
-			input = input.replace('-', '/');
-			DateFormat format = DateFormat.getDateInstance();
+
+			//input = input.replace('-', '/');
+			//DateFormat format = DateFormat.getDateInstance();
 			// 日付/時刻解析を厳密に行うかどうかを設定する。
-			format.setLenient(false);
+			//format.setLenient(false);
 			try {
-				format.parse(input);
+				Date.valueOf(input);
 				return true;
 			} catch (Exception e) {
 				return false;
 			}
 		}
-		
+
 	}
 
 
